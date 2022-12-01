@@ -1,7 +1,7 @@
 {
   "name": "@yettoapp/stheno",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "An opinionated, powerful CodeMirror configuration by Yetto",
   "source": "src/index.ts",
   "main": "dist/main.js",
   "module": "dist/module.js",
@@ -12,9 +12,24 @@
     "watch": "parcel watch",
     "play": "parcel example/index.html"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "codemirror",
+    "markdown",
+    "json",
+    "text editor"
+  ],
+  "author": {
+    "name": "Yetto",
+    "email": "info@yetto.app",
+    "url": "https://yetto.app"
+  },
+  "contributors": [
+    {
+      "name": "Nick Cannariato",
+      "url": "https://github.com/birdcar"
+    }
+  ],
+  "license": "AGPL",
   "dependencies": {
     "@codemirror/autocomplete": "^6.3.4",
     "@codemirror/commands": "^6.1.2",
