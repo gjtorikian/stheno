@@ -1,6 +1,6 @@
 # Stheno
 
-Yetto's 'forceful' editor.
+An opinionated, powerful CodeMirror configuration by Yetto.
 
 ## Background
 
