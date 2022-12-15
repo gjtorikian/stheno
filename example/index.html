@@ -4,13 +4,17 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="index.css">
   <title>Stheno</title>
 </head>
-<body class="container">
-  <article id="editor">
-    <!-- CodeMirror -->
-  </article>
+<body class="flex h-screen w-screen items-center justify-center">
+    <form class="h-64 w-2/3" data-controller="stheno">
+      <article class="h-full w-full" data-stheno-target="editor">
+        <!-- CodeMirror -->
+      </article>
+      <button data-action="stheno#submit:prevent" class="rounded-lg p-2 bg-purple-500 text-white mt-2">Submit</button>
+    </form>
   <!-- This loads the built in module -->
-  <script type="module" src="./example.ts"></script>
+  <script type="module" src="./js/application.ts"></script>
 </body>
 </html>

@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.cm-editor {
+  @apply h-full w-full border-2 border-gray-400 rounded-lg
+}
+
+.cm-editor.cm-focused {
+  @apply focus-within:outline focus-within:outline-2 focus-within:outline-purple-600
+}
+
+.cm-content {
+  @apply font-sans
+}
