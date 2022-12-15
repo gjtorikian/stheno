@@ -5,13 +5,12 @@ import { EditorState, type EditorStateConfig } from "@codemirror/state"
 import {
   defaultHighlightStyle, syntaxHighlighting, indentOnInput, bracketMatching, foldKeymap
 } from "@codemirror/language"
-import { defaultKeymap, history, historyKeymap } from "@codemirror/commands"
+import { defaultKeymap, history, historyKeymap, indentWithTab } from "@codemirror/commands"
 import { searchKeymap, highlightSelectionMatches } from "@codemirror/search"
 import { autocompletion, completionKeymap, closeBrackets, closeBracketsKeymap } from "@codemirror/autocomplete"
 import { lintKeymap } from "@codemirror/lint"
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown"
 import { languages } from "@codemirror/language-data"
-
 
 export const SthenoConfig: EditorStateConfig = {
   extensions: [
@@ -34,7 +33,8 @@ export const SthenoConfig: EditorStateConfig = {
       ...historyKeymap,
       ...foldKeymap,
       ...completionKeymap,
-      ...lintKeymap
+      ...lintKeymap,
+      indentWithTab,
     ]),
     markdown({ codeLanguages: languages, base: markdownLanguage })
   ],

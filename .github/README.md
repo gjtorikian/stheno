@@ -37,7 +37,7 @@ Just don't make me stop typing and click things.
 
 ### The editor should not be an afterthought
 
-On average, ~50% of a support professional's day is spent communicating with users (source, my lived experience for the last decade).
+On average, ~50% of a support professional's day is spent communicating with users (source: my lived experience for the last decade).
 
 The productivity and ergonomic gains made by supercharging the writing and editing experience itself is obvious, and programmers have known this forever (hence the cottage industry built around making their editor work for them).
 
