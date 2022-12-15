@@ -10,3 +10,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 - An initial codemirror config for a Proof of Concept on how Codemirror meet's Yetto's needs.
+- An example playground for testing the configuration
+- A readme and some basic usage documentation
