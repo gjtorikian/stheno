@@ -7,8 +7,9 @@
     "target": "es2020",
     "module": "commonjs",
     "newLine": "lf",
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true
+    "moduleResolution": "node16",
+    "allowSyntheticDefaultImports": true,
+    "isolatedModules": true
   },
   "include": ["src/*.ts"]
 }
