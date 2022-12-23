@@ -8,11 +8,12 @@
   <title>Stheno</title>
 </head>
 <body class="flex h-screen w-screen items-center justify-center">
-    <form class="h-64 w-2/3" data-controller="stheno">
-      <article class="h-full w-full" data-stheno-target="editor">
+    <form action="/comment" class="h-64 w-2/3" data-controller="stheno">
+      <input type="hidden" data-stheno-target="formInput" name="comment" id="comment">
+      <div class="h-full w-full" data-stheno-target="editor">
         <!-- CodeMirror -->
-      </article>
-      <button data-action="stheno#submit:prevent" class="rounded-lg p-2 bg-purple-500 text-white mt-2">Submit</button>
+      </div>
+      <button data-action="stheno#submit" class="rounded-lg p-2 bg-purple-500 text-white mt-2">Submit</button>
     </form>
   <!-- This loads the built in module -->
   <script type="module" src="./js/application.ts"></script>

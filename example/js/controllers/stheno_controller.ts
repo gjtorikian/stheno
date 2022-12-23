@@ -3,43 +3,28 @@ import { EditorView } from "@codemirror/view"
 import { EditorState } from "@codemirror/state"
 import { SthenoConfig } from "../../../src/index"
 
-// Types
-import type { ValueDefinitionMap } from "@hotwired/stimulus/dist/types/core/value_properties"
-
 // data-controller="stheno"
-export default class extends Controller {
-  /**
-   * Class properties
-   */
+export default class extends Controller<HTMLFormElement> {
   // The CodeMirror EditorView that will be used by the system
   view: EditorView
 
-  /**
-   * Targets
-   */
-  // data-stheno-target="editor"
-  static targets: string[] = ["editor"]
-
-  // Provided by Stimulus
+  // data-rich-text-area-target="editor"
+  // data-rith-text-area-target="formInput"
+  static targets: string[] = ['editor', 'formInput']
   declare readonly hasEditorTarget: boolean
   declare readonly editorTargets: HTMLDivElement[]
   declare readonly editorTarget: HTMLDivElement
+  declare readonly hasFormInputTarget: boolean
+  declare readonly formInputTarget: HTMLInputElement
+  declare readonly formInputTargets: HTMLInputElement[]
 
-  /**
-   * Values
-   */
-  // data-stheno-submit-url-value="/submit-msg"
-  static values: ValueDefinitionMap = {
-    url: String
+  // data-rich-text-area-action-value="/submit-msg"
+  static values = {
+    action: String
   }
-
-  // Provided by Stimulus
   declare readonly hasUrlValue: boolean
   declare urlValue: string
 
-  /**
-   * Lifecycle methods
-   */
   connect(): void {
     this.view = new EditorView({
       parent: this.editorTarget,
@@ -47,13 +32,17 @@ export default class extends Controller {
     })
   }
 
-  /**
-   * Actions
-   */
+  submit(event: Event) {
+    // Update the hidden form input with the state of the editor
+    this.formInputTarget.value = this.view.state.doc.toString()
 
-  // data-action="stheno#submit:prevent"
-  submit(event) {
-    console.log(event)
-    console.log(this.view.state.doc.toString())
+    // Dispatch a transaction to clear the editor
+    this.view.dispatch({
+      changes: [{
+        from: 0,
+        to: this.view.state.doc.length,
+        insert: ""
+      }]
+    })
   }
 }
