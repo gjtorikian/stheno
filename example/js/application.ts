@@ -1,4 +1,5 @@
 // src/application.js
+import '@github/markdown-toolbar-element'
 import { Application } from "@hotwired/stimulus"
 
 import SthenoController from "./controllers/stheno_controller"

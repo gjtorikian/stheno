@@ -48,12 +48,16 @@
     "@codemirror/lint": "^6.1.0",
     "@codemirror/search": "^6.2.3",
     "@codemirror/state": "^6.1.4",
-    "@codemirror/view": "^6.6.0"
+    "@codemirror/view": "^6.6.0",
+    "@github/markdown-toolbar-element": "^2.1.1",
+    "emoji-provider": "^1.0.6"
   },
   "devDependencies": {
     "@codemirror/buildhelper": "^0.1.16",
     "@hotwired/stimulus": "^3.2.1",
     "@parcel/packager-ts": "^2.8.0",
+    "hotkeys-js": "^3.10.2",
+    "stimulus-use": "^0.52.0",
     "@parcel/transformer-typescript-tsc": "^2.8.2",
     "@parcel/transformer-typescript-types": "^2.8.0",
     "@parcel/validator-typescript": "^2.8.2",

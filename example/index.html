@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,15 +8,51 @@
   <link rel="stylesheet" href="index.css">
   <title>Stheno</title>
 </head>
+
 <body class="flex h-screen w-screen items-center justify-center">
-    <form action="/comment" class="h-64 w-2/3" data-controller="stheno">
-      <input type="hidden" data-stheno-target="formInput" name="comment" id="comment">
-      <div class="h-full w-full" data-stheno-target="editor">
-        <!-- CodeMirror -->
-      </div>
-      <button data-action="stheno#submit" class="rounded-lg p-2 bg-purple-500 text-white mt-2">Submit</button>
-    </form>
+  <form class="h-64 w-2/3" data-controller="stheno" data-stheno-lang-value="markdown">
+    <div class="w-full flex justify-end">
+      <markdown-toolbar data-stheno-target="toolbar" class="isolate inline-flex rounded-md shadow-sm">
+        <md-bold
+          class="relative inline-flex items-center rounded-l-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10 cursor-pointer"
+          data-action="click->stheno#wrap" data-stheno-mark-param="**">bold</md-bold>
+        <md-italic
+          class="relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10 cursor-pointer"
+          data-action="click->stheno#wrap" data-stheno-mark-param="*">italic</md-italic>
+        <md-quote
+          class="relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10 cursor-pointer"
+          data-action="click->stheno#prependLine" data-stheno-mark-param="> ">quote</md-quote>
+        <md-code
+          class="relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10 cursor-pointer"
+          data-action="click->stheno#wrap" data-stheno-mark-param="`">code</md-code>
+        <md-link
+          class="relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10 cursor-pointer"
+          data-action="click->stheno#link">link</md-link>
+        <md-image
+          class="relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10 cursor-pointer"
+          data-action="click->stheno#image">image</md-image>
+        <md-unordered-list
+          class="relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10 cursor-pointer"
+          data-action="click->stheno#prependLine" data-stheno-mark-param="- ">unordered-list</md-unordered-list>
+        <md-ordered-list
+          class="relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10 cursor-pointer"
+          data-action="click->stheno#prependLine" data-stheno-mark-param="1. ">ordered-list</md-ordered-list>
+        <md-task-list
+          class="relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10 cursor-pointer"
+          data-action="click->stheno#prependLine" data-stheno-mark-param="- [ ] ">task-list</md-task-list>
+        <md-mention
+          class="relative -ml-px inline-flex items-center rounded-r-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10 cursor-pointer"
+          data-action="click->stheno#mention">mention</md-mention>
+      </markdown-toolbar>
+    </div>
+    <input type="hidden" data-stheno-target="formInput" name="comment" id="comment">
+    <div class="h-full w-full mt-3" data-stheno-target="editor">
+      <!-- CodeMirror -->
+    </div>
+    <button data-action="stheno#submit" class="rounded-lg p-2 bg-purple-500 text-white mt-2">Submit</button>
+  </form>
   <!-- This loads the built in module -->
   <script type="module" src="./js/application.ts"></script>
 </body>
+
 </html>

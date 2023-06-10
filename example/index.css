@@ -11,5 +11,13 @@
 }
 
 .cm-content {
-  @apply font-sans
+  @apply font-sans data-[stheno-lang-value=json]:font-mono
+}
+
+.cm-panels-top {
+  @apply rounded-t-lg
+}
+
+.cm-panels-bottom {
+  @apply rounded-b-md
 }
