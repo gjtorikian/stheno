@@ -3,8 +3,11 @@ import { EditorView } from "@codemirror/view"
 import { EditorState } from "@codemirror/state"
 import { getSthenoConfig, wrapText, prependLines, toggleTheme } from "../../../src/index"
 
-type SthenoActionParams = {
-  mark: string
+
+interface SthenoEventObject extends Event {
+  params: {
+    mark?: string
+  }
 }
 
 // data-controller="stheno"
@@ -43,12 +46,14 @@ export default class extends Controller<HTMLFormElement> {
     })
   }
 
-  wrap({ params }: { params: SthenoActionParams }): void {
+  wrap({ params }: SthenoEventObject): void {
+    if (!params.mark) return
     wrapText(params.mark, this.view)
     this.view.focus()
   }
 
-  prependLine({ params }: { params: SthenoActionParams }): void {
+  prependLine({ params }: SthenoEventObject): void {
+    if (!params.mark) return
     prependLines(params.mark, this.view)
     this.view.focus()
   }
