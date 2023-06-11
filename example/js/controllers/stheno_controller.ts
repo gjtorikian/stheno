@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 import { EditorView } from "@codemirror/view"
 import { EditorState } from "@codemirror/state"
-import { getSthenoConfig, wrapText, prependLines } from "../../../src/index"
+import { getSthenoConfig, wrapText, prependLines, toggleTheme } from "../../../src/index"
 
 type SthenoActionParams = {
   mark: string
@@ -53,6 +53,11 @@ export default class extends Controller<HTMLFormElement> {
 
   prependLine({ params }: { params: SthenoActionParams }): void {
     prependLines(params.mark, this.view)
+    this.view.focus()
+  }
+
+  switchTheme() {
+    toggleTheme(this.view)
     this.view.focus()
   }
 

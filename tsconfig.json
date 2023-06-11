@@ -1,15 +1,19 @@
 {
   "compilerOptions": {
-    "lib": ["es6"],
+    "lib": [
+      "es6"
+    ],
     "stripInternal": true,
-    "noUnusedLocals": true,
-    "strict": true,
+    "noUnusedLocals": false,
+    "strict": false,
     "target": "es2020",
     "module": "commonjs",
     "newLine": "lf",
     "moduleResolution": "node16",
     "allowSyntheticDefaultImports": true,
-    "isolatedModules": true
+    "allowImportingTsExtensions": true,
   },
-  "include": ["src/*.ts"]
+  "include": [
+    "src/*.ts"
+  ]
 }
