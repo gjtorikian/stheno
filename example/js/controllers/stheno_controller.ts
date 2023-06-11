@@ -22,9 +22,6 @@ export default class extends Controller<HTMLFormElement> {
   declare readonly hasFormInputTarget: boolean
   declare readonly formInputTarget: HTMLInputElement
   declare readonly formInputTargets: HTMLInputElement[]
-  declare readonly hasToolbarTarget: boolean
-  declare readonly toolbarTarget: HTMLElement
-  declare readonly toolbarTargets: HTMLElement[]
 
   // data-stheno-value="/submit-msg"
   // data-stheno-lang-value="json"
