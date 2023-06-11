@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.1.3 - 2023-06-10
+
+### Added
+- Created both Light and Dark themes for Yetto
+- Created a fully featured example that includes a toolbar to demonstrate how to interact with Stheno's internal commands
+- Updated the config to work more ergonomically with Stimulus
+
 ## 0.1.1 - 2022-12-17
 
 ### Fixed
