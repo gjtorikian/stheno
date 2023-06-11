@@ -15,34 +15,76 @@
       <markdown-toolbar class="isolate inline-flex rounded-md shadow-sm">
         <md-bold
           class="relative inline-flex items-center rounded-l-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10 cursor-pointer"
-          data-action="click->stheno#wrap" data-stheno-mark-param="**">bold</md-bold>
+          data-action="click->stheno#wrap" data-stheno-mark-param="**">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="fill-black h-4 w-4">
+            <path
+              d="M4 2h4.5a3.501 3.501 0 0 1 2.852 5.53A3.499 3.499 0 0 1 9.5 14H4a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1Zm1 7v3h4.5a1.5 1.5 0 0 0 0-3Zm3.5-2a1.5 1.5 0 0 0 0-3H5v3Z">
+            </path>
+          </svg>
+        </md-bold>
         <md-italic
           class="relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10 cursor-pointer"
-          data-action="click->stheno#wrap" data-stheno-mark-param="*">italic</md-italic>
+          data-action="click->stheno#wrap" data-stheno-mark-param="*">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="fill-black h-4 w-4">
+            <path
+              d="M6 2.75A.75.75 0 0 1 6.75 2h6.5a.75.75 0 0 1 0 1.5h-2.505l-3.858 9H9.25a.75.75 0 0 1 0 1.5h-6.5a.75.75 0 0 1 0-1.5h2.505l3.858-9H6.75A.75.75 0 0 1 6 2.75Z">
+            </path>
+          </svg>
+        </md-italic>
         <md-quote
           class="relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10 cursor-pointer"
-          data-action="click->stheno#prependLine" data-stheno-mark-param="> ">quote</md-quote>
+          data-action="click->stheno#prependLine" data-stheno-mark-param="> ">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="fill-black h-4 w-4">
+            <path
+              d="M1.75 2.5h10.5a.75.75 0 0 1 0 1.5H1.75a.75.75 0 0 1 0-1.5Zm4 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5Zm0 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5ZM2.5 7.75v6a.75.75 0 0 1-1.5 0v-6a.75.75 0 0 1 1.5 0Z">
+            </path>
+          </svg>
+        </md-quote>
         <md-code
           class="relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10 cursor-pointer"
-          data-action="click->stheno#wrap" data-stheno-mark-param="`">code</md-code>
-        <md-link
-          class="relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10 cursor-pointer"
-          data-action="click->stheno#link">link</md-link>
-        <md-image
-          class="relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10 cursor-pointer"
-          data-action="click->stheno#image">image</md-image>
+          data-action="click->stheno#wrap" data-stheno-mark-param="`">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="fill-black h-4 w-4">
+            <path
+              d="m11.28 3.22 4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L13.94 8l-3.72-3.72a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215Zm-6.56 0a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042L2.06 8l3.72 3.72a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L.47 8.53a.75.75 0 0 1 0-1.06Z">
+            </path>
+          </svg>
+        </md-code>
         <md-unordered-list
           class="relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10 cursor-pointer"
-          data-action="click->stheno#prependLine" data-stheno-mark-param="- ">unordered-list</md-unordered-list>
+          data-action="click->stheno#prependLine" data-stheno-mark-param="- ">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="fill-black h-4 w-4">
+            <path
+              d="M5.75 2.5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5Zm0 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5Zm0 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5ZM2 14a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-6a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM2 4a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z">
+            </path>
+          </svg>
+        </md-unordered-list>
         <md-ordered-list
           class="relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10 cursor-pointer"
-          data-action="click->stheno#prependLine" data-stheno-mark-param="1. ">ordered-list</md-ordered-list>
+          data-action="click->stheno#prependLine" data-stheno-mark-param="1. ">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="fill-black h-4 w-4">
+            <path
+              d="M5 3.25a.75.75 0 0 1 .75-.75h8.5a.75.75 0 0 1 0 1.5h-8.5A.75.75 0 0 1 5 3.25Zm0 5a.75.75 0 0 1 .75-.75h8.5a.75.75 0 0 1 0 1.5h-8.5A.75.75 0 0 1 5 8.25Zm0 5a.75.75 0 0 1 .75-.75h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1-.75-.75ZM.924 10.32a.5.5 0 0 1-.851-.525l.001-.001.001-.002.002-.004.007-.011c.097-.144.215-.273.348-.384.228-.19.588-.392 1.068-.392.468 0 .858.181 1.126.484.259.294.377.673.377 1.038 0 .987-.686 1.495-1.156 1.845l-.047.035c-.303.225-.522.4-.654.597h1.357a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5c0-1.005.692-1.52 1.167-1.875l.035-.025c.531-.396.8-.625.8-1.078a.57.57 0 0 0-.128-.376C1.806 10.068 1.695 10 1.5 10a.658.658 0 0 0-.429.163.835.835 0 0 0-.144.153ZM2.003 2.5V6h.503a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1h.503V3.308l-.28.14a.5.5 0 0 1-.446-.895l1.003-.5a.5.5 0 0 1 .723.447Z">
+            </path>
+          </svg>
+        </md-ordered-list>
         <md-task-list
           class="relative -ml-px inline-flex items-center bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10 cursor-pointer"
-          data-action="click->stheno#prependLine" data-stheno-mark-param="- [ ] ">task-list</md-task-list>
-        <md-mention
+          data-action="click->stheno#prependLine" data-stheno-mark-param="- [ ] ">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="fill-black h-4 w-4">
+            <path
+              d="M2 2h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1Zm4.655 8.595a.75.75 0 0 1 0 1.06L4.03 14.28a.75.75 0 0 1-1.06 0l-1.5-1.5a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l.97.97 2.095-2.095a.75.75 0 0 1 1.06 0ZM9.75 2.5h5.5a.75.75 0 0 1 0 1.5h-5.5a.75.75 0 0 1 0-1.5Zm0 5h5.5a.75.75 0 0 1 0 1.5h-5.5a.75.75 0 0 1 0-1.5Zm0 5h5.5a.75.75 0 0 1 0 1.5h-5.5a.75.75 0 0 1 0-1.5Zm-7.25-9v3h3v-3Z">
+            </path>
+          </svg>
+        </md-task-list>
+        <button
           class="relative -ml-px inline-flex items-center rounded-r-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10 cursor-pointer"
-          data-action="click->stheno#switchTheme">mention</md-mention>
+          data-action="click->stheno#switchTheme:prevent">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="fill-black h-4 w-4">
+            <path
+              d="M8 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm0-1.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Zm5.657-8.157a.75.75 0 0 1 0 1.061l-1.061 1.06a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734l1.06-1.06a.75.75 0 0 1 1.06 0Zm-9.193 9.193a.75.75 0 0 1 0 1.06l-1.06 1.061a.75.75 0 1 1-1.061-1.06l1.06-1.061a.75.75 0 0 1 1.061 0ZM8 0a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0V.75A.75.75 0 0 1 8 0ZM3 8a.75.75 0 0 1-.75.75H.75a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 3 8Zm13 0a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 16 8Zm-8 5a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 8 13Zm3.536-1.464a.75.75 0 0 1 1.06 0l1.061 1.06a.75.75 0 0 1-1.06 1.061l-1.061-1.06a.75.75 0 0 1 0-1.061ZM2.343 2.343a.75.75 0 0 1 1.061 0l1.06 1.061a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018l-1.06-1.06a.75.75 0 0 1 0-1.06Z">
+            </path>
+          </svg>
+        </button>
       </markdown-toolbar>
     </div>
     <input type="hidden" data-stheno-target="formInput" name="comment" id="comment">

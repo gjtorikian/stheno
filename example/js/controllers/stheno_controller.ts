@@ -1,8 +1,8 @@
 import { Controller } from "@hotwired/stimulus"
 import { EditorView } from "@codemirror/view"
-import { EditorState } from "@codemirror/state"
+import { EditorState, Transaction } from "@codemirror/state"
 import { getSthenoConfig, wrapText, prependLines, toggleTheme } from "../../../src/index"
-
+import { snippet } from "@codemirror/autocomplete"
 
 interface SthenoEventObject extends Event {
   params: {
@@ -63,9 +63,7 @@ export default class extends Controller<HTMLFormElement> {
     this.view.focus()
   }
 
-  link(): void {
-    console.log('[link-text](link-url)')
-  }
+  link(): void { }
 
   image(): void {
     console.log('![image-alt-text](image-url)')

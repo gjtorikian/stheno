@@ -1,1 +1,1 @@
-export { wrapText, makeWrapTextCommand, prependLines, makePrependLinesCommand } from "./markdown/index.ts"
+export { wrapText, makeWrapTextCommand, prependLines, makePrependLinesCommand, markdownCompletions } from "./markdown/index.ts"

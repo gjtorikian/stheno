@@ -5,10 +5,11 @@ import { EditorState, Extension, type EditorStateConfig } from "@codemirror/stat
 import { indentOnInput, bracketMatching, foldKeymap } from "@codemirror/language"
 import { defaultKeymap, history, historyKeymap, indentWithTab } from "@codemirror/commands"
 import { searchKeymap, highlightSelectionMatches } from "@codemirror/search"
-import { autocompletion, completionKeymap, closeBrackets, closeBracketsKeymap } from "@codemirror/autocomplete"
+import { autocompletion, completionKeymap, closeBrackets, closeBracketsKeymap, CompletionContext } from "@codemirror/autocomplete"
 import { lintKeymap } from "@codemirror/lint"
 import { getMarkdownConfig, getJsonConfig, LANGUAGE } from "./config.ts"
 import { yettoLight, THEME } from "./themes/index.ts"
+import { markdownCompletions } from "./extensions/index.ts"
 export { wrapText, makeWrapTextCommand, prependLines, makePrependLinesCommand } from "./extensions/index.ts"
 export { yettoDark, yettoLight, THEME, toggleTheme } from "./themes/index.ts"
 
@@ -38,8 +39,11 @@ export function getSthenoConfig(lang: String, extensions?: Extension[]): EditorS
         ...lintKeymap,
         indentWithTab,
       ]),
-      LANGUAGE.of(language),
       THEME.of(yettoLight),
+      LANGUAGE.of(language),
+      language.language.data.of({
+        autocomplete: markdownCompletions
+      })
     ],
   }
 
