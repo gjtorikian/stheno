@@ -5,20 +5,23 @@ const options: Completion[] = [
     label: "/image",
     type: "text",
     apply: snippet("![${1:alt_text}](${2:url})"),
-    detail: "An inline image"
+    detail: "An inline image",
+    section: "Markdown"
   },
   {
     label: "/link",
     type: "text",
     apply: snippet("[${1:link_text}](${2:url})"),
-    detail: "A link to some other place"
+    detail: "A link to some other place",
+    section: "Markdown"
   },
   {
     label: "/codeBlock",
     type: "text",
     apply: snippet("```${1:language}\n${2:code}\n```"),
-    detail: "A block of code or other preformatted text"
-  }
+    detail: "A block of code or other preformatted text",
+    section: "Markdown"
+  },
 ]
 
 export function markdownCompletions(context: CompletionContext) {

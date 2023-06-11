@@ -7,6 +7,7 @@ import { snippet } from "@codemirror/autocomplete"
 interface SthenoEventObject extends Event {
   params: {
     mark?: string
+    ordered?: boolean
   }
 }
 
@@ -54,7 +55,12 @@ export default class extends Controller<HTMLFormElement> {
 
   prependLine({ params }: SthenoEventObject): void {
     if (!params.mark) return
-    prependLines(params.mark, this.view)
+
+    if (params.ordered) {
+      prependLines(params.mark, this.view, params.ordered)
+    } else {
+      prependLines(params.mark, this.view)
+    }
     this.view.focus()
   }
 
