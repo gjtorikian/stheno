@@ -1,3 +1,3 @@
-export { prependLines, makePrependLinesCommand } from "./prependLines.ts";
-export { wrapText, makeWrapTextCommand } from "./wrapText.ts";
+export { prependLines, makePrependLinesCommand, BulletedList, NumberedList, TaskList, QuoteText } from "./prependLines.ts";
+export { wrapText, makeWrapTextCommand, BoldText, ItalicText, CodeText } from "./wrapText.ts";
 export { markdownCompletions } from "./completions.ts"

@@ -9,8 +9,8 @@ import { autocompletion, completionKeymap, closeBrackets, closeBracketsKeymap, C
 import { lintKeymap } from "@codemirror/lint"
 import { getMarkdownConfig, getJsonConfig, LANGUAGE } from "./config.ts"
 import { yettoLight, THEME } from "./themes/index.ts"
-import { markdownCompletions } from "./extensions/index.ts"
-export { wrapText, makeWrapTextCommand, prependLines, makePrependLinesCommand } from "./extensions/index.ts"
+import { BoldText, BulletedList, CodeText, ItalicText, NumberedList, QuoteText, TaskList, markdownCompletions } from "./extensions/index.ts"
+export { wrapText, makeWrapTextCommand, prependLines, makePrependLinesCommand, NumberedList, BulletedList, TaskList, QuoteText } from "./extensions/index.ts"
 export { yettoDark, yettoLight, THEME, toggleTheme } from "./themes/index.ts"
 
 export function getSthenoConfig(lang: String, extensions?: Extension[]): EditorStateConfig {
@@ -30,14 +30,20 @@ export function getSthenoConfig(lang: String, extensions?: Extension[]): EditorS
       highlightSelectionMatches(),
       EditorView.lineWrapping,
       keymap.of([
-        ...closeBracketsKeymap,
-        ...defaultKeymap,
-        ...searchKeymap,
-        ...historyKeymap,
-        ...foldKeymap,
-        ...completionKeymap,
-        ...lintKeymap,
+        NumberedList,
+        BulletedList,
+        TaskList,
+        QuoteText,
+        BoldText,
+        ItalicText,
+        CodeText,
         indentWithTab,
+        ...defaultKeymap,
+        ...lintKeymap,
+        ...completionKeymap,
+        ...historyKeymap,
+        ...searchKeymap,
+        ...closeBracketsKeymap,
       ]),
       THEME.of(yettoLight),
       LANGUAGE.of(language),
