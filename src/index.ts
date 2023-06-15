@@ -7,11 +7,11 @@ import { defaultKeymap, history, historyKeymap, indentWithTab } from "@codemirro
 import { searchKeymap, highlightSelectionMatches } from "@codemirror/search"
 import { autocompletion, completionKeymap, closeBrackets, closeBracketsKeymap, CompletionContext } from "@codemirror/autocomplete"
 import { lintKeymap } from "@codemirror/lint"
-import { getMarkdownConfig, getJsonConfig, LANGUAGE } from "./config.ts"
-import { yettoLight, THEME } from "./themes/index.ts"
-import { BoldText, BulletedList, CodeText, ItalicText, NumberedList, QuoteText, TaskList, markdownCompletions } from "./extensions/index.ts"
-export { wrapText, makeWrapTextCommand, prependLines, makePrependLinesCommand, NumberedList, BulletedList, TaskList, QuoteText } from "./extensions/index.ts"
-export { yettoDark, yettoLight, THEME, toggleTheme } from "./themes/index.ts"
+import { getMarkdownConfig, getJsonConfig, LANGUAGE } from "./config"
+import { yettoLight, THEME } from "./themes"
+import { BoldText, BulletedList, CodeText, ItalicText, NumberedList, QuoteText, TaskList, markdownCompletions } from "./extensions"
+export { wrapText, makeWrapTextCommand, prependLines, makePrependLinesCommand, NumberedList, BulletedList, TaskList, QuoteText } from "./extensions"
+export { yettoDark, yettoLight, THEME, toggleTheme } from "./themes"
 
 export function getSthenoConfig(lang: String, extensions?: Extension[]): EditorStateConfig {
   const language = lang === 'markdown' ? getMarkdownConfig() : getJsonConfig()

@@ -1,10 +1,10 @@
 import { Command, EditorView } from "@codemirror/view"
-import { yettoDark } from "./yettoDark.ts"
-import { yettoLight } from "./yettoLight.ts"
+import { yettoDark } from "./yettoDark"
+import { yettoLight } from "./yettoLight"
 import { Compartment } from "@codemirror/state"
 
-export { yettoDark } from "./yettoDark.ts"
-export { yettoLight } from "./yettoLight.ts"
+export { yettoDark } from "./yettoDark"
+export { yettoLight } from "./yettoLight"
 
 export const THEME = new Compartment;
 

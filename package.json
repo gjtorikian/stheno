@@ -4,7 +4,6 @@
   "description": "An opinionated, powerful CodeMirror configuration by Yetto",
   "source": "src/index.ts",
   "main": "dist/index.cjs",
-  "module": "dist/index.js",
   "type": "module",
   "exports": {
     "import": "./dist/index.js",
@@ -12,9 +11,10 @@
   },
   "types": "dist/index.d.ts",
   "scripts": {
+    "prepare": "rollup -c",
     "build": "cm-buildhelper src/index.ts",
-    "watch": "parcel watch",
-    "play": "parcel serve --open --dist-dir='./example/dist' example/index.html"
+    "test": "cm-runtests",
+    "dev": "vite ./dev"
   },
   "keywords": [
     "codemirror",
@@ -49,36 +49,25 @@
     "@codemirror/search": "^6.2.3",
     "@codemirror/state": "^6.1.4",
     "@codemirror/view": "^6.6.0",
-    "@ddietr/codemirror-themes": "^1.4.1",
     "@github/markdown-toolbar-element": "^2.1.1",
     "emoji-provider": "^1.0.6"
   },
   "devDependencies": {
     "@codemirror/buildhelper": "^0.1.16",
     "@hotwired/stimulus": "^3.2.1",
-    "@parcel/packager-ts": "^2.8.0",
-    "@parcel/transformer-typescript-tsc": "^2.8.2",
-    "@parcel/transformer-typescript-types": "^2.8.0",
-    "@parcel/validator-typescript": "^2.8.2",
+    "@lezer/generator": "^1.3.0",
     "@types/codemirror": "^5.60.5",
-    "buffer": "^5.7.1",
-    "crypto-browserify": "^3.12.0",
-    "events": "^3.3.0",
+    "autoprefixer": "^10.4.14",
     "hotkeys-js": "^3.10.2",
     "os-browserify": "^0.3.0",
-    "parcel": "^2.8.0",
-    "path-browserify": "^1.0.1",
-    "postcss": "^8.4.19",
+    "postcss": "^8.4.24",
     "prettier": "^2.8.0",
-    "process": "^0.11.10",
-    "punycode": "^1.4.1",
-    "querystring-es3": "^0.2.1",
+    "rollup": "^3.25.1",
+    "rollup-plugin-dts": "^5.3.0",
+    "rollup-plugin-ts": "^3.2.0",
     "stimulus-use": "^0.52.0",
-    "stream-browserify": "^3.0.0",
-    "tailwindcss": "^3.2.4",
-    "thememirror": "^2.0.1",
+    "tailwindcss": "^3.3.2",
     "typescript": "^4.9.4",
-    "url": "^0.11.0",
-    "util": "^0.12.5"
+    "vite": "^4.3.9"
   }
 }
