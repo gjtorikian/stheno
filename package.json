@@ -47,13 +47,15 @@
     "@codemirror/language-data": "^6.1.0",
     "@codemirror/lint": "^6.1.0",
     "@codemirror/search": "^6.2.3",
-    "@codemirror/state": "^6.1.4",
-    "@codemirror/view": "^6.6.0",
-    "@github/markdown-toolbar-element": "^2.1.1",
     "emoji-provider": "^1.0.6"
+  },
+  "peerDependencies": {
+    "@codemirror/state": "^6.1.4",
+    "@codemirror/view": "^6.6.0"
   },
   "devDependencies": {
     "@codemirror/buildhelper": "^0.1.16",
+    "@github/markdown-toolbar-element": "^2.1.1",
     "@hotwired/stimulus": "^3.2.1",
     "@lezer/generator": "^1.3.0",
     "@types/codemirror": "^5.60.5",
