@@ -4,7 +4,7 @@ An opinionated, powerful CodeMirror configuration by Yetto.
 
 ## Background
 
-Historically, helpdesks and customer communication tools assume that you need a "rich text editor" to enable support professionals to communicate with customers and users. The thinking is that effective communication requires at least a little styling, and they're not wholly wrong.
+Historically, help desks and customer communication tools assume that you need a "rich text editor" to enable support professionals to communicate with customers and users. The thinking is that effective communication requires at least a little styling, and they're not wholly wrong.
 
 However, they make a leap from that reality to the idea that all communication should function similarly to a "comment box" in PHPBB, and then immediately find themselves trying to make overly simple editors work in a far more complex workflow.
 
@@ -31,7 +31,7 @@ A spellchecker is fine, but what about hooking up something like [alexjs](https:
 
 In traditional Rich Text Editors and all other help desks, you might have a series of checkboxes to enable and disable things, or at best you have a "block" editor for "fancy components". In most cases they don't get that far and you expect your customers to create and upload custom images.
 
-In a Stheno world, you expose linting. You give them strongly typed JSON objects they can add in their settings that apply either org wide or just for their specific use. Love VIM? Go ahead and use it instead of the default keybindings. Want to have a personal dictionary? Do it. Want every single helpdesk article title to autoinsert a link? Do it.
+In a Stheno world, you expose linting. You give them strongly typed JSON objects they can add in their settings that apply either org wide or just for their specific use. Love VIM? Go ahead and use it instead of the default keybindings. Want to have a personal dictionary? Do it. Want every single help desk article title to autoinsert a link? Do it.
 
 Just don't make me stop typing and click things.
 
@@ -60,4 +60,71 @@ The good news there is that everything is "just codemirror" under the hood, we j
 
 The "bad" news is that you'll need to do a minimal amount of configuration yourself to get it mounted with whatever frontend library you prefer.
 
-You can test the current state of the editor in an unstyled state by running `npm run play`, at which point Parcel will have an editor ready for use at `localhost:1234`.
+At Yetto, we use Stimulus.js to provide Stheno as part of our application, and assume that you're placing the editor in an HTML Form element.
+
+To provide a minimal example, this is a simplified version of a real Stheno controller:
+
+```typescript
+import { Controller } from "@hotwired/stimulus"
+import { EditorView } from "@codemirror/view"
+import { EditorState, Transaction } from "@codemirror/state"
+import { getSthenoConfig } from "@yettoapp/stheno"
+
+// data-controller="stheno"
+export default class SthenoController extends Controller {
+
+  // data-stheno-target="editor"
+  // data-stheno-target="formInput"
+  static targets: string[] = ['editor', 'formInput']
+
+  // data-stheno-lang-value="markdown | json"
+  static values = {
+    lang: {
+      type: String,
+      default: "markdown",
+    }
+  }
+
+  connect() {
+    this.view = new EditorView({
+      parent: this.editorTarget,
+      state: EditorState.create(getSthenoConfig(this.langValue))
+    })
+  }
+
+  submit() {
+    // Update the hidden form input with the state of the editor
+    // That way normal HTML form submission mechanics will work
+    // with the editor
+    this.formInputTarget.value = this.view.state.doc.toString()
+
+    // Dispatch a transaction to clear the editor
+    this.view.dispatch({
+      changes: [{
+        from: 0,
+        to: this.view.state.doc.length,
+        insert: ""
+      }]
+    })
+  }
+}
+```
+
+Which allows us to have the following HTML structure for the editor:
+
+```html
+<form action="/comment"
+      method="POST"
+      data-controller="stheno"
+      data-stheno-lang-value="markdown"
+  >
+    <!-- INSERT TOOLBARS OR OTHER FORM INPUTS HERE -->
+    <input type="hidden" data-stheno-target="formInput" name="comment" id="comment">
+    <div data-stheno-target="editor">
+      <!-- Stheno will be here -->
+    </div>
+    <button data-action="stheno#submit">Submit</button>
+  </form>
+```
+
+That way Stheno can handle all the presentation and functionality for the editor _without_ requiring you to deal with the form submission.
