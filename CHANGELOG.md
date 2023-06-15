@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.1.4 - 2023-06-15
+
+Getting Stheno ready for our Alpha release, and I think we're in a fairly usable place now. I'll be adding lots more in the next couple weeks but I'd consider this the first "yeah you could probably use this" release.
+
+### Added
+
+- Add keyboard shortcuts for markdown styling
+- Create slash commands for more complex "components" (code blocks, links, images)
+- Add light and dark mode syntaxes based on GitHub's current light and dark mode colors
+
+### Fixed
+
+- Update build system from parcel to `@codemirror/buildhelper`
+- Better encapsulate the functionality
+
 ## 0.1.3 - 2023-06-10
 
 ### Added
