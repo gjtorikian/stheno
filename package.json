@@ -14,7 +14,7 @@
     "prepare": "rollup -c",
     "build": "cm-buildhelper src/index.ts",
     "test": "cm-runtests",
-    "dev": "vite ./dev"
+    "dev": "vite ./dev --host"
   },
   "keywords": [
     "codemirror",
