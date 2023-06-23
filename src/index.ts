@@ -12,6 +12,9 @@ import { yettoLight, THEME } from "./themes"
 import { BoldText, BulletedList, CodeText, ItalicText, NumberedList, QuoteText, TaskList, markdownCompletions } from "./extensions/markdown"
 export { wrapText, makeWrapTextCommand, prependLines, makePrependLinesCommand, NumberedList, BulletedList, TaskList, QuoteText } from "./extensions/markdown"
 export { yettoDark, yettoLight, THEME, toggleTheme } from "./themes"
+import { Compartment } from "@codemirror/state"
+
+const KEYBINDINGS = new Compartment
 
 export function getSthenoConfig(lang: String, extensions?: Extension[]): EditorStateConfig {
   const language = lang === 'markdown' ? getMarkdownConfig() : getJsonConfig()
@@ -22,14 +25,14 @@ export function getSthenoConfig(lang: String, extensions?: Extension[]): EditorS
       history(),
       drawSelection(),
       dropCursor(),
+      EditorView.lineWrapping,
       EditorState.allowMultipleSelections.of(true),
+      autocompletion(),
+      highlightSelectionMatches(),
       indentOnInput(),
       bracketMatching(),
       closeBrackets(),
-      autocompletion(),
-      highlightSelectionMatches(),
-      EditorView.lineWrapping,
-      keymap.of([
+      KEYBINDINGS.of(keymap.of([
         NumberedList,
         BulletedList,
         TaskList,
@@ -44,7 +47,7 @@ export function getSthenoConfig(lang: String, extensions?: Extension[]): EditorS
         ...historyKeymap,
         ...searchKeymap,
         ...closeBracketsKeymap,
-      ]),
+      ])),
       THEME.of(yettoLight),
       LANGUAGE.of(language),
       language.language.data.of({
