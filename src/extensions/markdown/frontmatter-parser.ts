@@ -5,7 +5,7 @@ import { partialParse } from './partial-parse'
 const FRONTMATTER_START = '--{'
 const FRONTMATTER_END = new RegExp(`^}--$`)
 
-// Docs for this: https://github.com/lezer-parser/markdown#user-content-blockparser
+// Docs: https://github.com/lezer-parser/markdown#user-content-blockparser
 export const frontmatterParser: BlockParser = {
     // We need to give the parser a name
     name: 'Frontmatter',
