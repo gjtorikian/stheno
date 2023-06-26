@@ -49,7 +49,7 @@
     "@codemirror/search": "^6.2.3",
     "emoji-provider": "^1.0.6",
     "@yettoapp/lezer-jsonc": "^0.0.7",
-    "@yettoapp/lezer-liquid": "^0.0.7"
+    "@yettoapp/lezer-liquid": "^0.0.10"
   },
   "peerDependencies": {
     "@codemirror/state": "^6.1.4",

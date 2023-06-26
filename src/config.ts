@@ -6,11 +6,15 @@ import { Compartment } from "@codemirror/state"
 import { Tag, tags } from '@lezer/highlight'
 
 import { frontmatterParser } from './extensions/markdown/frontmatter-parser'
+import { liquidInlineParser } from './extensions/markdown/liquid-parser'
 
 const customTags = {
   JSONCFrontmatterStart: Tag.define(tags.contentSeparator),
   JSONCFrontmatterEnd: Tag.define(tags.contentSeparator),
   JSONCFrontmatterMap: Tag.define(),
+  LiquidOutputStart: Tag.define(tags.separator),
+  LiquidOutputEnd: Tag.define(tags.separator),
+  LiquidOutput: Tag.define()
 }
 
 export function getMarkdownConfig(): LanguageSupport {
@@ -23,12 +27,20 @@ export function getMarkdownConfig(): LanguageSupport {
         frontmatterParser
       ],
 
+      parseInline: [
+        liquidInlineParser
+      ],
+
       // We have to notify the markdown parser about the additional Node Types
       // that the YAML block parser utilizes
       defineNodes: [
         { name: 'JSONCFrontmatterStart', style: customTags.JSONCFrontmatterStart },
         { name: 'JSONCFrontmatterEnd', style: customTags.JSONCFrontmatterEnd },
         { name: 'JSONCFrontmatterMap', style: customTags.JSONCFrontmatterMap },
+
+        { name: 'LiquidOutputStart', style: customTags.LiquidOutputStart },
+        { name: 'LiquidOutputEnd', style: customTags.LiquidOutputEnd },
+        { name: 'LiquidOutput', style: customTags.LiquidOutput }
       ]
     }
   })
