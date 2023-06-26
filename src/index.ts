@@ -9,8 +9,8 @@ import { autocompletion, completionKeymap, closeBrackets, closeBracketsKeymap, C
 import { lintKeymap } from "@codemirror/lint"
 import { getMarkdownConfig, getJsonConfig, LANGUAGE } from "./config"
 import { yettoLight, THEME } from "./themes"
-import { BoldText, BulletedList, CodeText, ItalicText, NumberedList, QuoteText, TaskList, markdownCompletions } from "./extensions/markdown"
-export { wrapText, makeWrapTextCommand, prependLines, makePrependLinesCommand, NumberedList, BulletedList, TaskList, QuoteText } from "./extensions/markdown"
+import { BoldText, BulletedList, CodeText, ItalicText, NumberedList, QuoteText, TaskList, images, markdownCompletions } from "./extensions/markdown"
+export { wrapText, makeWrapTextCommand, prependLines, makePrependLinesCommand, NumberedList, BulletedList, TaskList, QuoteText, images } from "./extensions/markdown"
 export { yettoDark, yettoLight, THEME, toggleTheme } from "./themes"
 import { Compartment } from "@codemirror/state"
 
@@ -52,7 +52,8 @@ export function getSthenoConfig(lang: String, extensions?: Extension[]): EditorS
       LANGUAGE.of(language),
       language.language.data.of({
         autocomplete: markdownCompletions
-      })
+      }),
+      images(),
     ],
   }
 
