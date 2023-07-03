@@ -4,17 +4,24 @@ import { RangeSet, StateField } from '@codemirror/state'
 import type { DecorationSet } from '@codemirror/view'
 import { Decoration, EditorView, WidgetType } from '@codemirror/view'
 
+interface ImageExtensionParams {
+  container: string,
+  img: string
+}
 interface ImageWidgetParams {
   url: string,
+  classes?: ImageExtensionParams
 }
 
 class ImageWidget extends WidgetType {
   readonly url
+  readonly classes
 
-  constructor({ url }: ImageWidgetParams) {
+  constructor({ url, classes }: ImageWidgetParams) {
     super()
 
     this.url = url
+    this.classes = classes
   }
 
   eq(imageWidget: ImageWidget) {
@@ -23,20 +30,18 @@ class ImageWidget extends WidgetType {
 
   toDOM() {
     const container = document.createElement('div')
-    const image = container.appendChild(document.createElement('img', {
-
-    }))
+    const image = container.appendChild(document.createElement('img'))
 
     container.setAttribute('aria-hidden', 'true')
-    container.className = 'flex justify-center items-center shadow-inner bg-neutral-200 p-4 my-2'
-    image.className = 'object-scale-down h-72'
+    container.className = this.classes?.container || ""
+    image.className = this.classes?.img || ""
     image.src = this.url
 
     return container
   }
 }
 
-export const images = (): Extension => {
+export const images = (styles: ImageExtensionParams | null = null): Extension => {
   const imageRegex = /!\[.*?\]\((?<url>.*?\.(png|jpeg|jpg|gif|ico))\)/
 
   const imageDecoration = (imageWidgetParams: ImageWidgetParams) => Decoration.widget({
@@ -52,11 +57,16 @@ export const images = (): Extension => {
       enter: ({ type, from, to }) => {
         if (type.name === 'Image') {
           const result = imageRegex.exec(state.doc.sliceString(from, to))
-          console.log(result)
+
           if (result?.groups?.url) {
+            const widgetParams: ImageWidgetParams = {
+              url: result.groups.url,
+              ...styles && { classes: styles }
+            }
+
             widgets.push(
               imageDecoration(
-                { url: result.groups.url }
+                widgetParams
               ).range(
                 state.doc.lineAt(to).to
               )

@@ -16,7 +16,7 @@ import { Compartment } from "@codemirror/state"
 
 const KEYBINDINGS = new Compartment
 
-export function getSthenoConfig(lang: String, extensions?: Extension[]): EditorStateConfig {
+export function getSthenoConfig(lang: String, extensions: Extension[] = []): EditorStateConfig {
   const language = lang === 'markdown' ? getMarkdownConfig() : getJsonConfig()
 
   const config: EditorStateConfig = {
@@ -53,7 +53,7 @@ export function getSthenoConfig(lang: String, extensions?: Extension[]): EditorS
       language.language.data.of({
         autocomplete: markdownCompletions
       }),
-      images(),
+      ...extensions
     ],
   }
 
