@@ -4,37 +4,42 @@ import { parser as liquidParser } from "@yettoapp/lezer-liquid"
 import { partialParse } from './partial-parse'
 
 const AsciiCurlyOpen = 123
-const CurlyOutputClose = new RegExp(`}}[^}]?`)
+const AsciiPercent = 37
+const AsciiLiquidOpeners = new Set([AsciiCurlyOpen, AsciiPercent])
+const LiquidWrappers = /(?<opening>\{\{|\{\%)(?<code>.*)(?<closing>\}\}|\%\})/
 
 // https://github.com/lezer-parser/markdown#user-content-inlineparser
 export const liquidInlineParser: InlineParser = {
     name: 'inlineLiquid',
     parse: (ctx, next, pos) => {
-        if (next != AsciiCurlyOpen || ctx.char(pos + 1) != AsciiCurlyOpen || ctx.char(pos + 2) == AsciiCurlyOpen) return -1
+        if (AsciiLiquidOpeners.has(next) && !AsciiLiquidOpeners.has(ctx.char(pos + 1))) return -1
 
-        const afterOpen = ctx.slice(pos + 2, ctx.end)
-        if (!CurlyOutputClose.test(afterOpen)) {
-            return -1
-        }
-        const closingIndex = afterOpen.indexOf("}}")
-        const innerLiquid = afterOpen.slice(0, closingIndex)
+        const match = LiquidWrappers.exec(ctx.text)
 
-        // could happen if the text is {{}}
-        if (/^\s*$/.test(innerLiquid)) {
-            return -1
-        }
+        // Exit if no match
+        if (!match) return -1
+        // Exit if there's no closing tag
+        if (!match.groups?.closing) return -1
+        // Exit if the match is full of empty space (e.g {{}} or {%     %}
+        if (!match.groups?.code?.trim()) return -1
 
         let curPos = pos
-        const childNodes = [ctx.elt('LiquidOutputStart', curPos, curPos + 2)]
+        const lengths = {
+            opening: match.groups.opening.length,
+            code: match.groups.code.length,
+            closing: match.groups.code.length
+        }
 
-        curPos += 2
-        const treeElem = partialParse(ctx, liquidParser, innerLiquid, curPos)
+        const childNodes = [ctx.elt('LiquidOutputStart', pos, lengths.opening)]
+        curPos += lengths.opening
+
+        const treeElem = partialParse(ctx, liquidParser, match.groups.code.trim(), lengths.opening)
         childNodes.push(treeElem)
+        curPos += lengths.code
 
-        curPos += innerLiquid.length
-        childNodes.push(ctx.elt('LiquidOutputEnd', curPos, curPos + 2))
+        childNodes.push(ctx.elt('LiquidOutputEnd', curPos, curPos + lengths.closing))
+        curPos += lengths.closing
 
-        curPos += 2
         const wrapperElem = ctx.elt('InlineCode', pos, curPos, childNodes)
         return ctx.addElement(wrapperElem)
     },
