@@ -1,6 +1,6 @@
 {
   "name": "@yettoapp/stheno",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "An opinionated, powerful CodeMirror configuration by Yetto",
   "source": "src/index.ts",
   "main": "dist/index.cjs",
@@ -14,7 +14,7 @@
     "prepare": "rollup -c",
     "build": "cm-buildhelper src/index.ts",
     "test": "cm-runtests",
-    "dev": "vite ./dev"
+    "dev": "vite ./dev --host"
   },
   "keywords": [
     "codemirror",
@@ -47,9 +47,10 @@
     "@codemirror/language-data": "^6.1.0",
     "@codemirror/lint": "^6.1.0",
     "@codemirror/search": "^6.2.3",
-    "emoji-provider": "^1.0.6",
+    "@tailwindcss/typography": "^0.5.9",
     "@yettoapp/lezer-jsonc": "^0.0.7",
-    "@yettoapp/lezer-liquid": "^0.0.10"
+    "@yettoapp/lezer-liquid": "^0.0.10",
+    "emoji-provider": "^1.0.6"
   },
   "peerDependencies": {
     "@codemirror/state": "^6.1.4",

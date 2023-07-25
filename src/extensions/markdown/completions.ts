@@ -4,14 +4,14 @@ const options: Completion[] = [
   {
     label: "/image",
     type: "text",
-    apply: snippet("![${1:alt_text}](${2:url})"),
+    apply: snippet("![${1:alt_text}](${2:url})\n\n${3}"),
     detail: "An inline image",
     section: "Markdown"
   },
   {
     label: "/link",
     type: "text",
-    apply: snippet("[${1:link_text}](${2:url})"),
+    apply: snippet("[${1:link_text}](${2:url}) ${3}"),
     detail: "A link to some other place",
     section: "Markdown"
   },
