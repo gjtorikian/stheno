@@ -6,7 +6,7 @@ import { partialParse } from './partial-parse'
 const AsciiCurlyOpen = 123
 const AsciiPercent = 37
 const AsciiLiquidOpeners = new Set([AsciiCurlyOpen, AsciiPercent])
-const LiquidWrappers = /(?<opening>\{\{|\{\%)(?<code>.*)(?<closing>\}\}|\%\})/
+const LiquidWrappers = /(?<opening>\{\{|\%)(?<code>.*)(?<closing>\%|\}\})/
 
 // https://github.com/lezer-parser/markdown#user-content-inlineparser
 export const liquidInlineParser: InlineParser = {

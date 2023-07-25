@@ -43,12 +43,24 @@ export default class extends Controller<HTMLFormElement> {
   connect(): void {
     this.view = new EditorView({
       parent: this.editorTarget,
-      state: EditorState.create(getSthenoConfig(this.langValue, [
+      state: EditorState.create(getSthenoConfig(this.langValue,
         images({
           container: "flex justify-center items-center shadow-inner bg-neutral-200 p-4 my-2",
           img: "object-scale-down h-72"
+        }),
+        EditorView.domEventHandlers({
+          dragenter(event, view) {
+            event.preventDefault()
+          },
+          drop(event) {
+            console.log(event)
+            console.table(event.dataTransfer)
+          },
+          paste(event) {
+            console.log(event)
+          }
         })
-      ]))
+      ))
     })
   }
 
