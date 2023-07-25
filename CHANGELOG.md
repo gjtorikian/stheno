@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.1.6 - 2023-07-25
+
+This makes the API more composable for consumers, that way you're not locked into the "yetto" way of using this and can integrate it into whatever tool you'd like
+
+### Added
+
+- A way to decorate image links to show them in the editor, optionally with a style object allowing you to apply classes to the wrapper (making tailwind styling easier)
+
+### Fixed
+
+- Liquid parsing is more consistent and less fragile
+- Keybindings moved into the extensions directory to enable us to decompose them and have more control in the future
+
 ## 0.1.4 - 2023-06-15
 
 Getting Stheno ready for our Alpha release, and I think we're in a fairly usable place now. I'll be adding lots more in the next couple weeks but I'd consider this the first "yeah you could probably use this" release.
