@@ -10,7 +10,7 @@ import { getMarkdownConfig, getJsonConfig, LANGUAGE } from "./config";
 import { yettoLight, THEME } from "./themes";
 import { markdownCompletions } from "./extensions/markdown";
 export { wrapText, makeWrapTextCommand, prependLines, makePrependLinesCommand, NumberedList, BulletedList, TaskList, QuoteText, images } from "./extensions/markdown";
-export { yettoDark, yettoLight, THEME, toggleTheme } from "./themes";
+export { yettoDark, yettoLight, THEME, toggleTheme, setDarkTheme, setLightTheme } from "./themes";
 import { KEYBINDINGS, keymaps } from "./extensions/keybinding";
 
 export function getSthenoConfig(lang: String, ...extensions: Extension[]): EditorStateConfig {

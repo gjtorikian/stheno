@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.1.7 - 2023-08-22
+
+This adds some explicit setters to the Stheno mode so that a client can control the current theme mode explicitly rather than just toggling.
+
+### Added
+
+- Two additional Command functions allowing for clients to set dark or light mode explicitly
+
 ## 0.1.6 - 2023-07-25
 
 This makes the API more composable for consumers, that way you're not locked into the "yetto" way of using this and can integrate it into whatever tool you'd like

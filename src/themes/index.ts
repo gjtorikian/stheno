@@ -19,3 +19,23 @@ export const toggleTheme: Command = (view: EditorView) => {
 
   return true
 }
+
+export const setDarkTheme: Command = (view: EditorView) => {
+  view.dispatch({
+    effects: [
+      THEME.reconfigure(yettoDark)
+    ]
+  })
+
+  return true
+}
+
+export const setLightTheme: Command = (view: EditorView) => {
+  view.dispatch({
+    effects: [
+      THEME.reconfigure(yettoLight)
+    ]
+  })
+
+  return true
+}
