@@ -53,11 +53,20 @@ export default class extends Controller<HTMLFormElement> {
             event.preventDefault()
           },
           drop(event) {
+            event.preventDefault()
             console.log(event)
             console.table(event.dataTransfer)
           },
-          paste(event) {
+          paste(event: ClipboardEvent) {
             console.log(event)
+            console.log('why?', event.clipboardData?.items)
+            console.log(event.clipboardData?.files)
+            if (event.clipboardData?.items) {
+              event.preventDefault()
+              console.log("Paste had files, skipping normal work")
+            } else {
+              console.log("normal paste event")
+            }
           }
         })
       ))
