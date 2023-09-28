@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.1.8 - 2023-09-28
+
+This replaces our homegrown Liquid parser with the newly released official @codemirror/lang-liquid parser. Less to maintain ftw.
+
+### Added
+
+- Added the official `@codemirror/lang-liquid` parser, which gives us autocomplete for liquid blocks and alleviates our need to support one of our custom blocks.
+- As mentioned above, we now support the [full, default liquid spec](https://shopify.github.io/liquid/) in terms of both autocomplete and syntax highlighting. The backend parsing is an exercise left to the consumer. 💅
+
+### Removed
+
+- We deleted and nuked from orbit @gjtorikian's stellar work on the @yettoapp/lang-liquid parser and will now be sending that repo to a farm upstate where it can play with other repos.
+
 ## 0.1.7 - 2023-08-22
 
 This adds some explicit setters to the Stheno mode so that a client can control the current theme mode explicitly rather than just toggling.
