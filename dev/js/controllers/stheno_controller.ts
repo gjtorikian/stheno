@@ -1,7 +1,8 @@
 import { Controller } from "@hotwired/stimulus"
 import { EditorView } from "@codemirror/view"
 import { EditorState, Transaction } from "@codemirror/state"
-import { getSthenoConfig, wrapText, prependLines, toggleTheme } from "../../../src/index"
+import { getSthenoConfig, wrapText, prependLines } from "../../../src/index"
+import { toggleTheme } from "../../../src/themes/index"
 import { images } from "../../../src/index"
 
 interface SthenoEventObject extends Event {

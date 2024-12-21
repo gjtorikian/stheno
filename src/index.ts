@@ -7,10 +7,9 @@ import { history } from "@codemirror/commands";
 import { highlightSelectionMatches } from "@codemirror/search";
 import { autocompletion, closeBrackets } from "@codemirror/autocomplete";
 import { getMarkdownConfig, getJsonConfig, LANGUAGE } from "./config";
-import { yettoLight, THEME } from "./themes";
-import { markdownCompletions } from "./extensions/markdown";
-export { wrapText, makeWrapTextCommand, prependLines, makePrependLinesCommand, NumberedList, BulletedList, TaskList, QuoteText, images } from "./extensions/markdown";
-export { yettoDark, yettoLight, THEME, toggleTheme, setDarkTheme, setLightTheme } from "./themes";
+import { yettoLight, THEME, yettoDark, toggleTheme, setDarkTheme, setLightTheme } from "./themes/index";
+import { markdownCompletions } from "./extensions/markdown/index";
+export { wrapText, makeWrapTextCommand, prependLines, makePrependLinesCommand, NumberedList, BulletedList, TaskList, QuoteText, images } from "./extensions/markdown/index";
 import { KEYBINDINGS, keymaps } from "./extensions/keybinding";
 
 export function getSthenoConfig(lang: String, ...extensions: Extension[]): EditorStateConfig {
