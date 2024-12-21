@@ -1,0 +1,15 @@
+name: Lint
+
+on:
+  pull_request:
+
+env:
+  RAILS_ENV: test
+
+jobs:
+  verify:
+    uses: yettoapp/actions/.github/workflows/lint.yml@main
+    secrets:
+      gh_token: ${{ secrets.GH_SISYPHUS_YETTO_REPO_TOKEN }}
+    with:
+      node: true
