@@ -1,41 +1,35 @@
-import { Command, EditorView } from "@codemirror/view"
-import { yettoDark } from "./yettoDark"
-import { yettoLight } from "./yettoLight"
-import { Compartment } from "@codemirror/state"
+import { Command, EditorView } from "@codemirror/view";
+import { yettoDark } from "./yettoDark";
+import { yettoLight } from "./yettoLight";
+import { Compartment } from "@codemirror/state";
 
-export { yettoDark } from "./yettoDark"
-export { yettoLight } from "./yettoLight"
+export { yettoDark } from "./yettoDark";
+export { yettoLight } from "./yettoLight";
 
-export const THEME = new Compartment;
+export const THEME = new Compartment();
 
 export const toggleTheme: Command = (view: EditorView) => {
-  const newTheme = THEME.get(view.state) == yettoLight ? yettoDark : yettoLight
+  const newTheme = THEME.get(view.state) == yettoLight ? yettoDark : yettoLight;
 
   view.dispatch({
-    effects: [
-      THEME.reconfigure(newTheme),
-    ]
-  })
+    effects: [THEME.reconfigure(newTheme)],
+  });
 
-  return true
-}
+  return true;
+};
 
 export const setDarkTheme: Command = (view: EditorView) => {
   view.dispatch({
-    effects: [
-      THEME.reconfigure(yettoDark)
-    ]
-  })
+    effects: [THEME.reconfigure(yettoDark)],
+  });
 
-  return true
-}
+  return true;
+};
 
 export const setLightTheme: Command = (view: EditorView) => {
   view.dispatch({
-    effects: [
-      THEME.reconfigure(yettoLight)
-    ]
-  })
+    effects: [THEME.reconfigure(yettoLight)],
+  });
 
-  return true
-}
+  return true;
+};
