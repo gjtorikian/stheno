@@ -1,13 +1,34 @@
 {
 	"compilerOptions": {
+		"target": "es2022",
+		"module": "ESNext",
+		"outDir": "dist",
 		"strict": true,
-		"target": "es6",
-		"module": "es2020",
-		"newLine": "lf",
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"moduleResolution": "Node",
+		"lib": [
+			"ESNext",
+			"DOM"
+		],
 		"declaration": true,
-		"moduleResolution": "node"
+		"resolveJsonModule": true,
+		"removeComments": false,
+		"isolatedModules": true,
+		"skipLibCheck": true,
+		"typeRoots": [
+			"./node_modules/@types",
+			"./src/types"
+		],
+		"paths": {
+			"@*": [
+				"./src/*"
+			]
+		},
+		"baseUrl": "./"
 	},
+	"compileOnSave": true,
 	"include": [
-		"src/*.ts"
+		"src/**/*"
 	]
 }
