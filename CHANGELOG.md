@@ -1,3 +1,10 @@
+## [v0.1.9] - 23-12-2024
+## What's Changed
+* Official liquid parsing by @birdcar in https://github.com/yettoapp/stheno/pull/4
+* Modernize project by @gjtorikian in https://github.com/yettoapp/stheno/pull/6
+
+
+**Full Changelog**: https://github.com/yettoapp/stheno/compare/v0.1.8...v0.1.9
 # Changelog
 
 All notable changes to this project will be documented in this file.
