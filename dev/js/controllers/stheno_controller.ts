@@ -1,14 +1,19 @@
 import { Controller } from "@hotwired/stimulus"
 import { EditorView } from "@codemirror/view"
-import { EditorState, Transaction } from "@codemirror/state"
-import { getSthenoConfig, wrapText, prependLines } from "../../../src/index"
+import { EditorState } from "@codemirror/state"
+import {
+  createPrependLinesCommand,
+  createWrapTextCommand,
+  getSthenoConfig,
+  images,
+} from "../../../src/index"
 import { toggleTheme } from "../../../src/themes/index"
-import { images } from "../../../src/index"
 
 interface SthenoEventObject extends Event {
   params: {
     mark?: string
     ordered?: boolean
+    blockType?: "orderedList" | "unorderedList" | "quote" | "taskList"
   }
 }
 
@@ -76,18 +81,21 @@ export default class extends Controller<HTMLFormElement> {
 
   wrap({ params }: SthenoEventObject): void {
     if (!params.mark) return
-    wrapText(params.mark, this.view)
+    // Map mark to AST node name for the command
+    const nodeNameMap: Record<string, string> = {
+      "**": "StrongEmphasis",
+      "*": "Emphasis",
+      "_": "Emphasis",
+      "`": "InlineCode",
+    }
+    createWrapTextCommand(this.view, nodeNameMap[params.mark] || "StrongEmphasis", params.mark)
     this.view.focus()
   }
 
   prependLine({ params }: SthenoEventObject): void {
-    if (!params.mark) return
-
-    if (params.ordered) {
-      prependLines(params.mark, this.view, params.ordered)
-    } else {
-      prependLines(params.mark, this.view)
-    }
+    // Determine block type from params
+    const type = params.blockType || (params.ordered ? "orderedList" : "unorderedList")
+    createPrependLinesCommand(this.view, type)
     this.view.focus()
   }
 

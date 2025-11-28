@@ -1,47 +1,54 @@
-import { LanguageSupport } from "@codemirror/language"
-import { markdown, markdownLanguage } from "@codemirror/lang-markdown"
-import { languages } from "@codemirror/language-data"
-import { json } from "@codemirror/lang-json"
-import { Compartment } from "@codemirror/state"
-import { Tag, tags } from '@lezer/highlight'
-import { liquid } from "@codemirror/lang-liquid"
-import { frontmatterParser } from './extensions/markdown/frontmatter-parser'
+import { liquid } from "@codemirror/lang-liquid";
+import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
+import { LanguageSupport } from "@codemirror/language";
+import { languages } from "@codemirror/language-data";
+import { Compartment } from "@codemirror/state";
+import { Tag, tags } from "@lezer/highlight";
+
+import { frontmatterParser } from "./extensions/markdown/frontmatter-parser";
 
 const customTags = {
-  JSONCFrontmatterStart: Tag.define(tags.contentSeparator),
   JSONCFrontmatterEnd: Tag.define(tags.contentSeparator),
   JSONCFrontmatterMap: Tag.define(),
-  LiquidOutputStart: Tag.define(tags.brace),
+  JSONCFrontmatterStart: Tag.define(tags.contentSeparator),
+  LiquidOutput: Tag.define(),
   LiquidOutputEnd: Tag.define(tags.brace),
-  LiquidOutput: Tag.define()
-}
+  LiquidOutputStart: Tag.define(tags.brace),
+};
 
-export function getMarkdownConfig(): LanguageSupport {
+export function markdownWithJSONCFrontmatterConfig(): LanguageSupport {
   return liquid({
     base: markdown({
       base: markdownLanguage,
       codeLanguages: languages,
       extensions: {
-        parseBlock: [
-          // This BlockParser parses JSONC frontmatter
-          frontmatterParser
-        ],
-
         // We have to notify the markdown parser about the additional Node Types
         // that the YAML block parser utilizes
         defineNodes: [
-          { name: 'JSONCFrontmatterStart', style: customTags.JSONCFrontmatterStart, block: true },
-          { name: 'JSONCFrontmatterEnd', style: customTags.JSONCFrontmatterEnd, block: true },
-          { name: 'JSONCFrontmatterMap', style: customTags.JSONCFrontmatterMap, block: false },
+          {
+            block: true,
+            name: "JSONCFrontmatterStart",
+            style: customTags.JSONCFrontmatterStart,
+          },
+          {
+            block: true,
+            name: "JSONCFrontmatterEnd",
+            style: customTags.JSONCFrontmatterEnd,
+          },
+          {
+            block: false,
+            name: "JSONCFrontmatterMap",
+            style: customTags.JSONCFrontmatterMap,
+          },
         ],
-      }
-    })
-  }
-  )
+
+        parseBlock: [
+          // This BlockParser parses JSONC frontmatter
+          frontmatterParser,
+        ],
+      },
+    }),
+  });
 }
 
-export function getJsonConfig(): LanguageSupport {
-  return json()
-}
-
-export const LANGUAGE = new Compartment;
+export const LANGUAGE = new Compartment();

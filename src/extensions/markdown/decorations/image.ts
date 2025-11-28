@@ -1,100 +1,96 @@
-import { syntaxTree } from '@codemirror/language'
-import type { EditorState, Extension, Range } from '@codemirror/state'
-import { RangeSet, StateField } from '@codemirror/state'
-import type { DecorationSet } from '@codemirror/view'
-import { Decoration, EditorView, WidgetType } from '@codemirror/view'
+import { syntaxTree } from "@codemirror/language";
+import type { EditorState, Extension, Range } from "@codemirror/state";
+import { RangeSet, StateField } from "@codemirror/state";
+import type { DecorationSet } from "@codemirror/view";
+import { Decoration, EditorView, WidgetType } from "@codemirror/view";
 
 interface ImageExtensionParams {
-  container: string,
-  img: string
+  container: string;
+  img: string;
 }
 interface ImageWidgetParams {
-  url: string,
-  classes?: ImageExtensionParams
+  classes?: ImageExtensionParams;
+  url: string;
 }
 
 class ImageWidget extends WidgetType {
-  readonly url
-  readonly classes
+  readonly classes;
+  readonly url;
 
-  constructor({ url, classes }: ImageWidgetParams) {
-    super()
+  constructor({ classes, url }: ImageWidgetParams) {
+    super();
 
-    this.url = url
-    this.classes = classes
+    this.url = url;
+    this.classes = classes;
   }
 
   eq(imageWidget: ImageWidget) {
-    return imageWidget.url === this.url
+    return imageWidget.url === this.url;
   }
 
   toDOM() {
-    const container = document.createElement('div')
-    const image = container.appendChild(document.createElement('img'))
+    const container = document.createElement("div");
+    const image = container.appendChild(document.createElement("img"));
 
-    container.setAttribute('aria-hidden', 'true')
-    container.className = this.classes?.container || ""
-    image.className = this.classes?.img || ""
-    image.src = this.url
+    container.setAttribute("aria-hidden", "true");
+    container.className = this.classes?.container || "";
+    image.className = this.classes?.img || "";
+    image.src = this.url;
 
-    return container
+    return container;
   }
 }
 
-export const images = (styles: ImageExtensionParams | null = null): Extension => {
-  const imageRegex = /!\[.*?\]\((?<url>.*?\.(png|jpeg|jpg|gif|ico))\)/
+export const images = (
+  styles: ImageExtensionParams | null = null,
+): Extension => {
+  const imageRegex = /!\[.*?\]\((?<url>.*?\.(png|jpeg|jpg|gif|ico))\)/;
 
-  const imageDecoration = (imageWidgetParams: ImageWidgetParams) => Decoration.widget({
-    widget: new ImageWidget(imageWidgetParams),
-    side: 1,
-    block: true,
-  })
+  const imageDecoration = (imageWidgetParams: ImageWidgetParams) =>
+    Decoration.widget({
+      block: true,
+      side: 1,
+      widget: new ImageWidget(imageWidgetParams),
+    });
 
   const decorate = (state: EditorState) => {
-    const widgets: Range<Decoration>[] = []
+    const widgets: Range<Decoration>[] = [];
 
     syntaxTree(state).iterate({
-      enter: ({ type, from, to }) => {
-        if (type.name === 'Image') {
-          const result = imageRegex.exec(state.doc.sliceString(from, to))
+      enter: ({ from, to, type }) => {
+        if (type.name === "Image") {
+          const result = imageRegex.exec(state.doc.sliceString(from, to));
 
           if (result?.groups?.url) {
             const widgetParams: ImageWidgetParams = {
               url: result.groups.url,
-              ...styles && { classes: styles }
-            }
+              ...(styles && { classes: styles }),
+            };
 
             widgets.push(
-              imageDecoration(
-                widgetParams
-              ).range(
-                state.doc.lineAt(to).to
-              )
-            )
+              imageDecoration(widgetParams).range(state.doc.lineAt(to).to),
+            );
           }
         }
       },
-    })
+    });
 
-    return widgets.length > 0 ? RangeSet.of(widgets) : Decoration.none
-  }
+    return widgets.length > 0 ? RangeSet.of(widgets) : Decoration.none;
+  };
 
   const imagesField = StateField.define<DecorationSet>({
     create(state) {
-      return decorate(state)
-    },
-    update(images, transaction) {
-      if (transaction.docChanged)
-        return decorate(transaction.state)
-
-      return images.map(transaction.changes)
+      return decorate(state);
     },
     provide(field) {
-      return EditorView.decorations.from(field)
+      return EditorView.decorations.from(field);
     },
-  })
+    update(imageList, transaction) {
+      if (transaction.docChanged) return decorate(transaction.state);
 
-  return [
-    imagesField,
-  ]
-}
+      return imageList.map(transaction.changes);
+    },
+  });
+
+  return [imagesField];
+};
