@@ -1,42 +1,76 @@
-import {
-  highlightSpecialChars, drawSelection, dropCursor, EditorView
-} from "@codemirror/view";
-import { EditorState, Extension, type EditorStateConfig } from "@codemirror/state";
-import { indentOnInput, bracketMatching } from "@codemirror/language";
-import { history } from "@codemirror/commands";
-import { highlightSelectionMatches } from "@codemirror/search";
 import { autocompletion, closeBrackets } from "@codemirror/autocomplete";
-import { getMarkdownConfig, getJsonConfig, LANGUAGE } from "./config";
-import { yettoLight, THEME, yettoDark, toggleTheme, setDarkTheme, setLightTheme } from "./themes/index";
-import { markdownCompletions } from "./extensions/markdown/index";
-export { wrapText, makeWrapTextCommand, prependLines, makePrependLinesCommand, NumberedList, BulletedList, TaskList, QuoteText, images } from "./extensions/markdown/index";
+import { history } from "@codemirror/commands";
+import { bracketMatching, indentOnInput } from "@codemirror/language";
+import { highlightSelectionMatches } from "@codemirror/search";
+import type { Extension } from "@codemirror/state";
+import { EditorState } from "@codemirror/state";
+import {
+  drawSelection,
+  dropCursor,
+  EditorView,
+  highlightSpecialChars,
+} from "@codemirror/view";
+
+import { LANGUAGE, markdownWithJSONCFrontmatterConfig } from "./config";
 import { KEYBINDINGS, keymaps } from "./extensions/keybinding";
+import { THEME, yettoDark, yettoLight } from "./themes/index";
 
-export function getSthenoConfig(lang: String, ...extensions: Extension[]): EditorStateConfig {
-  const language = lang === 'markdown' ? getMarkdownConfig() : getJsonConfig()
+// Re-export decorations
+export { images } from "./extensions/markdown/decorations/image";
 
-  const config: EditorStateConfig = {
-    extensions: [
-      highlightSpecialChars(),
-      history(),
-      drawSelection(),
-      dropCursor(),
-      EditorView.lineWrapping,
-      EditorState.allowMultipleSelections.of(true),
-      autocompletion(),
-      highlightSelectionMatches(),
-      indentOnInput(),
-      bracketMatching(),
-      closeBrackets(),
-      KEYBINDINGS.of(keymaps()),
-      THEME.of(yettoLight),
-      LANGUAGE.of(language),
-      language.language.data.of({
-        autocomplete: markdownCompletions
-      }),
-      ...extensions,
-    ],
-  }
+// Re-export commands for programmatic use (toolbar buttons, etc.)
+export { createWrapTextCommand } from "./extensions/markdown/commands/inline";
+export { createPrependLinesCommand } from "./extensions/markdown/commands/block";
 
-  return config
-}
+// Re-export keybindings (for keyboard shortcuts)
+export {
+  BoldText,
+  BulletedList,
+  CodeText,
+  ItalicText,
+  OrderedList,
+  QuoteBlock,
+  TaskList,
+} from "./extensions/markdown/commands/index";
+
+const darkColorScheme = window.matchMedia(
+  "(prefers-color-scheme: dark)",
+).matches;
+
+export const setupThemeListener = (editorView: EditorView) => {
+  window
+    .matchMedia("(prefers-color-scheme: dark)")
+    .addEventListener("change", ({ matches }) => {
+      editorView.dispatch({
+        effects: THEME.reconfigure(matches ? yettoDark : yettoLight),
+      });
+    });
+};
+
+export const sthenoConfig = () => [
+  highlightSpecialChars(),
+  history(),
+  drawSelection(),
+  dropCursor(),
+  EditorView.lineWrapping,
+  EditorState.allowMultipleSelections.of(true),
+  autocompletion(),
+  highlightSelectionMatches(),
+  indentOnInput(),
+  bracketMatching(),
+  closeBrackets(),
+  KEYBINDINGS.of(keymaps()),
+  THEME.of(darkColorScheme ? yettoDark : yettoLight),
+  LANGUAGE.of(markdownWithJSONCFrontmatterConfig()),
+  // language.language.data.of({
+  //   autocomplete: markdownCompletions,
+  // }),
+];
+
+// Alias for backward compatibility
+export const getSthenoConfig = (
+  _lang: string,
+  ...extensions: Extension[]
+) => ({
+  extensions: [...sthenoConfig(), ...extensions],
+});

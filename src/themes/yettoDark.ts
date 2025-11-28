@@ -1,138 +1,200 @@
-import { EditorView } from "@codemirror/view";
-import { Extension } from "@codemirror/state";
 import { HighlightStyle, syntaxHighlighting } from "@codemirror/language";
+import { Extension } from "@codemirror/state";
+import { EditorView } from "@codemirror/view";
 import { tags as t } from "@lezer/highlight";
 
 export const config = {
-  name: "yettoDark",
-  dark: true,
-  background: "#020617",
-  foreground: "#f8fafc",
-  selection: "#3392FF44",
-  cursor: "#f1f5f9",
-  dropdownBackground: "#0f172a",
-  dropdownBorder: "#020617",
-  activeLine: "#475569",
-  matchingBracket: "#14b8a650",
-  keyword: "#a78bfa",
-  storage: "#a78bfa",
-  variable: "#fb923c",
-  parameter: "#fb923c",
-  function: "#38bdf8",
-  string: "#38bdf8",
-  constant: "#38bdf8",
-  type: "#38bdf8",
-  class: "#a78bfa",
-  number: "#38bdf8",
+  activeLine: "rgba(186, 23, 186, 0.15)",
+  background: "transparent",
+  class: "#ee3ff6",
   comment: "#94a3b8",
-  heading: "#38bdf8",
-  invalid: "#f97583",
-  regexp: "#a78bfa",
+  constant: "#f874fe",
+  cursor: "#f1f5f9",
+  dark: true,
+  dropdownBackground: "rgba(24, 24, 27, 0.8)",
+  dropdownBorder: "rgba(255, 255, 255, 0.1)",
+  foreground: "#f1f5f9",
+  function: "#ba17ba",
+  heading: "#ee3ff6",
+  invalid: "#ef4444",
+  keyword: "#d61fda",
+  matchingBracket: "rgba(214, 31, 218, 0.3)",
+  name: "yettoDark",
+  number: "#f874fe",
+  parameter: "#fb923c",
+  regexp: "#ee3ff6",
+  selection: "rgba(214, 31, 218, 0.3)",
+  storage: "#d61fda",
+  string: "#f874fe",
+  type: "#ee3ff6",
+  variable: "#fb923c",
 };
 
 export const yettoDarkTheme = EditorView.theme(
   {
     "&": {
-      color: config.foreground,
       backgroundColor: config.background,
-    },
-
-    ".cm-content": { caretColor: config.cursor },
-
-    ".cm-cursor, .cm-dropCursor": { borderLeftColor: config.cursor },
-    "&.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground, .cm-selectionBackground, .cm-content ::selection":
-      { backgroundColor: config.selection },
-
-    ".cm-panels": {
-      backgroundColor: config.dropdownBackground,
       color: config.foreground,
     },
-    ".cm-panels.cm-panels-top": { borderBottom: "2px solid black" },
-    ".cm-panels.cm-panels-bottom": { borderTop: "2px solid black" },
 
-    ".cm-searchMatch": {
-      backgroundColor: config.dropdownBackground,
-      outline: `1px solid ${config.dropdownBorder}`,
+    "&.cm-editor": {
+      height: "100px",
     },
-    ".cm-searchMatch.cm-searchMatch-selected": {
-      backgroundColor: config.selection,
-    },
-
-    ".cm-activeLine": { backgroundColor: config.activeLine },
-    ".cm-selectionMatch": { backgroundColor: config.selection },
 
     "&.cm-focused .cm-matchingBracket, &.cm-focused .cm-nonmatchingBracket": {
       backgroundColor: config.matchingBracket,
       outline: "none",
     },
 
-    ".cm-gutters": {
-      backgroundColor: config.background,
-      color: config.foreground,
-      border: "none",
-    },
-    ".cm-activeLineGutter": { backgroundColor: config.background },
+    "&.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground, .cm-selectionBackground, .cm-content ::selection":
+      { backgroundColor: config.selection },
 
+    ".cm-activeLine": { backgroundColor: config.activeLine },
+    ".cm-activeLineGutter": { backgroundColor: "rgba(217, 70, 239, 0.2)" },
+
+    ".cm-content": { caretColor: config.cursor },
+    ".cm-cursor, .cm-dropCursor": { borderLeftColor: config.cursor },
     ".cm-foldPlaceholder": {
       backgroundColor: "transparent",
       border: "none",
       color: config.foreground,
     },
-    ".cm-tooltip": {
-      border: `1px solid ${config.dropdownBorder}`,
+
+    ".cm-gutters": {
+      backgroundColor: "transparent",
+      border: "none",
+      color: config.foreground,
+    },
+    ".cm-panels": {
+      backdropFilter: "blur(4px)",
       backgroundColor: config.dropdownBackground,
       color: config.foreground,
     },
-    ".cm-tooltip .cm-tooltip-arrow:before": {
-      borderTopColor: "transparent",
-      borderBottomColor: "transparent",
+
+    ".cm-panels.cm-panels-bottom": {
+      borderTop: "1px solid rgba(255, 255, 255, 0.1)",
+      boxShadow: "0 -4px 6px rgba(0, 0, 0, 0.1)",
     },
-    ".cm-tooltip .cm-tooltip-arrow:after": {
-      borderTopColor: config.foreground,
-      borderBottomColor: config.foreground,
+    ".cm-panels.cm-panels-top": {
+      borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+    },
+
+    ".cm-searchMatch": {
+      backgroundColor: config.dropdownBackground,
+      outline: `1px solid ${config.dropdownBorder}`,
+    },
+
+    ".cm-searchMatch.cm-searchMatch-selected": {
+      backgroundColor: config.selection,
+    },
+    ".cm-selectionMatch": { backgroundColor: config.selection },
+
+    ".cm-tooltip": {
+      backdropFilter: "blur(4px)",
+      backgroundColor: "rgba(38, 38, 38, 0.8)",
+      border: `1px solid ${config.dropdownBorder}`,
+      boxShadow: "0 4px 6px rgba(0, 0, 0, 0.2)",
+      color: config.foreground,
     },
     ".cm-tooltip-autocomplete": {
-      "& > ul > li[aria-selected]": {
-        background: config.selection,
-        color: config.foreground,
+      "& .cm-completion-active": {
+        backgroundColor: "rgba(214, 31, 218, 0.2)",
+        borderRadius: "4px",
       },
+      "& .cm-completionIcon": {
+        display: "none",
+      },
+      "& .cm-completionLabel": {
+        color: "#f1f5f9",
+        display: "block",
+        fontSize: "0.95rem",
+        fontWeight: "600",
+      },
+      "& .cm-completionMatchedText": {
+        color: "#ee3ff6",
+        fontWeight: "600",
+        textDecoration: "none",
+      },
+      "& .saved-reply-info": {
+        padding: "0.25rem 0 0 0",
+      },
+      "& .saved-reply-preview": {
+        color: "#9ca3af",
+        display: "block",
+        fontSize: "0.85rem",
+        fontWeight: "normal",
+        lineHeight: "1.3",
+        whiteSpace: "pre-wrap",
+      },
+      "& > ul": {
+        maxHeight: "350px",
+        overflow: "auto",
+        padding: "0.35rem",
+      },
+      "& li": {
+        borderRadius: "4px",
+        margin: "0.25rem 0",
+        padding: "0.5rem",
+        transition: "background-color 150ms ease",
+      },
+      backdropFilter: "blur(4px)",
+      backgroundColor: "rgba(38, 38, 38, 0.8)",
+      border: "1px solid rgba(255, 255, 255, 0.1)",
+      borderRadius: "8px",
+      boxShadow: "0 4px 15px rgba(0, 0, 0, 0.3)",
+      fontSize: "0.9rem",
+      minWidth: "250px",
+      padding: "0",
+      zIndex: "100",
+    },
+    ".cm-tooltip .cm-tooltip-arrow:after": {
+      borderBottomColor: "rgba(255, 255, 255, 0.1)",
+      borderTopColor: "rgba(255, 255, 255, 0.1)",
+    },
+    ".cm-tooltip .cm-tooltip-arrow:before": {
+      borderBottomColor: "transparent",
+      borderTopColor: "transparent",
+    },
+    "&.ͼ1.cm-focused": {
+      outline: "none !important",
     },
   },
   { dark: config.dark },
 );
 
 export const yettoDarkHighlightStyle = HighlightStyle.define([
-  { tag: t.keyword, color: config.keyword },
+  { color: config.keyword, tag: t.keyword },
   {
-    tag: [t.name, t.deleted, t.character, t.macroName],
     color: config.variable,
+    tag: [t.name, t.deleted, t.character, t.macroName],
   },
-  { tag: [t.propertyName], color: config.function },
+  { color: config.function, tag: [t.propertyName] },
   {
-    tag: [t.processingInstruction, t.string, t.inserted, t.special(t.string)],
     color: config.string,
+    tag: [t.processingInstruction, t.string, t.inserted, t.special(t.string)],
   },
-  { tag: [t.function(t.variableName), t.labelName], color: config.function },
+  { color: config.function, tag: [t.function(t.variableName), t.labelName] },
   {
-    tag: [t.color, t.constant(t.name), t.standard(t.name)],
     color: config.constant,
+    tag: [t.color, t.constant(t.name), t.standard(t.name)],
   },
-  { tag: [t.definition(t.name), t.separator], color: config.variable },
-  { tag: [t.className], color: config.class },
+  { color: config.variable, tag: [t.definition(t.name), t.separator] },
+  { color: config.class, tag: [t.className] },
   {
-    tag: [t.number, t.changed, t.annotation, t.modifier, t.self, t.namespace],
     color: config.number,
+    tag: [t.number, t.changed, t.annotation, t.modifier, t.self, t.namespace],
   },
-  { tag: [t.typeName], color: config.type, fontStyle: config.type },
-  { tag: [t.operator, t.operatorKeyword], color: config.keyword },
-  { tag: [t.url, t.escape, t.regexp, t.link], color: config.regexp },
-  { tag: [t.meta, t.comment], color: config.comment },
-  { tag: t.strong, fontWeight: "bold" },
-  { tag: t.emphasis, fontStyle: "italic" },
+  { color: config.type, fontStyle: config.type, tag: [t.typeName] },
+  { color: config.keyword, tag: [t.operator, t.operatorKeyword] },
+  { color: config.regexp, tag: [t.url, t.escape, t.regexp, t.link] },
+  { color: config.comment, tag: [t.meta, t.comment] },
+  { fontWeight: "bold", tag: t.strong },
+  { fontStyle: "italic", tag: t.emphasis },
   { tag: t.link, textDecoration: "underline" },
-  { tag: t.heading, fontWeight: "bold", color: config.heading },
-  { tag: [t.atom, t.bool, t.special(t.variableName)], color: config.variable },
-  { tag: t.invalid, color: config.invalid },
+  { color: config.heading, fontWeight: "bold", tag: t.heading },
+  { color: config.variable, tag: [t.atom, t.bool, t.special(t.variableName)] },
+  { color: config.invalid, tag: t.invalid },
   { tag: t.strikethrough, textDecoration: "line-through" },
 ]);
 

@@ -1,7 +1,8 @@
+import { Compartment } from "@codemirror/state";
 import { Command, EditorView } from "@codemirror/view";
+
 import { yettoDark } from "./yettoDark";
 import { yettoLight } from "./yettoLight";
-import { Compartment } from "@codemirror/state";
 
 export { yettoDark } from "./yettoDark";
 export { yettoLight } from "./yettoLight";
