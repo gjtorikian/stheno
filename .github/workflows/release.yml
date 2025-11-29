@@ -10,7 +10,7 @@ on:
 
 jobs:
   node:
-    uses: yettoapp/actions/.github/workflows/node_package_release.yml@main
+    uses: gjtorikian/actions/.github/workflows/node_package_release.yml@main
     secrets:
       npm_api_key: ${{ secrets.SISYPHUS_NPM_API_KEY }}
-      gh_token: ${{ secrets.SISYPHUS_PUSH_TO_PROTECTED_BRANCH }}
+      gh_token: ${{ secrets.GH_BOT_REPO_TOKEN }}

@@ -8,8 +8,8 @@ env:
 
 jobs:
   verify:
-    uses: yettoapp/actions/.github/workflows/lint.yml@main
+    uses: gjtorikian/actions/.github/workflows/lint.yml@main
     secrets:
-      gh_token: ${{ secrets.GH_SISYPHUS_YETTO_REPO_TOKEN }}
+      gh_token: ${{ secrets.GH_BOT_REPO_TOKEN }}
     with:
       node: true
