@@ -1,5 +1,8 @@
 import { test, expect } from "@playwright/test";
 
+// Use Meta (Cmd) on macOS, Control on other platforms
+const mod = process.platform === "darwin" ? "Meta" : "Control";
+
 test.describe("Editor keyboard shortcuts", () => {
 	test.beforeEach(async ({ page }) => {
 		await page.goto("/");
@@ -7,75 +10,72 @@ test.describe("Editor keyboard shortcuts", () => {
 	});
 
 	test("Ctrl+B wraps selection in bold", async ({ page }) => {
-		const editor = page.locator(".cm-content");
+		const editor = page.locator('[data-stheno-target="editor"] .cm-content');
 		await editor.click();
-		await page.keyboard.type("hello world");
+		await page.keyboard.type("hello");
 
-		// Select "hello" using keyboard
-		await page.keyboard.press("Home");
-		await page.keyboard.press("Shift+Control+ArrowRight");
+		// Select all
+		await page.keyboard.press(`${mod}+a`);
 
 		// Apply bold
-		await page.keyboard.press("Control+b");
+		await page.keyboard.press(`${mod}+b`);
 
 		const content = await editor.textContent();
 		expect(content).toContain("**hello**");
 	});
 
 	test("Ctrl+I wraps selection in italic", async ({ page }) => {
-		const editor = page.locator(".cm-content");
+		const editor = page.locator('[data-stheno-target="editor"] .cm-content');
 		await editor.click();
-		await page.keyboard.type("hello world");
+		await page.keyboard.type("hello");
 
-		await page.keyboard.press("Home");
-		await page.keyboard.press("Shift+Control+ArrowRight");
-		await page.keyboard.press("Control+i");
+		await page.keyboard.press(`${mod}+a`);
+		await page.keyboard.press(`${mod}+i`);
 
 		const content = await editor.textContent();
 		expect(content).toContain("_hello_");
 	});
 
 	test("Ctrl+E wraps selection in code", async ({ page }) => {
-		const editor = page.locator(".cm-content");
+		const editor = page.locator('[data-stheno-target="editor"] .cm-content');
 		await editor.click();
-		await page.keyboard.type("hello world");
+		await page.keyboard.type("hello");
 
-		await page.keyboard.press("Home");
-		await page.keyboard.press("Shift+Control+ArrowRight");
-		await page.keyboard.press("Control+e");
+		await page.keyboard.press(`${mod}+a`);
+		await page.keyboard.press(`${mod}+e`);
 
 		const content = await editor.textContent();
 		expect(content).toContain("`hello`");
 	});
 
 	test("Ctrl+Shift+. adds blockquote", async ({ page }) => {
-		const editor = page.locator(".cm-content");
+		const editor = page.locator('[data-stheno-target="editor"] .cm-content');
 		await editor.click();
 		await page.keyboard.type("quote me");
 
-		await page.keyboard.press("Control+Shift+.");
+		await page.keyboard.press(`${mod}+Shift+.`);
 
 		const content = await editor.textContent();
 		expect(content).toContain("> quote me");
 	});
 
 	test("Ctrl+Shift+7 adds ordered list", async ({ page }) => {
-		const editor = page.locator(".cm-content");
+		const editor = page.locator('[data-stheno-target="editor"] .cm-content');
 		await editor.click();
 		await page.keyboard.type("list item");
 
-		await page.keyboard.press("Control+Shift+7");
+		await page.keyboard.press(`${mod}+Shift+7`);
 
 		const content = await editor.textContent();
 		expect(content).toContain("1. list item");
 	});
 
 	test("Ctrl+Shift+8 adds unordered list", async ({ page }) => {
-		const editor = page.locator(".cm-content");
+		const editor = page.locator('[data-stheno-target="editor"] .cm-content');
 		await editor.click();
 		await page.keyboard.type("list item");
 
-		await page.keyboard.press("Control+Shift+8");
+		await page.keyboard.press(`${mod}+Shift+8`);
 
 		const content = await editor.textContent();
 		expect(content).toContain("* list item");
@@ -89,12 +89,12 @@ test.describe("Toolbar buttons", () => {
 	});
 
 	test("Bold button wraps selection", async ({ page }) => {
-		const editor = page.locator(".cm-content");
+		const editor = page.locator('[data-stheno-target="editor"] .cm-content');
 		await editor.click();
 		await page.keyboard.type("hello world");
 
 		// Select all
-		await page.keyboard.press("Control+a");
+		await page.keyboard.press(`${mod}+a`);
 
 		// Click bold button
 		await page.locator("md-bold").click();
@@ -104,10 +104,10 @@ test.describe("Toolbar buttons", () => {
 	});
 
 	test("Italic button wraps selection", async ({ page }) => {
-		const editor = page.locator(".cm-content");
+		const editor = page.locator('[data-stheno-target="editor"] .cm-content');
 		await editor.click();
 		await page.keyboard.type("hello world");
-		await page.keyboard.press("Control+a");
+		await page.keyboard.press(`${mod}+a`);
 
 		await page.locator("md-italic").click();
 
@@ -116,10 +116,10 @@ test.describe("Toolbar buttons", () => {
 	});
 
 	test("Code button wraps selection", async ({ page }) => {
-		const editor = page.locator(".cm-content");
+		const editor = page.locator('[data-stheno-target="editor"] .cm-content');
 		await editor.click();
 		await page.keyboard.type("code here");
-		await page.keyboard.press("Control+a");
+		await page.keyboard.press(`${mod}+a`);
 
 		await page.locator("md-code").click();
 
@@ -128,7 +128,7 @@ test.describe("Toolbar buttons", () => {
 	});
 
 	test("Quote button prepends >", async ({ page }) => {
-		const editor = page.locator(".cm-content");
+		const editor = page.locator('[data-stheno-target="editor"] .cm-content');
 		await editor.click();
 		await page.keyboard.type("quote me");
 
@@ -139,7 +139,7 @@ test.describe("Toolbar buttons", () => {
 	});
 
 	test("Unordered list button prepends *", async ({ page }) => {
-		const editor = page.locator(".cm-content");
+		const editor = page.locator('[data-stheno-target="editor"] .cm-content');
 		await editor.click();
 		await page.keyboard.type("list item");
 
@@ -150,7 +150,7 @@ test.describe("Toolbar buttons", () => {
 	});
 
 	test("Ordered list button prepends 1.", async ({ page }) => {
-		const editor = page.locator(".cm-content");
+		const editor = page.locator('[data-stheno-target="editor"] .cm-content');
 		await editor.click();
 		await page.keyboard.type("list item");
 
@@ -168,7 +168,7 @@ test.describe("Visual rendering", () => {
 	});
 
 	test("editor displays content correctly", async ({ page }) => {
-		const editor = page.locator(".cm-content");
+		const editor = page.locator('[data-stheno-target="editor"] .cm-content');
 		await editor.click();
 		await page.keyboard.type("**bold text**");
 
@@ -177,7 +177,7 @@ test.describe("Visual rendering", () => {
 	});
 
 	test("code blocks render properly", async ({ page }) => {
-		const editor = page.locator(".cm-content");
+		const editor = page.locator('[data-stheno-target="editor"] .cm-content');
 		await editor.click();
 		await page.keyboard.type("```\ncode block\n```");
 
@@ -185,7 +185,7 @@ test.describe("Visual rendering", () => {
 	});
 
 	test("frontmatter renders correctly", async ({ page }) => {
-		const editor = page.locator(".cm-content");
+		const editor = page.locator('[data-stheno-target="editor"] .cm-content');
 		await editor.click();
 		await page.keyboard.type('---\n{\n  "title": "Test"\n}\n---');
 
@@ -193,7 +193,7 @@ test.describe("Visual rendering", () => {
 	});
 
 	test("multiple formatting types coexist", async ({ page }) => {
-		const editor = page.locator(".cm-content");
+		const editor = page.locator('[data-stheno-target="editor"] .cm-content');
 		await editor.click();
 		await page.keyboard.type("# Heading\n\n**bold** and *italic*\n\n> quote");
 
@@ -211,19 +211,25 @@ test.describe("Toggle behavior", () => {
 	});
 
 	test("bold toggles off when applied to bold text", async ({ page }) => {
-		const editor = page.locator(".cm-content");
+		const editor = page.locator('[data-stheno-target="editor"] .cm-content');
 		await editor.click();
 		await page.keyboard.type("**hello**");
 
-		// Select the bold text
+		// Select "hello" inside the ** markers (positions 2-7)
 		await page.keyboard.press("Home");
-		await page.keyboard.press("Shift+End");
+		// Move past opening **
+		await page.keyboard.press("ArrowRight");
+		await page.keyboard.press("ArrowRight");
+		// Select "hello" (5 characters)
+		for (let i = 0; i < 5; i++) {
+			await page.keyboard.press("Shift+ArrowRight");
+		}
 
 		// Toggle bold off
-		await page.keyboard.press("Control+b");
+		await page.keyboard.press(`${mod}+b`);
 
 		const content = await editor.textContent();
-		// Should have removed some of the ** markers
+		// Should have removed the ** markers
 		expect(content?.includes("**")).toBeFalsy();
 	});
 });
