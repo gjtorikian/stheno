@@ -1,6 +1,9 @@
 import { EditorState } from "@codemirror/state";
 import { EditorView } from "@codemirror/view";
 import { Controller } from "@hotwired/stimulus";
+import { marked } from "marked";
+import { html } from "@codemirror/lang-html";
+import { syntaxHighlighting, defaultHighlightStyle } from "@codemirror/language";
 
 import {
   createPrependLinesCommand,
@@ -19,20 +22,21 @@ interface SthenoEventObject extends Event {
 }
 
 // data-controller="stheno"
-export default class extends Controller<HTMLFormElement> {
+export default class extends Controller<HTMLDivElement> {
   // The CodeMirror EditorView that will be used by the system
   view: EditorView;
+  // The CodeMirror EditorView for HTML output display
+  outputView: EditorView;
 
   // data-stheno-target="editor"
-  // data-stheno-target="formInput"
+  // data-stheno-target="output"
   // data-stheno-target="toolbar"
-  static targets: string[] = ["editor", "formInput", "toolbar"];
+  static targets: string[] = ["editor", "output", "toolbar"];
   declare readonly hasEditorTarget: boolean;
   declare readonly editorTargets: HTMLDivElement[];
   declare readonly editorTarget: HTMLDivElement;
-  declare readonly hasFormInputTarget: boolean;
-  declare readonly formInputTarget: HTMLInputElement;
-  declare readonly formInputTargets: HTMLInputElement[];
+  declare readonly hasOutputTarget: boolean;
+  declare readonly outputTarget: HTMLDivElement;
 
   // data-stheno-value="/submit-msg"
   // data-stheno-lang-value="json"
@@ -78,8 +82,39 @@ export default class extends Controller<HTMLFormElement> {
               }
             },
           }),
+          EditorView.updateListener.of((update) => {
+            if (update.docChanged) {
+              this.updateOutput();
+            }
+          }),
         ),
       ),
+    });
+
+    // Create read-only HTML output viewer
+    this.outputView = new EditorView({
+      parent: this.outputTarget,
+      state: EditorState.create({
+        doc: "",
+        extensions: [
+          html(),
+          syntaxHighlighting(defaultHighlightStyle),
+          EditorState.readOnly.of(true),
+        ],
+      }),
+    });
+  }
+
+  updateOutput(): void {
+    const markdown = this.view.state.doc.toString();
+    const htmlOutput = marked.parse(markdown, { async: false }) as string;
+
+    this.outputView.dispatch({
+      changes: {
+        from: 0,
+        to: this.outputView.state.doc.length,
+        insert: htmlOutput,
+      },
     });
   }
 
@@ -118,19 +153,4 @@ export default class extends Controller<HTMLFormElement> {
     console.log("@mention");
   }
 
-  submit(event: Event) {
-    // Update the hidden form input with the state of the editor
-    this.formInputTarget.value = this.view.state.doc.toString();
-    console.log(this.view.state.doc.toString());
-    // Dispatch a transaction to clear the editor
-    this.view.dispatch({
-      changes: [
-        {
-          from: 0,
-          to: this.view.state.doc.length,
-          insert: "",
-        },
-      ],
-    });
-  }
 }
