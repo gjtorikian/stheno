@@ -1,5 +1,6 @@
+import type { Extension } from "@codemirror/state";
+
 import { HighlightStyle, syntaxHighlighting } from "@codemirror/language";
-import { Extension } from "@codemirror/state";
 import { EditorView } from "@codemirror/view";
 import { tags as t } from "@lezer/highlight";
 
@@ -198,7 +199,4 @@ export const yettoDarkHighlightStyle = HighlightStyle.define([
   { tag: t.strikethrough, textDecoration: "line-through" },
 ]);
 
-export const yettoDark: Extension = [
-  yettoDarkTheme,
-  syntaxHighlighting(yettoDarkHighlightStyle),
-];
+export const yettoDark: Extension = [yettoDarkTheme, syntaxHighlighting(yettoDarkHighlightStyle)];

@@ -1,5 +1,6 @@
+import type { Command, EditorView } from "@codemirror/view";
+
 import { Compartment } from "@codemirror/state";
-import { Command, EditorView } from "@codemirror/view";
 
 import { yettoDark } from "./yettoDark";
 import { yettoLight } from "./yettoLight";

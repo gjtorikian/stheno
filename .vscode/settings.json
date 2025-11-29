@@ -1,12 +1,19 @@
 {
-  "[html]": {
-    "editor.defaultFormatter": "vscode.html-language-features"
+  "oxc.enable": true,
+  "oxc.lint.run": "onType",
+  "oxc.fmt.experimental": true,
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.oxc": "explicit"
   },
   "[javascript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
+    "editor.defaultFormatter": "oxc.oxc-vscode"
   },
   "[typescript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
   },
   "[json]": {
     "editor.defaultFormatter": "vscode.json-language-features"

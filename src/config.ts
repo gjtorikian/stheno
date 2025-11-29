@@ -1,6 +1,7 @@
+import type { LanguageSupport } from "@codemirror/language";
+
 import { liquid } from "@codemirror/lang-liquid";
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
-import { LanguageSupport } from "@codemirror/language";
 import { languages } from "@codemirror/language-data";
 import { Compartment } from "@codemirror/state";
 import { Tag, tags } from "@lezer/highlight";

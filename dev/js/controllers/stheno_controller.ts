@@ -1,37 +1,38 @@
-import { Controller } from "@hotwired/stimulus"
-import { EditorView } from "@codemirror/view"
-import { EditorState } from "@codemirror/state"
+import { EditorState } from "@codemirror/state";
+import { EditorView } from "@codemirror/view";
+import { Controller } from "@hotwired/stimulus";
+
 import {
   createPrependLinesCommand,
   createWrapTextCommand,
   getSthenoConfig,
   images,
-} from "../../../src/index"
-import { toggleTheme } from "../../../src/themes/index"
+} from "../../../src/index";
+import { toggleTheme } from "../../../src/themes/index";
 
 interface SthenoEventObject extends Event {
   params: {
-    mark?: string
-    ordered?: boolean
-    blockType?: "orderedList" | "unorderedList" | "quote" | "taskList"
-  }
+    mark?: string;
+    ordered?: boolean;
+    blockType?: "orderedList" | "unorderedList" | "quote" | "taskList";
+  };
 }
 
 // data-controller="stheno"
 export default class extends Controller<HTMLFormElement> {
   // The CodeMirror EditorView that will be used by the system
-  view: EditorView
+  view: EditorView;
 
   // data-stheno-target="editor"
   // data-stheno-target="formInput"
   // data-stheno-target="toolbar"
-  static targets: string[] = ['editor', 'formInput', 'toolbar']
-  declare readonly hasEditorTarget: boolean
-  declare readonly editorTargets: HTMLDivElement[]
-  declare readonly editorTarget: HTMLDivElement
-  declare readonly hasFormInputTarget: boolean
-  declare readonly formInputTarget: HTMLInputElement
-  declare readonly formInputTargets: HTMLInputElement[]
+  static targets: string[] = ["editor", "formInput", "toolbar"];
+  declare readonly hasEditorTarget: boolean;
+  declare readonly editorTargets: HTMLDivElement[];
+  declare readonly editorTarget: HTMLDivElement;
+  declare readonly hasFormInputTarget: boolean;
+  declare readonly formInputTarget: HTMLInputElement;
+  declare readonly formInputTargets: HTMLInputElement[];
 
   // data-stheno-value="/submit-msg"
   // data-stheno-lang-value="json"
@@ -40,91 +41,96 @@ export default class extends Controller<HTMLFormElement> {
     lang: {
       type: String,
       default: "markdown",
-    }
-  }
-  declare readonly hasActionValue: boolean
-  declare actionValue: string
-  declare langValue: string
+    },
+  };
+  declare readonly hasActionValue: boolean;
+  declare actionValue: string;
+  declare langValue: string;
 
   connect(): void {
     this.view = new EditorView({
       parent: this.editorTarget,
-      state: EditorState.create(getSthenoConfig(this.langValue,
-        images({
-          container: "flex justify-center items-center shadow-inner bg-neutral-200 p-4 my-2",
-          img: "object-scale-down h-72"
-        }),
-        EditorView.domEventHandlers({
-          dragenter(event, view) {
-            event.preventDefault()
-          },
-          drop(event) {
-            event.preventDefault()
-            console.log(event)
-            console.table(event.dataTransfer)
-          },
-          paste(event: ClipboardEvent) {
-            console.log(event)
-            console.log('why?', event.clipboardData?.items)
-            console.log(event.clipboardData?.files)
-            if (event.clipboardData?.items) {
-              event.preventDefault()
-              console.log("Paste had files, skipping normal work")
-            } else {
-              console.log("normal paste event")
-            }
-          }
-        })
-      ))
-    })
+      state: EditorState.create(
+        getSthenoConfig(
+          this.langValue,
+          images({
+            container: "flex justify-center items-center shadow-inner bg-neutral-200 p-4 my-2",
+            img: "object-scale-down h-72",
+          }),
+          EditorView.domEventHandlers({
+            dragenter(event, view) {
+              event.preventDefault();
+            },
+            drop(event) {
+              event.preventDefault();
+              console.log(event);
+              console.table(event.dataTransfer);
+            },
+            paste(event: ClipboardEvent) {
+              console.log(event);
+              console.log("why?", event.clipboardData?.items);
+              console.log(event.clipboardData?.files);
+              if (event.clipboardData?.items) {
+                event.preventDefault();
+                console.log("Paste had files, skipping normal work");
+              } else {
+                console.log("normal paste event");
+              }
+            },
+          }),
+        ),
+      ),
+    });
   }
 
   wrap({ params }: SthenoEventObject): void {
-    if (!params.mark) return
+    if (!params.mark) return;
     // Map mark to AST node name for the command
     const nodeNameMap: Record<string, string> = {
       "**": "StrongEmphasis",
       "*": "Emphasis",
-      "_": "Emphasis",
+      _: "Emphasis",
       "`": "InlineCode",
-    }
-    createWrapTextCommand(this.view, nodeNameMap[params.mark] || "StrongEmphasis", params.mark)
-    this.view.focus()
+    };
+    createWrapTextCommand(this.view, nodeNameMap[params.mark] || "StrongEmphasis", params.mark);
+    this.view.focus();
   }
 
   prependLine({ params }: SthenoEventObject): void {
     // Determine block type from params
-    const type = params.blockType || (params.ordered ? "orderedList" : "unorderedList")
-    createPrependLinesCommand(this.view, type)
-    this.view.focus()
+    const type = params.blockType || (params.ordered ? "orderedList" : "unorderedList");
+    createPrependLinesCommand(this.view, type);
+    this.view.focus();
   }
 
   switchTheme() {
-    toggleTheme(this.view)
-    this.view.focus()
+    toggleTheme(this.view);
+    this.view.focus();
   }
 
-  link(): void { }
+  link(): void {}
 
   image(): void {
-    console.log('![image-alt-text](image-url)')
+    console.log("![image-alt-text](image-url)");
   }
 
   mention(): void {
-    console.log('@mention')
+    console.log("@mention");
   }
 
   submit(event: Event) {
     // Update the hidden form input with the state of the editor
-    this.formInputTarget.value = this.view.state.doc.toString()
-    console.log(this.view.state.doc.toString())
+    this.formInputTarget.value = this.view.state.doc.toString();
+    console.log(this.view.state.doc.toString());
     // Dispatch a transaction to clear the editor
     this.view.dispatch({
-      changes: [{
-        from: 0,
-        to: this.view.state.doc.length,
-        insert: ""
-      }]
-    })
+      changes: [
+        {
+          from: 0,
+          to: this.view.state.doc.length,
+          insert: "",
+        },
+      ],
+    });
   }
 }

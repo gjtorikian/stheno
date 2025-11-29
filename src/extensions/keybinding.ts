@@ -1,7 +1,7 @@
-import {
-  closeBracketsKeymap,
-  completionKeymap,
-} from "@codemirror/autocomplete";
+import type { Extension } from "@codemirror/state";
+import type { KeyBinding } from "@codemirror/view";
+
+import { closeBracketsKeymap, completionKeymap } from "@codemirror/autocomplete";
 import {
   defaultKeymap as codemirrorDefaultKeymap,
   historyKeymap,
@@ -10,9 +10,7 @@ import {
 } from "@codemirror/commands";
 import { lintKeymap } from "@codemirror/lint";
 import { searchKeymap } from "@codemirror/search";
-import type { Extension } from "@codemirror/state";
 import { Compartment, Transaction } from "@codemirror/state";
-import type { KeyBinding } from "@codemirror/view";
 import { keymap } from "@codemirror/view";
 
 import {

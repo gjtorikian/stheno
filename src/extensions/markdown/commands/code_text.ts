@@ -1,5 +1,6 @@
-import { ChangeSpec, EditorSelection, SelectionRange } from "@codemirror/state";
 import type { Command, KeyBinding } from "@codemirror/view";
+
+import { ChangeSpec, EditorSelection, SelectionRange } from "@codemirror/state";
 
 import { getCodeNode, isMultipleLines } from ".";
 import { createWrapTextCommand } from "./inline";
@@ -44,10 +45,7 @@ const code: Command = (view) => {
   const changes: ChangeSpec[] = [];
   let selection: SelectionRange | undefined = undefined;
 
-  if (
-    !selMulti &&
-    (node?.name === "InlineCode" || (!node && !noSelAndStartingOfLine))
-  ) {
+  if (!selMulti && (node?.name === "InlineCode" || (!node && !noSelAndStartingOfLine))) {
     return createWrapTextCommand(view, "InlineCode", "`");
   }
 
@@ -92,15 +90,9 @@ const code: Command = (view) => {
     if (range.empty) {
       const placeholderText = "code";
       changes.push({ from: range.from, insert: `\`${placeholderText}\`` });
-      selection = EditorSelection.range(
-        range.from + 1,
-        range.from + 1 + placeholderText.length,
-      );
+      selection = EditorSelection.range(range.from + 1, range.from + 1 + placeholderText.length);
     } else {
-      changes.push(
-        { from: range.from, insert: "```\n" },
-        { from: range.to, insert: "\n```" },
-      );
+      changes.push({ from: range.from, insert: "```\n" }, { from: range.to, insert: "\n```" });
       selection = EditorSelection.range(range.anchor + 4, range.head + 4);
     }
   }

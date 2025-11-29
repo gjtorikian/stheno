@@ -1,8 +1,4 @@
-import {
-  Completion,
-  CompletionContext,
-  snippet,
-} from "@codemirror/autocomplete";
+import { type Completion, type CompletionContext, snippet } from "@codemirror/autocomplete";
 
 const options: Completion[] = [
   {

@@ -1,14 +1,10 @@
+import type { BlockContext, BlockParser, Element, InlineContext } from "@lezer/markdown";
+
 import { type Parser, Tree } from "@lezer/common";
-import {
-  type BlockContext,
-  type BlockParser,
-  type Element,
-  type InlineContext,
-} from "@lezer/markdown";
 import { parser as jsoncParser } from "@yettoapp/lezer-jsonc";
 
 const FRONTMATTER_START = "--{";
-const FRONTMATTER_END = new RegExp("^}--$");
+const FRONTMATTER_END = /^}--$/;
 
 function partialParse(
   ctx: BlockContext | InlineContext,
@@ -79,12 +75,7 @@ export const frontmatterParser: BlockParser = {
     // a tree that we can then simply convert into the format consumed by
     // Codemirror. Keep in mind that we need to add the `{ }` back in, since
     // we've slurped them up as part of the frontmatter delimiters.
-    const treeElem = partialParse(
-      ctx,
-      jsoncParser,
-      `{${jsoncLines.join("\n")}`,
-      from,
-    );
+    const treeElem = partialParse(ctx, jsoncParser, `{${jsoncLines.join("\n")}`, from);
 
     const wrapperNode = ctx.elt("FencedCode", 0, ctx.lineStart + 3, [
       ctx.elt("JSONCFrontmatterStart", 0, 3),

@@ -1,15 +1,11 @@
+import type { Extension } from "@codemirror/state";
+
 import { autocompletion, closeBrackets } from "@codemirror/autocomplete";
 import { history } from "@codemirror/commands";
 import { bracketMatching, indentOnInput } from "@codemirror/language";
 import { highlightSelectionMatches } from "@codemirror/search";
-import type { Extension } from "@codemirror/state";
 import { EditorState } from "@codemirror/state";
-import {
-  drawSelection,
-  dropCursor,
-  EditorView,
-  highlightSpecialChars,
-} from "@codemirror/view";
+import { drawSelection, dropCursor, EditorView, highlightSpecialChars } from "@codemirror/view";
 
 import { LANGUAGE, markdownWithJSONCFrontmatterConfig } from "./config";
 import { KEYBINDINGS, keymaps } from "./extensions/keybinding";
@@ -33,18 +29,14 @@ export {
   TaskList,
 } from "./extensions/markdown/commands/index";
 
-const darkColorScheme = window.matchMedia(
-  "(prefers-color-scheme: dark)",
-).matches;
+const darkColorScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
 export const setupThemeListener = (editorView: EditorView) => {
-  window
-    .matchMedia("(prefers-color-scheme: dark)")
-    .addEventListener("change", ({ matches }) => {
-      editorView.dispatch({
-        effects: THEME.reconfigure(matches ? yettoDark : yettoLight),
-      });
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+    editorView.dispatch({
+      effects: THEME.reconfigure(matches ? yettoDark : yettoLight),
     });
+  });
 };
 
 export const sthenoConfig = () => [
@@ -68,9 +60,6 @@ export const sthenoConfig = () => [
 ];
 
 // Alias for backward compatibility
-export const getSthenoConfig = (
-  _lang: string,
-  ...extensions: Extension[]
-) => ({
+export const getSthenoConfig = (_lang: string, ...extensions: Extension[]) => ({
   extensions: [...sthenoConfig(), ...extensions],
 });

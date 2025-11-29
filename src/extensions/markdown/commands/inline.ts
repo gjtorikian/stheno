@@ -1,15 +1,12 @@
+import type { SyntaxNode } from "@lezer/common";
+
 import { syntaxTree } from "@codemirror/language";
 import { EditorSelection } from "@codemirror/state";
 import { EditorView } from "@codemirror/view";
-import type { SyntaxNode } from "@lezer/common";
 
 import { getCodeNode, isMultipleLines, isWithinMarkdown } from ".";
 
-export function createWrapTextCommand(
-  view: EditorView,
-  nodeName: string,
-  mark: string,
-): boolean {
+export function createWrapTextCommand(view: EditorView, nodeName: string, mark: string): boolean {
   return toggleInline(view, nodeName, mark);
 }
 
@@ -32,10 +29,7 @@ function toggleInline(view: EditorView, nodeName: string, mark: string) {
           insert: `${mark}${placeholderText}${mark}`,
           to: 0,
         },
-        selection: EditorSelection.range(
-          markLength,
-          markLength + placeholderText.length,
-        ),
+        selection: EditorSelection.range(markLength, markLength + placeholderText.length),
         userEvent: `toggle.${nodeName}`,
       }),
     );
@@ -53,10 +47,7 @@ function toggleInline(view: EditorView, nodeName: string, mark: string) {
       const placeholderText = "text"; // Simple placeholder
       return {
         changes: [{ from: from, insert: `${mark}${placeholderText}${mark}` }],
-        range: EditorSelection.range(
-          from + markLength,
-          from + markLength + placeholderText.length,
-        ),
+        range: EditorSelection.range(from + markLength, from + markLength + placeholderText.length),
       };
     }
 
@@ -101,8 +92,7 @@ function toggleInline(view: EditorView, nodeName: string, mark: string) {
     }
 
     node = getCodeNode(view, from);
-    if (node?.name === "CodeBlock" || node?.name === "FencedCode")
-      return (dont = { range });
+    if (node?.name === "CodeBlock" || node?.name === "FencedCode") return (dont = { range });
 
     const fromNode = tree.resolveInner(from);
     const toNode = tree.resolveInner(to);
@@ -130,10 +120,7 @@ function toggleInline(view: EditorView, nodeName: string, mark: string) {
         { from: from, insert: mark },
         { from: to, insert: mark },
       ],
-      range: EditorSelection.range(
-        range.anchor + markLength,
-        range.head + markLength,
-      ),
+      range: EditorSelection.range(range.anchor + markLength, range.head + markLength),
     };
   });
 

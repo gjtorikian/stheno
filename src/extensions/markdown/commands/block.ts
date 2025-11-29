@@ -26,10 +26,7 @@ enum BlockTypes {
   UnorderedList = "unorderedList",
 }
 
-export function createPrependLinesCommand(
-  view: EditorView,
-  type: string,
-): boolean {
+export function createPrependLinesCommand(view: EditorView, type: string): boolean {
   return toggleBlock(view, type as BlockTypes);
 }
 
@@ -59,10 +56,7 @@ function toggleBlock(view: EditorView, type: BlockTypes) {
           insert: `${mark}${placeholderText}`,
           to: 0,
         },
-        selection: EditorSelection.range(
-          mark.length,
-          mark.length + placeholderText.length,
-        ),
+        selection: EditorSelection.range(mark.length, mark.length + placeholderText.length),
         userEvent: `toggle.${type}`,
       }),
     );
@@ -90,9 +84,7 @@ function toggleBlock(view: EditorView, type: BlockTypes) {
         mark = BlockMarks[type];
       }
 
-      const text = exist
-        ? line.text.replace(regExp, "$1")
-        : `${mark}${line.text}`;
+      const text = exist ? line.text.replace(regExp, "$1") : `${mark}${line.text}`;
 
       changes.push({ from: line.from, insert: text, to: line.to });
 

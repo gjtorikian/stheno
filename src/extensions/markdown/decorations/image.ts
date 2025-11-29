@@ -1,7 +1,8 @@
-import { syntaxTree } from "@codemirror/language";
 import type { EditorState, Extension, Range } from "@codemirror/state";
-import { RangeSet, StateField } from "@codemirror/state";
 import type { DecorationSet } from "@codemirror/view";
+
+import { syntaxTree } from "@codemirror/language";
+import { RangeSet, StateField } from "@codemirror/state";
 import { Decoration, EditorView, WidgetType } from "@codemirror/view";
 
 interface ImageExtensionParams {
@@ -41,9 +42,7 @@ class ImageWidget extends WidgetType {
   }
 }
 
-export const images = (
-  styles: ImageExtensionParams | null = null,
-): Extension => {
+export const images = (styles: ImageExtensionParams | null = null): Extension => {
   const imageRegex = /!\[.*?\]\((?<url>.*?\.(png|jpeg|jpg|gif|ico))\)/;
 
   const imageDecoration = (imageWidgetParams: ImageWidgetParams) =>
@@ -67,9 +66,7 @@ export const images = (
               ...(styles && { classes: styles }),
             };
 
-            widgets.push(
-              imageDecoration(widgetParams).range(state.doc.lineAt(to).to),
-            );
+            widgets.push(imageDecoration(widgetParams).range(state.doc.lineAt(to).to));
           }
         }
       },
