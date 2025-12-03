@@ -7,10 +7,12 @@ import { EditorView } from "@codemirror/view";
 import { getCodeNode, isMultipleLines, isWithinMarkdown } from ".";
 
 export function createWrapTextCommand(view: EditorView, nodeName: string, mark: string): boolean {
-  return toggleInline(view, nodeName, mark);
+  return insertMarker(view, nodeName, mark);
 }
 
-function toggleInline(view: EditorView, nodeName: string, mark: string) {
+const PLACEHOLDER_TEXT = "";
+const PLACEHOLDER_LENGTH = PLACEHOLDER_TEXT.length;
+function insertMarker(view: EditorView, nodeName: string, mark: string) {
   const { dispatch, state } = view;
   if (state.readOnly) return false;
 
@@ -21,15 +23,14 @@ function toggleInline(view: EditorView, nodeName: string, mark: string) {
       state.selection.main.from === 0 &&
       state.doc.line(1).length === 0)
   ) {
-    const placeholderText = "text"; // Simple placeholder
     dispatch(
       state.update({
         changes: {
           from: 0,
-          insert: `${mark}${placeholderText}${mark}`,
+          insert: `${mark}${PLACEHOLDER_TEXT}${mark}`,
           to: 0,
         },
-        selection: EditorSelection.range(markLength, markLength + placeholderText.length),
+        selection: EditorSelection.range(markLength, markLength + PLACEHOLDER_LENGTH),
         userEvent: `toggle.${nodeName}`,
       }),
     );
@@ -44,10 +45,9 @@ function toggleInline(view: EditorView, nodeName: string, mark: string) {
     const { from, to } = range;
 
     if (range.empty) {
-      const placeholderText = "text"; // Simple placeholder
       return {
-        changes: [{ from: from, insert: `${mark}${placeholderText}${mark}` }],
-        range: EditorSelection.range(from + markLength, from + markLength + placeholderText.length),
+        changes: [{ from: from, insert: `${mark}${PLACEHOLDER_TEXT}${mark}` }],
+        range: EditorSelection.range(from + markLength, from + markLength + PLACEHOLDER_LENGTH),
       };
     }
 
@@ -57,7 +57,7 @@ function toggleInline(view: EditorView, nodeName: string, mark: string) {
     let node: null | SyntaxNode = tree.resolveInner(range.from);
 
     // cannot have inline nodes within these nodes
-    if (["Image", "Link", "LinkMark", "LinkTitle", "URL"].includes(node.name))
+    if (["Image", "Link", "LinkMark", "LinkTitle", "URL", "CodeText"].includes(node.name))
       return (dont = { range });
 
     // if the selection is not empty, we need to check if the selection is within a node
