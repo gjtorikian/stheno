@@ -43,6 +43,11 @@
 
   /* Liquid */
   --stheno-liquid-color: #005cc5;
+
+  /* Lists */
+  --stheno-list-bullet-color: #6a737d;
+  --stheno-blockquote-border-color: #dfe2e5;
+  --stheno-blockquote-text-color: #6a737d;
 }
 
 /* ============================================
@@ -87,6 +92,11 @@
 
   /* Liquid */
   --stheno-liquid-color: #ee3ff6;
+
+  /* Lists */
+  --stheno-list-bullet-color: #8b949e;
+  --stheno-blockquote-border-color: #30363d;
+  --stheno-blockquote-text-color: #8b949e;
 }
 
 /* ============================================
@@ -203,4 +213,63 @@
 
 .stheno-liquid-brace {
   color: var(--stheno-liquid-color);
+}
+
+/* ============================================
+   List Styling
+   ============================================ */
+
+/* Line-level list classes */
+.stheno-line-ul,
+.stheno-line-ol {
+  /* Base list line styling */
+}
+
+/* List item nesting depth */
+.stheno-line-li-1 {
+  padding-left: 0;
+}
+
+.stheno-line-li-2 {
+  padding-left: 2ch;
+}
+
+.stheno-line-li-3 {
+  padding-left: 4ch;
+}
+
+.stheno-line-li-4 {
+  padding-left: 6ch;
+}
+
+.stheno-line-li-5 {
+  padding-left: 8ch;
+}
+
+/* List bullet styling */
+.stheno-list-bullet {
+  color: var(--stheno-list-bullet-color);
+  user-select: none;
+}
+
+/* Task list styling */
+.stheno-line-task {
+  /* Task line styling */
+}
+
+.stheno-task-marker {
+  color: var(--stheno-list-bullet-color);
+  user-select: none;
+}
+
+.stheno-task-checked {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+/* Blockquote styling */
+.stheno-line-blockquote {
+  border-left: 3px solid var(--stheno-blockquote-border-color);
+  padding-left: 1em;
+  color: var(--stheno-blockquote-text-color);
 }

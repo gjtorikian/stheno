@@ -26,7 +26,7 @@ enum BlockTypes {
   UnorderedList = "unorderedList",
 }
 
-export function createPrependLinesCommand(view: EditorView, type: string): boolean {
+export function createMultiLineCommand(view: EditorView, type: string): boolean {
   return toggleBlock(view, type as BlockTypes);
 }
 

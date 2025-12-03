@@ -11,12 +11,14 @@ import { LANGUAGE, markdownWithJSONCFrontmatterConfig } from "./config";
 import { KEYBINDINGS, keymaps } from "./extensions/keybinding";
 import { sthenoHighlighting, THEME, yettoDark, yettoLight } from "./themes/index";
 
-// Re-export decorations
+// Re-export disableable decorations
 export { images } from "./extensions/markdown/decorations/image";
+
+import { lists } from "./extensions/markdown/decorations/lists";
 
 // Re-export commands for programmatic use (toolbar buttons, etc.)
 export { createWrapTextCommand } from "./extensions/markdown/commands/inline";
-export { createPrependLinesCommand } from "./extensions/markdown/commands/block";
+export { createMultiLineCommand } from "./extensions/markdown/commands/block";
 
 // Re-export keybindings (for keyboard shortcuts)
 export {
@@ -69,6 +71,7 @@ export const sthenoConfig = () => [
   //   autocomplete: markdownCompletions,
   // }),
   sthenoHighlighting,
+  lists(),
 ];
 
 // Alias for backward compatibility
