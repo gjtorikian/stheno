@@ -14,6 +14,7 @@ import { sthenoHighlighting, THEME, yettoDark, yettoLight } from "./themes/index
 // Re-export disableable decorations
 export { images } from "./extensions/markdown/decorations/image";
 
+import { heading } from "./extensions/markdown/decorations/heading";
 import { horizontalRule } from "./extensions/markdown/decorations/horizontal_rule";
 import { lists } from "./extensions/markdown/decorations/lists";
 
@@ -75,6 +76,7 @@ export const sthenoConfig = () => [
   //   autocomplete: markdownCompletions,
   // }),
   sthenoHighlighting,
+  heading(),
   lists(),
   horizontalRule(),
 ];
