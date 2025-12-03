@@ -1,25 +1,13 @@
+import { marked } from "marked";
+
+import { html } from "@codemirror/lang-html";
+import { syntaxHighlighting, defaultHighlightStyle } from "@codemirror/language";
 import { EditorState } from "@codemirror/state";
 import { EditorView } from "@codemirror/view";
 import { Controller } from "@hotwired/stimulus";
-import { marked } from "marked";
-import { html } from "@codemirror/lang-html";
-import { syntaxHighlighting, defaultHighlightStyle } from "@codemirror/language";
 
-import {
-  createPrependLinesCommand,
-  createWrapTextCommand,
-  getSthenoConfig,
-  images,
-} from "../../../src/index";
+import { getSthenoConfig, images } from "../../../src/index";
 import { toggleTheme } from "../../../src/themes/index";
-
-interface SthenoEventObject extends Event {
-  params: {
-    mark?: string;
-    ordered?: boolean;
-    blockType?: "orderedList" | "unorderedList" | "quote" | "taskList";
-  };
-}
 
 // data-controller="stheno"
 export default class extends Controller<HTMLDivElement> {
@@ -118,26 +106,6 @@ export default class extends Controller<HTMLDivElement> {
     });
   }
 
-  wrap({ params }: SthenoEventObject): void {
-    if (!params.mark) return;
-    // Map mark to AST node name for the command
-    const nodeNameMap: Record<string, string> = {
-      "**": "StrongEmphasis",
-      "*": "Emphasis",
-      _: "Emphasis",
-      "`": "InlineCode",
-    };
-    createWrapTextCommand(this.view, nodeNameMap[params.mark] || "StrongEmphasis", params.mark);
-    this.view.focus();
-  }
-
-  prependLine({ params }: SthenoEventObject): void {
-    // Determine block type from params
-    const type = params.blockType || (params.ordered ? "orderedList" : "unorderedList");
-    createPrependLinesCommand(this.view, type);
-    this.view.focus();
-  }
-
   switchTheme() {
     toggleTheme(this.view);
     this.view.focus();
@@ -152,5 +120,4 @@ export default class extends Controller<HTMLDivElement> {
   mention(): void {
     console.log("@mention");
   }
-
 }
