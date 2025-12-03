@@ -1,34 +1,18 @@
 import type { Extension } from "@codemirror/state";
 
-import { HighlightStyle, syntaxHighlighting } from "@codemirror/language";
 import { EditorView } from "@codemirror/view";
-import { tags as t } from "@lezer/highlight";
 
 export const config = {
   activeLine: "rgba(186, 23, 186, 0.15)",
   background: "transparent",
-  class: "#ee3ff6",
-  comment: "#94a3b8",
-  constant: "#f874fe",
   cursor: "#f1f5f9",
   dark: true,
   dropdownBackground: "rgba(24, 24, 27, 0.8)",
   dropdownBorder: "rgba(255, 255, 255, 0.1)",
   foreground: "#f1f5f9",
-  function: "#ba17ba",
-  heading: "#ee3ff6",
-  invalid: "#ef4444",
-  keyword: "#d61fda",
   matchingBracket: "rgba(214, 31, 218, 0.3)",
   name: "yettoDark",
-  number: "#f874fe",
-  parameter: "#fb923c",
-  regexp: "#ee3ff6",
   selection: "rgba(214, 31, 218, 0.3)",
-  storage: "#d61fda",
-  string: "#f874fe",
-  type: "#ee3ff6",
-  variable: "#fb923c",
 };
 
 export const yettoDarkTheme = EditorView.theme(
@@ -36,6 +20,7 @@ export const yettoDarkTheme = EditorView.theme(
     "&": {
       backgroundColor: config.background,
       color: config.foreground,
+      fontFamily: "'IBM Plex Mono', monospace",
     },
 
     "&.cm-editor": {
@@ -164,39 +149,4 @@ export const yettoDarkTheme = EditorView.theme(
   { dark: config.dark },
 );
 
-export const yettoDarkHighlightStyle = HighlightStyle.define([
-  { color: config.keyword, tag: t.keyword },
-  {
-    color: config.variable,
-    tag: [t.name, t.deleted, t.character, t.macroName],
-  },
-  { color: config.function, tag: [t.propertyName] },
-  {
-    color: config.string,
-    tag: [t.processingInstruction, t.string, t.inserted, t.special(t.string)],
-  },
-  { color: config.function, tag: [t.function(t.variableName), t.labelName] },
-  {
-    color: config.constant,
-    tag: [t.color, t.constant(t.name), t.standard(t.name)],
-  },
-  { color: config.variable, tag: [t.definition(t.name), t.separator] },
-  { color: config.class, tag: [t.className] },
-  {
-    color: config.number,
-    tag: [t.number, t.changed, t.annotation, t.modifier, t.self, t.namespace],
-  },
-  { color: config.type, fontStyle: config.type, tag: [t.typeName] },
-  { color: config.keyword, tag: [t.operator, t.operatorKeyword] },
-  { color: config.regexp, tag: [t.url, t.escape, t.regexp, t.link] },
-  { color: config.comment, tag: [t.meta, t.comment] },
-  { fontWeight: "bold", tag: t.strong },
-  { fontStyle: "italic", tag: t.emphasis },
-  { tag: t.link, textDecoration: "underline" },
-  { color: config.heading, fontWeight: "bold", tag: t.heading },
-  { color: config.variable, tag: [t.atom, t.bool, t.special(t.variableName)] },
-  { color: config.invalid, tag: t.invalid },
-  { tag: t.strikethrough, textDecoration: "line-through" },
-]);
-
-export const yettoDark: Extension = [yettoDarkTheme, syntaxHighlighting(yettoDarkHighlightStyle)];
+export const yettoDark: Extension = yettoDarkTheme;

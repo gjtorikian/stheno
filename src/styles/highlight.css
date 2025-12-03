@@ -1,0 +1,206 @@
+/* Stheno Syntax Highlighting CSS Variables
+ * Light theme (default) and dark theme with CSS custom properties
+ */
+
+/* ============================================
+   Light Theme (Default)
+   ============================================ */
+:root {
+  /* Keywords and operators */
+  --stheno-keyword-color: #d73a49;
+  --stheno-operator-color: #d73a49;
+
+  /* Names and identifiers */
+  --stheno-name-color: #e36209;
+  --stheno-property-color: #005cc5;
+  --stheno-function-color: #005cc5;
+  --stheno-definition-color: #e36209;
+  --stheno-class-color: #6f42c1;
+  --stheno-type-color: #005cc5;
+
+  /* Literals */
+  --stheno-string-color: #032f62;
+  --stheno-number-color: #005cc5;
+  --stheno-constant-color: #005cc5;
+  --stheno-atom-color: #e36209;
+
+  /* URLs and links */
+  --stheno-url-color: #032f62;
+  --stheno-link-color: #005cc5;
+
+  /* Comments and meta */
+  --stheno-comment-color: #6a737d;
+  --stheno-meta-color: #6a737d;
+
+  /* Headings */
+  --stheno-heading-color: #005cc5;
+
+  /* Invalid */
+  --stheno-invalid-color: #cb2431;
+
+  /* Frontmatter */
+  --stheno-frontmatter-color: #6a737d;
+
+  /* Liquid */
+  --stheno-liquid-color: #005cc5;
+}
+
+/* ============================================
+   Dark Theme
+   ============================================ */
+[data-theme="dark"],
+.stheno-dark {
+  /* Keywords and operators */
+  --stheno-keyword-color: #d61fda;
+  --stheno-operator-color: #d61fda;
+
+  /* Names and identifiers */
+  --stheno-name-color: #fb923c;
+  --stheno-property-color: #ba17ba;
+  --stheno-function-color: #ba17ba;
+  --stheno-definition-color: #fb923c;
+  --stheno-class-color: #ee3ff6;
+  --stheno-type-color: #ee3ff6;
+
+  /* Literals */
+  --stheno-string-color: #f874fe;
+  --stheno-number-color: #f874fe;
+  --stheno-constant-color: #f874fe;
+  --stheno-atom-color: #fb923c;
+
+  /* URLs and links */
+  --stheno-url-color: #ee3ff6;
+  --stheno-link-color: #ee3ff6;
+
+  /* Comments and meta */
+  --stheno-comment-color: #94a3b8;
+  --stheno-meta-color: #94a3b8;
+
+  /* Headings */
+  --stheno-heading-color: #ee3ff6;
+
+  /* Invalid */
+  --stheno-invalid-color: #ef4444;
+
+  /* Frontmatter */
+  --stheno-frontmatter-color: #94a3b8;
+
+  /* Liquid */
+  --stheno-liquid-color: #ee3ff6;
+}
+
+/* ============================================
+   Class Definitions
+   ============================================ */
+
+/* Keywords and operators */
+.stheno-keyword {
+  color: var(--stheno-keyword-color);
+}
+
+.stheno-operator {
+  color: var(--stheno-operator-color);
+}
+
+/* Names and identifiers */
+.stheno-name {
+  color: var(--stheno-name-color);
+}
+
+.stheno-property {
+  color: var(--stheno-property-color);
+}
+
+.stheno-function {
+  color: var(--stheno-function-color);
+}
+
+.stheno-definition {
+  color: var(--stheno-definition-color);
+}
+
+.stheno-class {
+  color: var(--stheno-class-color);
+}
+
+.stheno-type {
+  color: var(--stheno-type-color);
+}
+
+/* Literals */
+.stheno-string {
+  color: var(--stheno-string-color);
+}
+
+.stheno-number {
+  color: var(--stheno-number-color);
+}
+
+.stheno-constant {
+  color: var(--stheno-constant-color);
+}
+
+.stheno-atom {
+  color: var(--stheno-atom-color);
+}
+
+/* URLs and links */
+.stheno-url {
+  color: var(--stheno-url-color);
+}
+
+.stheno-link {
+  color: var(--stheno-link-color);
+  text-decoration: underline;
+}
+
+/* Comments and meta */
+.stheno-comment {
+  color: var(--stheno-comment-color);
+}
+
+.stheno-meta {
+  color: var(--stheno-meta-color);
+}
+
+/* Text formatting */
+.stheno-strong {
+  font-weight: 900;
+}
+
+.stheno-emphasis {
+  font-style: italic;
+}
+
+.stheno-strikethrough {
+  text-decoration: line-through;
+}
+
+.stheno-heading {
+  color: var(--stheno-heading-color);
+  font-weight: bold;
+}
+
+/* Invalid */
+.stheno-invalid {
+  color: var(--stheno-invalid-color);
+}
+
+/* Frontmatter */
+.stheno-frontmatter-start,
+.stheno-frontmatter-end {
+  color: var(--stheno-frontmatter-color);
+}
+
+.stheno-frontmatter-map {
+  color: var(--stheno-frontmatter-color);
+}
+
+/* Liquid */
+.stheno-liquid-output {
+  color: var(--stheno-liquid-color);
+}
+
+.stheno-liquid-brace {
+  color: var(--stheno-liquid-color);
+}

@@ -9,7 +9,7 @@ import { drawSelection, dropCursor, EditorView, highlightSpecialChars } from "@c
 
 import { LANGUAGE, markdownWithJSONCFrontmatterConfig } from "./config";
 import { KEYBINDINGS, keymaps } from "./extensions/keybinding";
-import { THEME, yettoDark, yettoLight } from "./themes/index";
+import { sthenoHighlighting, THEME, yettoDark, yettoLight } from "./themes/index";
 
 // Re-export decorations
 export { images } from "./extensions/markdown/decorations/image";
@@ -32,10 +32,21 @@ export {
 const darkColorScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
 export const setupThemeListener = (editorView: EditorView) => {
+  // Set initial data-theme attribute based on current color scheme
+  if (darkColorScheme) {
+    editorView.dom.dataset.theme = "dark";
+  }
+
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
     editorView.dispatch({
       effects: THEME.reconfigure(matches ? yettoDark : yettoLight),
     });
+    // Toggle CSS variable scope for syntax highlighting colors
+    if (matches) {
+      editorView.dom.dataset.theme = "dark";
+    } else {
+      delete editorView.dom.dataset.theme;
+    }
   });
 };
 
@@ -57,6 +68,7 @@ export const sthenoConfig = () => [
   // language.language.data.of({
   //   autocomplete: markdownCompletions,
   // }),
+  sthenoHighlighting,
 ];
 
 // Alias for backward compatibility

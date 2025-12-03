@@ -8,7 +8,7 @@ import { Tag, tags } from "@lezer/highlight";
 
 import { frontmatterParser } from "./extensions/markdown/frontmatter-parser";
 
-const customTags = {
+export const customTags = {
   JSONCFrontmatterEnd: Tag.define(tags.contentSeparator),
   JSONCFrontmatterMap: Tag.define(),
   JSONCFrontmatterStart: Tag.define(tags.contentSeparator),
