@@ -1,6 +1,6 @@
 import type { Command, KeyBinding } from "@codemirror/view";
 
-import { createWrapTextCommand } from "./inline";
+import { createWrapTextCommand } from "../inline";
 
 const italic: Command = (view) => {
   return createWrapTextCommand(view, "Emphasis", "_");

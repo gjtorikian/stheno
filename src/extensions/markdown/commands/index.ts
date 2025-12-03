@@ -7,10 +7,10 @@ import { syntaxTree } from "@codemirror/language";
 import { EditorState } from "@codemirror/state";
 import { EditorView } from "@codemirror/view";
 
-export { BoldText } from "./bold_text";
+export { BoldText } from "./inline/bold";
 export { BulletedList } from "./bulleted_list";
-export { CodeText } from "./code_text";
-export { ItalicText } from "./italic_text";
+export { CodeText } from "./inline/code";
+export { ItalicText } from "./inline/italic";
 export { OrderedList } from "./ordered_list";
 export { QuoteBlock } from "./quote_block";
 export { TaskList } from "./task_list";

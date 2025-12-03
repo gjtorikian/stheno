@@ -2,8 +2,8 @@ import { describe, it, expect, afterEach } from "vitest";
 
 import { EditorView } from "@codemirror/view";
 
-import { createTestEditor, cleanupEditor, setSelection, getDoc } from "../../../test-utils";
-import { createWrapTextCommand } from "./inline";
+import { createTestEditor, cleanupEditor, setSelection, getDoc } from "../../../../test-utils";
+import { createWrapTextCommand } from "../inline";
 
 /**
  * Note: Tests for wrapping selected text in jsdom have limitations due to
