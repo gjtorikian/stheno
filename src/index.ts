@@ -18,7 +18,7 @@ import { lists } from "./extensions/markdown/decorations/lists";
 
 // Re-export commands for programmatic use (toolbar buttons, etc.)
 export { createWrapTextCommand } from "./extensions/markdown/commands/inline";
-export { createMultiLineCommand } from "./extensions/markdown/commands/block";
+export { createMultiLineCommand } from "./extensions/markdown/commands/container_block";
 
 // Re-export keybindings (for keyboard shortcuts)
 export {

@@ -8,13 +8,13 @@ import { EditorState } from "@codemirror/state";
 import { EditorView } from "@codemirror/view";
 
 export { BoldText } from "./inline/bold";
-export { BulletedList } from "./block/unordered_list";
+export { BulletedList } from "./container_block/unordered_list";
 export { CodeText } from "./inline/code";
 export { ItalicText } from "./inline/italic";
-export { OrderedList } from "./block/ordered_list";
-export { QuoteBlock } from "./block/quote_block";
+export { OrderedList } from "./container_block/ordered_list";
+export { QuoteBlock } from "./container_block/quote_block";
 export { StrikethroughText } from "./inline/strikethrough";
-export { TaskList } from "./block/task_list";
+export { TaskList } from "./container_block/task_list";
 
 export function getCodeNode(view: EditorView, pos: number, lineEndPos = false): null | SyntaxNode {
   const { state } = view;

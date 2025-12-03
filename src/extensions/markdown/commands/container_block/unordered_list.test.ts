@@ -3,7 +3,7 @@ import { describe, it, expect, afterEach } from "vitest";
 import { EditorView } from "@codemirror/view";
 
 import { createTestEditor, cleanupEditor, setSelection, getDoc } from "../../../../test-utils";
-import { createMultiLineCommand } from "../block";
+import { createMultiLineCommand } from "../container_block";
 
 describe("createMultiLineCommand - unordered list (*)", () => {
   let view: EditorView;

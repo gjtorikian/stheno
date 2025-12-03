@@ -1,6 +1,6 @@
 import type { Command, KeyBinding } from "@codemirror/view";
 
-import { createMultiLineCommand } from "../block";
+import { createMultiLineCommand } from "../container_block";
 
 const bulletedList: Command = (view) => {
   return createMultiLineCommand(view, "unorderedList");
