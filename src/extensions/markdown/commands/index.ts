@@ -10,6 +10,7 @@ import { EditorView } from "@codemirror/view";
 export { BoldText } from "./inline/bold";
 export { BulletedList } from "./container_block/unordered_list";
 export { CodeText } from "./inline/code";
+export { HorizontalRule } from "./leaf_block/horizontal_rule";
 export { ItalicText } from "./inline/italic";
 export { OrderedList } from "./container_block/ordered_list";
 export { QuoteBlock } from "./container_block/quote_block";

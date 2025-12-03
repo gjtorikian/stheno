@@ -14,17 +14,20 @@ import { sthenoHighlighting, THEME, yettoDark, yettoLight } from "./themes/index
 // Re-export disableable decorations
 export { images } from "./extensions/markdown/decorations/image";
 
+import { horizontalRule } from "./extensions/markdown/decorations/horizontal_rule";
 import { lists } from "./extensions/markdown/decorations/lists";
 
 // Re-export commands for programmatic use (toolbar buttons, etc.)
 export { createWrapTextCommand } from "./extensions/markdown/commands/inline";
 export { createMultiLineCommand } from "./extensions/markdown/commands/container_block";
+export { createLeafBlockCommand } from "./extensions/markdown/commands/leaf_block";
 
 // Re-export keybindings (for keyboard shortcuts)
 export {
   BoldText,
   BulletedList,
   CodeText,
+  HorizontalRule,
   ItalicText,
   OrderedList,
   QuoteBlock,
@@ -73,6 +76,7 @@ export const sthenoConfig = () => [
   // }),
   sthenoHighlighting,
   lists(),
+  horizontalRule(),
 ];
 
 // Alias for backward compatibility

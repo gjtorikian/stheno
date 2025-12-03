@@ -273,3 +273,9 @@
   padding-left: 1em;
   color: var(--stheno-blockquote-text-color);
 }
+
+/* Horizontal rule styling */
+.stheno-hr {
+  color: var(--stheno-meta-color);
+  font-weight: 900;
+}
