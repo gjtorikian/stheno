@@ -1,5 +1,13 @@
+@import "@fontsource-variable/ibm-plex-sans";
+@import "@fontsource/ibm-plex-mono";
+
 @import "tailwindcss";
 @import "../src/styles/highlight.css";
+
+@theme {
+  --font-sans: "IBM Plex Sans Variable", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
 
 .cm-editor {
   @apply h-full w-full border-2 border-gray-400 rounded-lg
