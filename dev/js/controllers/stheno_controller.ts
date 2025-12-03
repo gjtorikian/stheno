@@ -28,7 +28,8 @@ export default class extends Controller<HTMLDivElement> {
   // data-stheno-target="output"
   // data-stheno-target="rendered"
   // data-stheno-target="toolbar"
-  static targets: string[] = ["editor", "output", "rendered", "toolbar"];
+  // data-stheno-target="tab"
+  static targets: string[] = ["editor", "output", "rendered", "toolbar", "tab"];
   declare readonly hasEditorTarget: boolean;
   declare readonly editorTargets: HTMLDivElement[];
   declare readonly editorTarget: HTMLDivElement;
@@ -36,6 +37,7 @@ export default class extends Controller<HTMLDivElement> {
   declare readonly outputTarget: HTMLDivElement;
   declare readonly hasRenderedTarget: boolean;
   declare readonly renderedTarget: HTMLDivElement;
+  declare readonly tabTargets: HTMLButtonElement[];
 
   // data-stheno-value="/submit-msg"
   // data-stheno-lang-value="json"
@@ -154,5 +156,30 @@ export default class extends Controller<HTMLDivElement> {
     const type = params.blockType || (params.ordered ? "orderedList" : "unorderedList");
     createMultiLineCommand(this.view, type);
     this.view.focus();
+  }
+
+  switchTab(event: Event): void {
+    const clickedTab = event.currentTarget as HTMLButtonElement;
+    const tabName = clickedTab.dataset.tab;
+
+    // Update tab styles
+    for (const tab of this.tabTargets) {
+      if (tab.dataset.tab === tabName) {
+        tab.classList.remove("border-transparent", "text-gray-500", "hover:text-gray-700");
+        tab.classList.add("border-blue-500", "text-blue-600");
+      } else {
+        tab.classList.remove("border-blue-500", "text-blue-600");
+        tab.classList.add("border-transparent", "text-gray-500", "hover:text-gray-700");
+      }
+    }
+
+    // Toggle content visibility
+    if (tabName === "rendered") {
+      this.renderedTarget.classList.remove("hidden");
+      this.outputTarget.classList.add("hidden");
+    } else {
+      this.renderedTarget.classList.add("hidden");
+      this.outputTarget.classList.remove("hidden");
+    }
   }
 }

@@ -12,7 +12,7 @@
 <body class="h-screen w-screen p-8">
   <div class="flex flex-col gap-8 h-full" data-controller="stheno" data-stheno-lang-value="markdown">
     <!-- Top Row: Editor + Rendered Output -->
-    <div class="flex gap-8 items-start">
+    <div class="flex gap-8 items-end">
       <!-- Left Panel: Editor -->
       <div class="flex-1 flex flex-col min-w-0">
         <h2 class="text-2xl font-bold mb-4">Editor</h2>
@@ -104,20 +104,26 @@
         </div>
       </div>
 
-      <!-- Right Panel: Rendered Output -->
+      <!-- Right Panel: Tabbed Output -->
       <div class="flex-1 flex flex-col min-w-0">
-        <h2 class="text-2xl font-bold mb-4">Rendered</h2>
-        <div class="h-[calc(300px+44px)] border-2 border-gray-400 rounded-lg p-4 overflow-auto prose prose-sm max-w-none" data-stheno-target="rendered">
+        <h2 class="text-2xl font-bold mb-4">Output</h2>
+        <!-- Tab Bar -->
+        <div class="flex border-b border-gray-300 mb-3">
+          <button data-stheno-target="tab" data-tab="rendered" data-action="click->stheno#switchTab"
+            class="px-4 py-2 text-sm font-semibold border-b-2 border-blue-500 text-blue-600">Rendered</button>
+          <button data-stheno-target="tab" data-tab="html" data-action="click->stheno#switchTab"
+            class="px-4 py-2 text-sm font-semibold border-b-2 border-transparent text-gray-500 hover:text-gray-700">HTML</button>
+        </div>
+
+        <!-- Tab Content -->
+        <div
+          class="h-[300px] border-2 border-gray-400 rounded-lg p-4 overflow-auto prose prose-sm max-w-none"
+          data-stheno-target="rendered">
           <!-- Rendered HTML -->
         </div>
-      </div>
-    </div>
-
-    <!-- Bottom Row: Raw HTML -->
-    <div class="flex-1 flex flex-col min-h-0">
-      <h2 class="text-2xl font-bold mb-4">HTML</h2>
-      <div class="flex-1 overflow-auto" data-stheno-target="output">
-        <!-- HTML Output -->
+        <div class="h-[300px] overflow-auto hidden" data-stheno-target="output">
+          <!-- HTML Output -->
+        </div>
       </div>
     </div>
   </div>
