@@ -18,13 +18,16 @@ export default class extends Controller<HTMLDivElement> {
 
   // data-stheno-target="editor"
   // data-stheno-target="output"
+  // data-stheno-target="rendered"
   // data-stheno-target="toolbar"
-  static targets: string[] = ["editor", "output", "toolbar"];
+  static targets: string[] = ["editor", "output", "rendered", "toolbar"];
   declare readonly hasEditorTarget: boolean;
   declare readonly editorTargets: HTMLDivElement[];
   declare readonly editorTarget: HTMLDivElement;
   declare readonly hasOutputTarget: boolean;
   declare readonly outputTarget: HTMLDivElement;
+  declare readonly hasRenderedTarget: boolean;
+  declare readonly renderedTarget: HTMLDivElement;
 
   // data-stheno-value="/submit-msg"
   // data-stheno-lang-value="json"
@@ -97,6 +100,10 @@ export default class extends Controller<HTMLDivElement> {
     const markdown = this.view.state.doc.toString();
     const htmlOutput = marked.parse(markdown, { async: false }) as string;
 
+    // Update rendered HTML preview
+    this.renderedTarget.innerHTML = htmlOutput;
+
+    // Update raw HTML code view
     this.outputView.dispatch({
       changes: {
         from: 0,

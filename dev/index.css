@@ -4,17 +4,19 @@
 @import "tailwindcss";
 @import "../src/styles/highlight.css";
 
+@plugin "@tailwindcss/typography";
+
 @theme {
   --font-sans: "IBM Plex Sans Variable", sans-serif;
   --font-mono: "IBM Plex Mono", monospace;
 }
 
 .cm-editor {
-  @apply h-full w-full border-2 border-gray-400 rounded-lg
+  @apply !h-full w-full border-2 border-gray-400 rounded-lg
 }
 
 .cm-editor.cm-focused {
-  @apply focus-within:outline focus-within:outline-2 focus-within:outline-purple-600
+  @apply border-purple-600
 }
 
 .cm-content {
