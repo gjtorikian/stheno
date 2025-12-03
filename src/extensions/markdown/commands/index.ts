@@ -7,6 +7,8 @@ import { syntaxTree } from "@codemirror/language";
 import { EditorState } from "@codemirror/state";
 import { EditorView } from "@codemirror/view";
 
+const CODE_BLOCK_NAMES = new Set(["CodeBlock", "FencedCode"]);
+
 export { BoldText } from "./inline/bold";
 export { BulletedList } from "./container_block/unordered_list";
 export { CodeText } from "./inline/code";
@@ -25,7 +27,7 @@ export function getCodeNode(view: EditorView, pos: number, lineEndPos = false): 
   do {
     if (
       (node.name === "InlineCode" && !lineEndPos) ||
-      ["CodeBlock", "FencedCode"].includes(node.name)
+      CODE_BLOCK_NAMES.has(node.name)
     ) {
       return node;
     }

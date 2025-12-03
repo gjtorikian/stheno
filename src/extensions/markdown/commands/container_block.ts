@@ -3,6 +3,17 @@ import { EditorView } from "@codemirror/view";
 
 import { getCodeNode } from ".";
 
+function rangeContainsFencedCode(view: EditorView, from: number, to: number): boolean {
+  for (let pos = from; pos <= to; ) {
+    const line = view.state.doc.lineAt(pos);
+    if (getCodeNode(view, line.to, true)?.name === "FencedCode") {
+      return true;
+    }
+    pos = line.to + 1;
+  }
+  return false;
+}
+
 const BlockRegExps = {
   orderedList: /^(\s*)\d+\.\s+/,
   quote: /^(\s*)>\s+/,
@@ -63,6 +74,13 @@ function toggleBlock(view: EditorView, type: BlockTypes) {
     return true;
   }
 
+  // Check for FencedCode blocks before building changes
+  for (const range of state.selection.ranges) {
+    if (rangeContainsFencedCode(view, range.from, range.to)) {
+      return false;
+    }
+  }
+
   const transaction = state.changeByRange((range) => {
     let changes: ChangeSpec[] = [];
 
@@ -71,11 +89,6 @@ function toggleBlock(view: EditorView, type: BlockTypes) {
 
     for (let i = 1, pos = range.from; pos <= range.to; ) {
       const line = state.doc.lineAt(pos);
-
-      if (getCodeNode(view, line.to, true)?.name === "FencedCode") {
-        changes = [];
-        break;
-      }
 
       let mark;
       if (type == BlockTypes.OrderedList) {

@@ -1,9 +1,9 @@
-import type { EditorState, Range } from "@codemirror/state";
+import type { Range } from "@codemirror/state";
 import type { SyntaxNode } from "@lezer/common";
 
 import { Decoration } from "@codemirror/view";
 
-import { decoratorStateField, iterateOverlayNodes } from "../util";
+import { createViewportDecorator, iterateOverlayNodesInRange } from "../util";
 
 interface WrapElement {
   selector: string;
@@ -31,43 +31,55 @@ function countNestingDepth(node: SyntaxNode, typeName: string): number {
  * For elements with nesting=true, it tracks depth and adds suffixed classes (e.g., stheno-line-li-1, -2, etc.)
  */
 export function lineWrapper(wrapElements: WrapElement[]) {
-  return decoratorStateField((state: EditorState) => {
-    const widgets: Range<Decoration>[] = [];
-    const doc = state.doc;
-    const appliedLines = new Set<string>(); // Track which lines have which classes
+  return createViewportDecorator({
+    buildDecorations: (state, from, to) => {
+      const widgets: Range<Decoration>[] = [];
+      const doc = state.doc;
+      const appliedLines = new Set<string>(); // Track which lines have which classes
+      const depthCache = new Map<string, number>(); // Cache nesting depth calculations
 
-    iterateOverlayNodes(state, (node) => {
-      for (const wrapElement of wrapElements) {
-        if (node.name === wrapElement.selector) {
-          const bodyText = doc.sliceString(node.from, node.to);
-          let idx = node.from;
+      const getCachedDepth = (node: SyntaxNode, typeName: string): number => {
+        const key = `${node.from}:${node.to}:${typeName}`;
+        const cached = depthCache.get(key);
+        if (cached !== undefined) return cached;
+        const depth = countNestingDepth(node, typeName);
+        depthCache.set(key, depth);
+        return depth;
+      };
 
-          for (const line of bodyText.split("\n")) {
-            const lineFrom = doc.lineAt(idx).from;
-            let cls = wrapElement.class;
+      iterateOverlayNodesInRange(state, from, to, (node) => {
+        for (const wrapElement of wrapElements) {
+          if (node.name === wrapElement.selector) {
+            const bodyText = doc.sliceString(node.from, node.to);
+            let idx = node.from;
 
-            if (wrapElement.nesting) {
-              const depth = countNestingDepth(node, node.name);
-              cls = `${cls} ${cls}-${depth}`;
+            for (const line of bodyText.split("\n")) {
+              const lineFrom = doc.lineAt(idx).from;
+              let cls = wrapElement.class;
+
+              if (wrapElement.nesting) {
+                const depth = getCachedDepth(node, node.name);
+                cls = `${cls} ${cls}-${depth}`;
+              }
+
+              // Avoid duplicate decorations for the same line+class
+              const key = `${lineFrom}:${cls}`;
+              if (!appliedLines.has(key)) {
+                appliedLines.add(key);
+                widgets.push(
+                  Decoration.line({
+                    class: cls,
+                  }).range(lineFrom),
+                );
+              }
+
+              idx += line.length + 1;
             }
-
-            // Avoid duplicate decorations for the same line+class
-            const key = `${lineFrom}:${cls}`;
-            if (!appliedLines.has(key)) {
-              appliedLines.add(key);
-              widgets.push(
-                Decoration.line({
-                  class: cls,
-                }).range(lineFrom),
-              );
-            }
-
-            idx += line.length + 1;
           }
         }
-      }
-    });
+      });
 
-    return Decoration.set(widgets, true);
+      return widgets;
+    },
   });
 }

@@ -1,5 +1,7 @@
 import { type Completion, type CompletionContext, snippet } from "@codemirror/autocomplete";
 
+const SLASH_COMMAND_REGEX = /\/\w*/;
+
 const options: Completion[] = [
   {
     apply: snippet("![${1:alt_text}](${2:url})\n\n${3}"),
@@ -25,7 +27,7 @@ const options: Completion[] = [
 ];
 
 export function markdownCompletions(context: CompletionContext) {
-  const word = context.matchBefore(/\/\w*/);
+  const word = context.matchBefore(SLASH_COMMAND_REGEX);
 
   if (!word) return;
 

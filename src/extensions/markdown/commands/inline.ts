@@ -6,6 +6,10 @@ import { EditorView } from "@codemirror/view";
 
 import { getCodeNode, isMultipleLines, isWithinMarkdown } from ".";
 
+const FORBIDDEN_INLINE_NODES = new Set(["Image", "Link", "LinkMark", "LinkTitle", "URL", "CodeText"]);
+const DOCUMENT_NODES = new Set(["Document", "Paragraph"]);
+const ALLOWED_CROSS_NODES = new Set(["Blockquote", "BulletList", "Document", "ListItem", "OrderedList", "Paragraph"]);
+
 export function createWrapTextCommand(view: EditorView, nodeName: string, mark: string): boolean {
   return insertMarker(view, nodeName, mark);
 }
@@ -57,15 +61,15 @@ function insertMarker(view: EditorView, nodeName: string, mark: string) {
     let node: null | SyntaxNode = tree.resolveInner(range.from);
 
     // cannot have inline nodes within these nodes
-    if (["Image", "Link", "LinkMark", "LinkTitle", "URL", "CodeText"].includes(node.name))
+    if (FORBIDDEN_INLINE_NODES.has(node.name))
       return (dont = { range });
 
     // if the selection is not empty, we need to check if the selection is within a node
-    if (!range.empty && ["Document", "Paragraph"].includes(node.name))
+    if (!range.empty && DOCUMENT_NODES.has(node.name))
       node = tree.resolveInner(range.from, 1);
 
     // if the selection is within a node, we need to check if the node is a paragraph, or itself
-    while (![nodeName, "Paragraph"].includes(node.name) && node.parent) {
+    while (node.name !== nodeName && node.name !== "Paragraph" && node.parent) {
       node = node.parent;
     }
 
@@ -98,19 +102,7 @@ function insertMarker(view: EditorView, nodeName: string, mark: string) {
     const toNode = tree.resolveInner(to);
 
     if (fromNode !== toNode) {
-      if (
-        [fromNode.name, toNode.name].some(
-          (name) =>
-            ![
-              "Blockquote",
-              "BulletList",
-              "Document",
-              "ListItem",
-              "OrderedList",
-              "Paragraph",
-            ].includes(name),
-        )
-      ) {
+      if (!ALLOWED_CROSS_NODES.has(fromNode.name) || !ALLOWED_CROSS_NODES.has(toNode.name)) {
         return (dont = { range });
       }
     }
