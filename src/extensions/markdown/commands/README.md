@@ -10,7 +10,9 @@ Within the `KeyBinding`, define a function to `run`.
 
 In that function, call `createWrapTextCommand`, pass in the `NodeName` and the character to wrap with.
 
-## Multi-line commands
+Add the keybinding to src/extensions/keybinding.ts.
+
+## Container block commands
 
 Create the command, like, `bulleted_list.ts`.
 
@@ -19,6 +21,8 @@ Add the `key` bindings for Windows/Linux via `key`, and `mac` for macOS.
 Within the `KeyBinding`, define a function to `run`.
 
 In that function, call `createMultiLineCommand`, pass in the `NodeName` and the character to wrap with.
+
+Add the keybinding to src/extensions/keybinding.ts.
 
 ## How Commands and Decorations Work Together
 

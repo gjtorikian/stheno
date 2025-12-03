@@ -20,6 +20,7 @@ import {
   ItalicText,
   OrderedList,
   QuoteBlock,
+  StrikethroughText,
   TaskList,
 } from "./markdown/commands/index";
 
@@ -57,6 +58,7 @@ export const keymaps = (): Extension => {
     BoldText,
     ItalicText,
     CodeText,
+    StrikethroughText,
     QuoteBlock,
     OrderedList,
     BulletedList,

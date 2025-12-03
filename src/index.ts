@@ -28,6 +28,7 @@ export {
   ItalicText,
   OrderedList,
   QuoteBlock,
+  StrikethroughText,
   TaskList,
 } from "./extensions/markdown/commands/index";
 

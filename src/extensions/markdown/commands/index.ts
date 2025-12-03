@@ -13,6 +13,7 @@ export { CodeText } from "./inline/code";
 export { ItalicText } from "./inline/italic";
 export { OrderedList } from "./block/ordered_list";
 export { QuoteBlock } from "./block/quote_block";
+export { StrikethroughText } from "./inline/strikethrough";
 export { TaskList } from "./block/task_list";
 
 export function getCodeNode(view: EditorView, pos: number, lineEndPos = false): null | SyntaxNode {
