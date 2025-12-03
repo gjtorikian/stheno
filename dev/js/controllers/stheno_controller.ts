@@ -6,8 +6,16 @@ import { EditorState } from "@codemirror/state";
 import { EditorView } from "@codemirror/view";
 import { Controller } from "@hotwired/stimulus";
 
-import { getSthenoConfig, images } from "../../../src/index";
+import { createMultiLineCommand, createWrapTextCommand, getSthenoConfig, images } from "../../../src/index";
 import { toggleTheme } from "../../../src/themes/index";
+
+interface SthenoEventObject {
+  params: {
+    mark?: string;
+    blockType?: string;
+    ordered?: boolean;
+  };
+}
 
 // data-controller="stheno"
 export default class extends Controller<HTMLDivElement> {
@@ -126,5 +134,25 @@ export default class extends Controller<HTMLDivElement> {
 
   mention(): void {
     console.log("@mention");
+  }
+
+  wrap({ params }: SthenoEventObject): void {
+    if (!params.mark) return;
+    const nodeNameMap: Record<string, string> = {
+      "**": "StrongEmphasis",
+      "*": "Emphasis",
+      "_": "Emphasis",
+      "`": "InlineCode",
+      "~~": "Strikethrough",
+      "[": "Link",
+    };
+    createWrapTextCommand(this.view, nodeNameMap[params.mark] || "StrongEmphasis", params.mark);
+    this.view.focus();
+  }
+
+  prependLine({ params }: SthenoEventObject): void {
+    const type = params.blockType || (params.ordered ? "orderedList" : "unorderedList");
+    createMultiLineCommand(this.view, type);
+    this.view.focus();
   }
 }
