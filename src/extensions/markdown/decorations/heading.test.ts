@@ -35,12 +35,22 @@ describe("heading decoration", () => {
     if (view) cleanupEditor(view);
   });
 
-  it("applies stheno-line-h1 and stheno-header-inside to # heading line", () => {
+  it("applies stheno-line-h1 to # heading line", () => {
     view = createTestEditor("# Heading 1");
     const line = view.dom.querySelector(".stheno-line-h1");
     expect(line).not.toBeNull();
-    expect(line?.classList.contains("stheno-header-inside")).toBe(true);
+    expect(line?.classList.contains("stheno-header-inside")).toBe(false);
     expect(line?.textContent).toContain("Heading 1");
+  });
+
+  it("applies stheno-h1 stheno-meta to header mark and stheno-h1 to text", () => {
+    view = createTestEditor("# Heading 1");
+    const marker = view.dom.querySelector(".stheno-h1.stheno-meta");
+    expect(marker).not.toBeNull();
+    expect(marker?.textContent).toBe("#");
+
+    const textSpans = view.dom.querySelectorAll(".stheno-h1:not(.stheno-meta)");
+    expect(textSpans.length).toBeGreaterThan(0);
   });
 
   it("applies stheno-h1 mark to heading content", () => {

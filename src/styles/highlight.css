@@ -186,16 +186,15 @@
   text-decoration: line-through;
 }
 
-.stheno-heading {
-  /* color: var(--stheno-heading-color); */
-  font-weight: bold;
-}
-
-/* When both heading and meta are present (e.g., the # in headings),
+/* When both heading level and meta are present (the # in headings),
    meta styling takes precedence for syntax characters */
-.stheno-heading.stheno-meta {
-  /* color: var(--stheno-meta-color); */
-  font-weight: normal;
+.stheno-h1,
+.stheno-h2,
+.stheno-h3,
+.stheno-h4,
+.stheno-h5,
+.stheno-h6 {
+  font-weight: bold;
 }
 
 /* Invalid */

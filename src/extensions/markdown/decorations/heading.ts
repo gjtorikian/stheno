@@ -27,19 +27,35 @@ function headingPlugin() {
         const level = HEADING_LEVELS[node.name];
 
         if (level) {
-          const lineClass = `stheno-header-inside`;
+          const lineClass = `stheno-line-h${level}`;
           const markClass = `stheno-h${level}`;
 
           // Apply line decoration with heading level class
           const lineFrom = doc.lineAt(node.from).from;
           widgets.push(Decoration.line({ class: lineClass }).range(lineFrom));
 
-          // Apply mark decoration to entire heading content
-          widgets.push(
-            Decoration.mark({
-              class: markClass,
-            }).range(node.from, node.to),
-          );
+          // Find HeaderMark child (the # characters)
+          const headerMark = node.getChild("HeaderMark");
+          if (headerMark) {
+            // Apply mark with stheno-meta to the # marker
+            widgets.push(
+              Decoration.mark({ class: `${markClass} stheno-meta` }).range(
+                headerMark.from,
+                headerMark.to,
+              ),
+            );
+            // Apply mark to the rest of the heading text
+            if (headerMark.to < node.to) {
+              widgets.push(
+                Decoration.mark({ class: markClass }).range(headerMark.to, node.to),
+              );
+            }
+          } else {
+            // Fallback: apply to entire heading if no HeaderMark found
+            widgets.push(
+              Decoration.mark({ class: markClass }).range(node.from, node.to),
+            );
+          }
         }
       });
 

@@ -40,7 +40,6 @@ export const sthenoHighlightStyle = HighlightStyle.define([
   { tag: t.strong, class: "stheno-strong" },
   { tag: t.emphasis, class: "stheno-emphasis" },
   { tag: t.strikethrough, class: "stheno-strikethrough" },
-  { tag: t.heading, class: "stheno-heading" },
 
   // Invalid
   { tag: t.invalid, class: "stheno-invalid" },
