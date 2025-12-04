@@ -78,3 +78,8 @@ Which allows us to have the following HTML structure for the editor:
 ```
 
 That way Stheno can handle all the presentation and functionality for the editor _without_ requiring you to deal with the form submission.
+
+## Inspirations
+
+* https://github.com/yeliex/codemirror-extensions
+* https://github.com/silverbulletmd/silverbullet

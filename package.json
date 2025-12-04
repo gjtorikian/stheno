@@ -18,7 +18,7 @@
     "docs"
   ],
   "scripts": {
-    "prepare": "rolldown -c && tsc --emitDeclarationOnly",
+    "package": "rolldown -c && tsc --emitDeclarationOnly",
     "tsc": "tsc",
     "build": "cm-buildhelper src/index.ts",
     "test": "vitest",
@@ -64,6 +64,8 @@
     "@codemirror/language-data": "^6.5.2",
     "@codemirror/lint": "^6.9.2",
     "@codemirror/search": "^6.5.11",
+    "@fontsource-variable/ibm-plex-sans": "^5.2.8",
+    "@fontsource/ibm-plex-mono": "^5.2.7",
     "@tailwindcss/typography": "^0.5.19",
     "@yettoapp/lezer-jsonc": "^0.1.0",
     "@yettoapp/lezer-liquid": "^0.0.10",

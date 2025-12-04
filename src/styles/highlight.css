@@ -1,0 +1,384 @@
+/* Stheno Syntax Highlighting CSS Variables
+ * Light theme (default) and dark theme with CSS custom properties
+ */
+
+/* ============================================
+   Light Theme (Default)
+   ============================================ */
+:root {
+  /* Keywords and operators */
+  --stheno-keyword-color: #d73a49;
+  --stheno-operator-color: #d73a49;
+
+  /* Names and identifiers */
+  --stheno-name-color: #e36209;
+  --stheno-property-color: #005cc5;
+  --stheno-function-color: #005cc5;
+  --stheno-definition-color: #e36209;
+  --stheno-class-color: #6f42c1;
+  --stheno-type-color: #005cc5;
+
+  /* Literals */
+  --stheno-string-color: #032f62;
+  --stheno-number-color: #005cc5;
+  --stheno-constant-color: #005cc5;
+  --stheno-atom-color: #e36209;
+
+  /* URLs and links */
+  --stheno-url-color: #032f62;
+  --stheno-link-color: #005cc5;
+
+  /* Comments and meta */
+  --stheno-comment-color: #6a737d;
+  --stheno-meta-color: #6a737d;
+
+  /* Headings */
+  --stheno-heading-color: #005cc5;
+
+  /* Invalid */
+  --stheno-invalid-color: #cb2431;
+
+  /* Frontmatter */
+  --stheno-frontmatter-color: #6a737d;
+
+  /* Liquid */
+  --stheno-liquid-color: #005cc5;
+
+  /* Lists */
+  --stheno-list-bullet-color: #6a737d;
+  --stheno-blockquote-border-color: #dfe2e5;
+  --stheno-blockquote-text-color: #6a737d;
+
+  /* Fenced Code Blocks */
+  --stheno-code-block-bg: #818b981f;
+  --stheno-code-block-border: #e1e4e8;
+  --stheno-language-selector-bg: #ffffff;
+  --stheno-language-selector-border: #d0d7de;
+  --stheno-language-selector-text: #24292f;
+  --stheno-language-selector-hover-bg: #f3f4f6;
+}
+
+/* ============================================
+   Dark Theme
+   ============================================ */
+[data-theme="dark"],
+.stheno-dark {
+  /* Keywords and operators */
+  --stheno-keyword-color: #d61fda;
+  --stheno-operator-color: #d61fda;
+
+  /* Names and identifiers */
+  --stheno-name-color: #fb923c;
+  --stheno-property-color: #ba17ba;
+  --stheno-function-color: #ba17ba;
+  --stheno-definition-color: #fb923c;
+  --stheno-class-color: #ee3ff6;
+  --stheno-type-color: #ee3ff6;
+
+  /* Literals */
+  --stheno-string-color: #f874fe;
+  --stheno-number-color: #f874fe;
+  --stheno-constant-color: #f874fe;
+  --stheno-atom-color: #fb923c;
+
+  /* URLs and links */
+  --stheno-url-color: #771f7b;
+  --stheno-link-color: #ee3ff6;
+
+  /* Comments and meta */
+  --stheno-comment-color: #94a3b8;
+  --stheno-meta-color: #94a3b8;
+
+  /* Headings */
+  --stheno-heading-color: #ee3ff6;
+
+  /* Invalid */
+  --stheno-invalid-color: #ef4444;
+
+  /* Frontmatter */
+  --stheno-frontmatter-color: #94a3b8;
+
+  /* Liquid */
+  --stheno-liquid-color: #ee3ff6;
+
+  /* Lists */
+  --stheno-list-bullet-color: #8b949e;
+  --stheno-blockquote-border-color: #30363d;
+  --stheno-blockquote-text-color: #8b949e;
+
+  /* Fenced Code Blocks */
+  --stheno-code-block-bg: #6969691a;
+  --stheno-code-block-border: #30363d;
+  --stheno-language-selector-bg: #21262d;
+  --stheno-language-selector-border: #30363d;
+  --stheno-language-selector-text: #c9d1d9;
+  --stheno-language-selector-hover-bg: #30363d;
+}
+
+/* ============================================
+   Class Definitions
+   ============================================ */
+
+/* Keywords and operators */
+.stheno-keyword {
+  color: var(--stheno-keyword-color);
+}
+
+.stheno-operator {
+  color: var(--stheno-operator-color);
+}
+
+/* Names and identifiers */
+.stheno-name {
+  color: var(--stheno-name-color);
+}
+
+.stheno-property {
+  color: var(--stheno-property-color);
+}
+
+.stheno-function {
+  color: var(--stheno-function-color);
+}
+
+.stheno-definition {
+  color: var(--stheno-definition-color);
+}
+
+.stheno-class {
+  color: var(--stheno-class-color);
+}
+
+.stheno-type {
+  color: var(--stheno-type-color);
+}
+
+/* Literals */
+.stheno-string {
+  color: var(--stheno-string-color);
+}
+
+.stheno-number {
+  color: var(--stheno-number-color);
+}
+
+.stheno-constant {
+  color: var(--stheno-constant-color);
+}
+
+.stheno-atom {
+  color: var(--stheno-atom-color);
+}
+
+/* URLs and links */
+.stheno-link:not(.stheno-url) {
+  color: var(--stheno-link-color);
+  text-decoration: underline;
+}
+
+.stheno-link.stheno-url {
+  color: var(--stheno-url-color);
+}
+
+/* Comments and meta */
+.stheno-comment {
+  color: var(--stheno-comment-color);
+}
+
+.stheno-meta {
+  color: var(--stheno-meta-color);
+}
+
+/* Inline code styling */
+.stheno-code {
+  background-color: var(--stheno-code-block-bg);
+  border-radius: 3px;
+  padding: 0.2em 0;
+}
+
+/* Text formatting */
+.stheno-strong {
+  font-weight: 900;
+}
+
+.stheno-emphasis {
+  font-style: italic;
+}
+
+.stheno-strikethrough {
+  text-decoration: line-through;
+}
+
+/* When both heading level and meta are present (the # in headings),
+   meta styling takes precedence for syntax characters */
+.stheno-h1,
+.stheno-h2,
+.stheno-h3,
+.stheno-h4,
+.stheno-h5,
+.stheno-h6 {
+  font-weight: bold;
+}
+
+/* Invalid */
+.stheno-invalid {
+  color: var(--stheno-invalid-color);
+}
+
+/* Frontmatter */
+.stheno-frontmatter-start,
+.stheno-frontmatter-end {
+  color: var(--stheno-frontmatter-color);
+}
+
+.stheno-frontmatter-map {
+  color: var(--stheno-frontmatter-color);
+}
+
+/* Liquid */
+.stheno-liquid-output {
+  color: var(--stheno-liquid-color);
+}
+
+.stheno-liquid-brace {
+  color: var(--stheno-liquid-color);
+}
+
+/* ============================================
+   List Styling
+   ============================================ */
+
+/* Line-level list classes */
+.stheno-line-ul,
+.stheno-line-ol {
+  /* Base list line styling */
+}
+
+/* List item nesting depth */
+.stheno-line-li-1 {
+  padding-left: 0;
+}
+
+.stheno-line-li-2 {
+  padding-left: 2ch;
+}
+
+.stheno-line-li-3 {
+  padding-left: 4ch;
+}
+
+.stheno-line-li-4 {
+  padding-left: 6ch;
+}
+
+.stheno-line-li-5 {
+  padding-left: 8ch;
+}
+
+/* List bullet styling */
+.stheno-list-bullet {
+  color: var(--stheno-list-bullet-color);
+  user-select: none;
+}
+
+/* Task list styling */
+.stheno-line-task {
+  /* Task line styling */
+}
+
+.stheno-task-marker {
+  color: var(--stheno-list-bullet-color);
+  user-select: none;
+}
+
+.stheno-task-checked {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+/* Blockquote styling */
+.stheno-line-blockquote {
+  border-left: 3px solid var(--stheno-blockquote-border-color);
+  padding-left: 1em;
+  color: var(--stheno-blockquote-text-color);
+}
+
+/* Horizontal rule styling */
+.stheno-hr {
+  color: var(--stheno-meta-color);
+  font-weight: 900;
+}
+
+.stheno-h1 {
+  font-size: 2em;
+}
+
+.stheno-h2 {
+  font-size: 1.5em;
+}
+
+.stheno-h3 {
+  font-size: 1.25em;
+}
+
+.stheno-h4,
+.stheno-h5,
+.stheno-h6 {
+  font-size: 1em;
+}
+
+/* ============================================
+   Fenced Code Block Styling
+   ============================================ */
+
+/* Line-level styling for fenced code blocks */
+.stheno-fenced-code-line {
+  background-color: var(--stheno-code-block-bg);
+  border-left: 3px solid var(--stheno-code-block-border);
+  padding-left: 1em;
+  position: relative;
+}
+
+.stheno-fenced-code-first {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  padding-top: 0.5em;
+}
+
+.stheno-fenced-code-last {
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  padding-bottom: 0.5em;
+}
+
+/* Language selector widget */
+.stheno-language-selector {
+  display: inline-block;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
+.stheno-language-select {
+  appearance: none;
+  background-color: var(--stheno-language-selector-bg);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M3 4.5L6 7.5L9 4.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 4px center;
+  background-size: 12px;
+  border: 1px solid var(--stheno-language-selector-border);
+  border-radius: 4px;
+  color: var(--stheno-language-selector-text);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.75rem;
+  padding: 2px 20px 2px 8px;
+}
+
+.stheno-language-select:hover {
+  background-color: var(--stheno-language-selector-hover-bg);
+}
+
+.stheno-language-select:focus {
+  outline: 2px solid var(--stheno-link-color);
+  outline-offset: 1px;
+}

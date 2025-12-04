@@ -1,9 +1,9 @@
 import type { Command, KeyBinding } from "@codemirror/view";
 
-import { createPrependLinesCommand } from "./block";
+import { createMultiLineCommand } from "../container_block";
 
 const orderedList: Command = (view) => {
-  return createPrependLinesCommand(view, "orderedList");
+  return createMultiLineCommand(view, "orderedList");
 };
 
 export const OrderedList: KeyBinding = {

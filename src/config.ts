@@ -5,10 +5,11 @@ import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
 import { languages } from "@codemirror/language-data";
 import { Compartment } from "@codemirror/state";
 import { Tag, tags } from "@lezer/highlight";
+import { GFM } from "@lezer/markdown";
 
 import { frontmatterParser } from "./extensions/markdown/frontmatter-parser";
 
-const customTags = {
+export const customTags = {
   JSONCFrontmatterEnd: Tag.define(tags.contentSeparator),
   JSONCFrontmatterMap: Tag.define(),
   JSONCFrontmatterStart: Tag.define(tags.contentSeparator),
@@ -22,32 +23,35 @@ export function markdownWithJSONCFrontmatterConfig(): LanguageSupport {
     base: markdown({
       base: markdownLanguage,
       codeLanguages: languages,
-      extensions: {
-        // We have to notify the markdown parser about the additional Node Types
-        // that the YAML block parser utilizes
-        defineNodes: [
-          {
-            block: true,
-            name: "JSONCFrontmatterStart",
-            style: customTags.JSONCFrontmatterStart,
-          },
-          {
-            block: true,
-            name: "JSONCFrontmatterEnd",
-            style: customTags.JSONCFrontmatterEnd,
-          },
-          {
-            block: false,
-            name: "JSONCFrontmatterMap",
-            style: customTags.JSONCFrontmatterMap,
-          },
-        ],
+      extensions: [
+        GFM,
+        {
+          // We have to notify the markdown parser about the additional Node Types
+          // that the YAML block parser utilizes
+          defineNodes: [
+            {
+              block: true,
+              name: "JSONCFrontmatterStart",
+              style: customTags.JSONCFrontmatterStart,
+            },
+            {
+              block: true,
+              name: "JSONCFrontmatterEnd",
+              style: customTags.JSONCFrontmatterEnd,
+            },
+            {
+              block: false,
+              name: "JSONCFrontmatterMap",
+              style: customTags.JSONCFrontmatterMap,
+            },
+          ],
 
-        parseBlock: [
-          // This BlockParser parses JSONC frontmatter
-          frontmatterParser,
-        ],
-      },
+          parseBlock: [
+            // This BlockParser parses JSONC frontmatter
+            frontmatterParser,
+          ],
+        },
+      ],
     }),
   });
 }

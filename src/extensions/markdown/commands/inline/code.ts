@@ -2,8 +2,8 @@ import type { Command, KeyBinding } from "@codemirror/view";
 
 import { ChangeSpec, EditorSelection, SelectionRange } from "@codemirror/state";
 
-import { getCodeNode, isMultipleLines } from ".";
-import { createWrapTextCommand } from "./inline";
+import { getCodeNode, isMultipleLines } from "..";
+import { createWrapTextCommand } from "../inline";
 
 const code: Command = (view) => {
   const { dispatch, state } = view;

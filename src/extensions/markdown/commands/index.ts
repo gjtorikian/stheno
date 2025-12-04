@@ -7,13 +7,19 @@ import { syntaxTree } from "@codemirror/language";
 import { EditorState } from "@codemirror/state";
 import { EditorView } from "@codemirror/view";
 
-export { BoldText } from "./bold_text";
-export { BulletedList } from "./bulleted_list";
-export { CodeText } from "./code_text";
-export { ItalicText } from "./italic_text";
-export { OrderedList } from "./ordered_list";
-export { QuoteBlock } from "./quote_block";
-export { TaskList } from "./task_list";
+const CODE_BLOCK_NAMES = new Set(["CodeBlock", "FencedCode"]);
+
+export { BoldText } from "./inline/bold";
+export { BulletedList } from "./container_block/unordered_list";
+export { CodeText } from "./inline/code";
+export { FencedCode } from "./leaf_block/fenced_code";
+export { HorizontalRule } from "./leaf_block/horizontal_rule";
+export { ItalicText } from "./inline/italic";
+export { LinkText } from "./inline/link";
+export { OrderedList } from "./container_block/ordered_list";
+export { QuoteBlock } from "./container_block/quote_block";
+export { StrikethroughText } from "./inline/strikethrough";
+export { TaskList } from "./container_block/task_list";
 
 export function getCodeNode(view: EditorView, pos: number, lineEndPos = false): null | SyntaxNode {
   const { state } = view;
@@ -23,7 +29,7 @@ export function getCodeNode(view: EditorView, pos: number, lineEndPos = false): 
   do {
     if (
       (node.name === "InlineCode" && !lineEndPos) ||
-      ["CodeBlock", "FencedCode"].includes(node.name)
+      CODE_BLOCK_NAMES.has(node.name)
     ) {
       return node;
     }

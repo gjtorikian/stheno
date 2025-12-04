@@ -5,6 +5,8 @@ import { syntaxTree } from "@codemirror/language";
 import { RangeSet, StateField } from "@codemirror/state";
 import { Decoration, EditorView, WidgetType } from "@codemirror/view";
 
+const IMAGE_REGEX = /!\[.*?\]\((?<url>.*?\.(png|jpeg|jpg|gif|ico))\)/;
+
 interface ImageExtensionParams {
   container: string;
   img: string;
@@ -43,8 +45,6 @@ class ImageWidget extends WidgetType {
 }
 
 export const images = (styles: ImageExtensionParams | null = null): Extension => {
-  const imageRegex = /!\[.*?\]\((?<url>.*?\.(png|jpeg|jpg|gif|ico))\)/;
-
   const imageDecoration = (imageWidgetParams: ImageWidgetParams) =>
     Decoration.widget({
       block: true,
@@ -58,7 +58,7 @@ export const images = (styles: ImageExtensionParams | null = null): Extension =>
     syntaxTree(state).iterate({
       enter: ({ from, to, type }) => {
         if (type.name === "Image") {
-          const result = imageRegex.exec(state.doc.sliceString(from, to));
+          const result = IMAGE_REGEX.exec(state.doc.sliceString(from, to));
 
           if (result?.groups?.url) {
             const widgetParams: ImageWidgetParams = {

@@ -6,11 +6,17 @@ import { EditorView } from "@codemirror/view";
 
 import { getCodeNode, isMultipleLines, isWithinMarkdown } from ".";
 
+const FORBIDDEN_INLINE_NODES = new Set(["Image", "Link", "LinkMark", "LinkTitle", "URL", "CodeText"]);
+const DOCUMENT_NODES = new Set(["Document", "Paragraph"]);
+const ALLOWED_CROSS_NODES = new Set(["Blockquote", "BulletList", "Document", "ListItem", "OrderedList", "Paragraph"]);
+
 export function createWrapTextCommand(view: EditorView, nodeName: string, mark: string): boolean {
-  return toggleInline(view, nodeName, mark);
+  return insertMarker(view, nodeName, mark);
 }
 
-function toggleInline(view: EditorView, nodeName: string, mark: string) {
+const PLACEHOLDER_TEXT = "";
+const PLACEHOLDER_LENGTH = PLACEHOLDER_TEXT.length;
+function insertMarker(view: EditorView, nodeName: string, mark: string) {
   const { dispatch, state } = view;
   if (state.readOnly) return false;
 
@@ -21,15 +27,14 @@ function toggleInline(view: EditorView, nodeName: string, mark: string) {
       state.selection.main.from === 0 &&
       state.doc.line(1).length === 0)
   ) {
-    const placeholderText = "text"; // Simple placeholder
     dispatch(
       state.update({
         changes: {
           from: 0,
-          insert: `${mark}${placeholderText}${mark}`,
+          insert: `${mark}${PLACEHOLDER_TEXT}${mark}`,
           to: 0,
         },
-        selection: EditorSelection.range(markLength, markLength + placeholderText.length),
+        selection: EditorSelection.range(markLength, markLength + PLACEHOLDER_LENGTH),
         userEvent: `toggle.${nodeName}`,
       }),
     );
@@ -44,10 +49,9 @@ function toggleInline(view: EditorView, nodeName: string, mark: string) {
     const { from, to } = range;
 
     if (range.empty) {
-      const placeholderText = "text"; // Simple placeholder
       return {
-        changes: [{ from: from, insert: `${mark}${placeholderText}${mark}` }],
-        range: EditorSelection.range(from + markLength, from + markLength + placeholderText.length),
+        changes: [{ from: from, insert: `${mark}${PLACEHOLDER_TEXT}${mark}` }],
+        range: EditorSelection.range(from + markLength, from + markLength + PLACEHOLDER_LENGTH),
       };
     }
 
@@ -57,15 +61,15 @@ function toggleInline(view: EditorView, nodeName: string, mark: string) {
     let node: null | SyntaxNode = tree.resolveInner(range.from);
 
     // cannot have inline nodes within these nodes
-    if (["Image", "Link", "LinkMark", "LinkTitle", "URL"].includes(node.name))
+    if (FORBIDDEN_INLINE_NODES.has(node.name))
       return (dont = { range });
 
     // if the selection is not empty, we need to check if the selection is within a node
-    if (!range.empty && ["Document", "Paragraph"].includes(node.name))
+    if (!range.empty && DOCUMENT_NODES.has(node.name))
       node = tree.resolveInner(range.from, 1);
 
     // if the selection is within a node, we need to check if the node is a paragraph, or itself
-    while (![nodeName, "Paragraph"].includes(node.name) && node.parent) {
+    while (node.name !== nodeName && node.name !== "Paragraph" && node.parent) {
       node = node.parent;
     }
 
@@ -98,19 +102,7 @@ function toggleInline(view: EditorView, nodeName: string, mark: string) {
     const toNode = tree.resolveInner(to);
 
     if (fromNode !== toNode) {
-      if (
-        [fromNode.name, toNode.name].some(
-          (name) =>
-            ![
-              "Blockquote",
-              "BulletList",
-              "Document",
-              "ListItem",
-              "OrderedList",
-              "Paragraph",
-            ].includes(name),
-        )
-      ) {
+      if (!ALLOWED_CROSS_NODES.has(fromNode.name) || !ALLOWED_CROSS_NODES.has(toNode.name)) {
         return (dont = { range });
       }
     }

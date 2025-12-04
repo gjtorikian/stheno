@@ -1,9 +1,9 @@
 import type { Command, KeyBinding } from "@codemirror/view";
 
-import { createPrependLinesCommand } from "./block";
+import { createMultiLineCommand } from "../container_block";
 
 const quote: Command = (view) => {
-  return createPrependLinesCommand(view, "quote");
+  return createMultiLineCommand(view, "quote");
 };
 
 export const QuoteBlock: KeyBinding = {
