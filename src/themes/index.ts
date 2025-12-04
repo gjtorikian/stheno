@@ -19,8 +19,12 @@ export const toggleTheme: Command = (view: EditorView) => {
     effects: [THEME.reconfigure(newTheme)],
   });
 
-  // Toggle CSS variable scope for syntax highlighting colors
-  view.dom.dataset.theme = isDark ? "light" : "dark";
+  // Toggle CSS variable scope for syntax highlighting colors (page-wide)
+  if (isDark) {
+    delete document.documentElement.dataset.theme;
+  } else {
+    document.documentElement.dataset.theme = "dark";
+  }
 
   return true;
 };
@@ -30,7 +34,7 @@ export const setDarkTheme: Command = (view: EditorView) => {
     effects: [THEME.reconfigure(yettoDark)],
   });
 
-  view.dom.dataset.theme = "dark";
+  document.documentElement.dataset.theme = "dark";
 
   return true;
 };
@@ -40,7 +44,7 @@ export const setLightTheme: Command = (view: EditorView) => {
     effects: [THEME.reconfigure(yettoLight)],
   });
 
-  delete view.dom.dataset.theme;
+  delete document.documentElement.dataset.theme;
 
   return true;
 };

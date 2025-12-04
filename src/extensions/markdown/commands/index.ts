@@ -12,6 +12,7 @@ const CODE_BLOCK_NAMES = new Set(["CodeBlock", "FencedCode"]);
 export { BoldText } from "./inline/bold";
 export { BulletedList } from "./container_block/unordered_list";
 export { CodeText } from "./inline/code";
+export { FencedCode } from "./leaf_block/fenced_code";
 export { HorizontalRule } from "./leaf_block/horizontal_rule";
 export { ItalicText } from "./inline/italic";
 export { LinkText } from "./inline/link";

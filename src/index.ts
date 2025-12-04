@@ -14,6 +14,7 @@ import { sthenoHighlighting, THEME, yettoDark, yettoLight } from "./themes/index
 // Re-export disableable decorations
 export { images } from "./extensions/markdown/decorations/leaf_block/image";
 
+import { fencedCode } from "./extensions/markdown/decorations/leaf_block/fenced_code";
 import { heading } from "./extensions/markdown/decorations/leaf_block/heading";
 import { horizontalRule } from "./extensions/markdown/decorations/leaf_block/horizontal_rule";
 import { inlineCode } from "./extensions/markdown/decorations/inline/code";
@@ -29,8 +30,10 @@ export {
   BoldText,
   BulletedList,
   CodeText,
+  FencedCode,
   HorizontalRule,
   ItalicText,
+  LinkText,
   OrderedList,
   QuoteBlock,
   StrikethroughText,
@@ -40,20 +43,20 @@ export {
 const darkColorScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
 export const setupThemeListener = (editorView: EditorView) => {
-  // Set initial data-theme attribute based on current color scheme
+  // Set initial data-theme attribute based on current color scheme (page-wide)
   if (darkColorScheme) {
-    editorView.dom.dataset.theme = "dark";
+    document.documentElement.dataset.theme = "dark";
   }
 
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
     editorView.dispatch({
       effects: THEME.reconfigure(matches ? yettoDark : yettoLight),
     });
-    // Toggle CSS variable scope for syntax highlighting colors
+    // Toggle CSS variable scope for syntax highlighting colors (page-wide)
     if (matches) {
-      editorView.dom.dataset.theme = "dark";
+      document.documentElement.dataset.theme = "dark";
     } else {
-      delete editorView.dom.dataset.theme;
+      delete document.documentElement.dataset.theme;
     }
   });
 };
@@ -80,6 +83,7 @@ export const sthenoConfig = () => [
   heading(),
   lists(),
   horizontalRule(),
+  fencedCode(),
   inlineCode(),
 ];
 
