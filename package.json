@@ -18,7 +18,7 @@
     "docs"
   ],
   "scripts": {
-    "prepare": "rolldown -c && tsc --emitDeclarationOnly",
+    "package": "rolldown -c && tsc --emitDeclarationOnly",
     "tsc": "tsc",
     "build": "cm-buildhelper src/index.ts",
     "test": "vitest",
