@@ -1,12 +1,17 @@
-import { marked } from "marked";
-
 import { html } from "@codemirror/lang-html";
 import { syntaxHighlighting, defaultHighlightStyle } from "@codemirror/language";
 import { EditorState } from "@codemirror/state";
 import { EditorView } from "@codemirror/view";
 import { Controller } from "@hotwired/stimulus";
+import { marked } from "marked";
 
-import { createMultiLineCommand, createWrapTextCommand, getSthenoConfig, images } from "../../../src/index";
+import {
+  createMultiLineCommand,
+  createWrapTextCommand,
+  getSthenoConfig,
+  images,
+  setupThemeListener,
+} from "../../../src/index";
 import { toggleTheme } from "../../../src/themes/index";
 
 interface SthenoEventObject {
@@ -104,6 +109,9 @@ export default class extends Controller<HTMLDivElement> {
         ],
       }),
     });
+
+    // Set up system theme listener for automatic dark/light mode switching
+    setupThemeListener(this.view);
   }
 
   updateOutput(): void {
@@ -134,6 +142,59 @@ export default class extends Controller<HTMLDivElement> {
     console.log("![image-alt-text](image-url)");
   }
 
+  kitchenSink(): void {
+    const content = `# Heading 1
+## Heading 2
+### Heading 3
+#### Heading 4
+##### Heading 5
+###### Heading 6
+
+This is **bold text** and this is *italic text*.
+
+This is ~~strikethrough~~ text and \`inline code\`.
+
+[Link to the project](https://github.com/gjtorikian/stheno)!
+
+> This is a blockquote
+> with _multiple_ lines
+>
+> Inline **works** here too.
+
+- Unordered list item 1
+- Unordered list item 2
+- Unordered list item 3
+
+1. Ordered list item 1
+2. Ordered list item 2
+3. Ordered list item 3
+
+- [ ] Unchecked task item
+- [x] Demonstrate horizontal rule tag
+- [ ] Another task
+
+---
+
+\`\`\`ruby
+def hello_world
+  puts "Hello, World!"
+end
+\`\`\`
+
+![Sample Image](https://via.placeholder.com/150)
+`;
+
+    this.view.dispatch({
+      changes: {
+        from: 0,
+        to: this.view.state.doc.length,
+        insert: content,
+      },
+    });
+    this.updateOutput();
+    this.view.focus();
+  }
+
   mention(): void {
     console.log("@mention");
   }
@@ -143,7 +204,7 @@ export default class extends Controller<HTMLDivElement> {
     const nodeNameMap: Record<string, string> = {
       "**": "StrongEmphasis",
       "*": "Emphasis",
-      "_": "Emphasis",
+      _: "Emphasis",
       "`": "InlineCode",
       "~~": "Strikethrough",
       "[": "Link",
@@ -165,11 +226,9 @@ export default class extends Controller<HTMLDivElement> {
     // Update tab styles
     for (const tab of this.tabTargets) {
       if (tab.dataset.tab === tabName) {
-        tab.classList.remove("border-transparent", "text-gray-500", "hover:text-gray-700");
-        tab.classList.add("border-blue-500", "text-blue-600");
+        tab.classList.add("active");
       } else {
-        tab.classList.remove("border-blue-500", "text-blue-600");
-        tab.classList.add("border-transparent", "text-gray-500", "hover:text-gray-700");
+        tab.classList.remove("active");
       }
     }
 

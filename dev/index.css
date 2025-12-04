@@ -11,8 +11,48 @@
   --font-mono: "IBM Plex Mono", monospace;
 }
 
+/* Page-level theme variables */
+:root {
+  --page-bg: #ffffff;
+  --page-text: #171717;
+  --toolbar-bg: #ffffff;
+  --toolbar-text: #111827;
+  --toolbar-ring: #d1d5db;
+  --toolbar-hover: #f9fafb;
+  --border-color: #9ca3af;
+  --icon-fill: #000000;
+  --heading-text: #171717;
+  --tab-active-border: #3b82f6;
+  --tab-active-text: #2563eb;
+  --tab-inactive-text: #6b7280;
+  --tab-inactive-hover: #374151;
+}
+
+[data-theme="dark"] {
+  --page-bg: #171717;
+  --page-text: #f1f5f9;
+  --toolbar-bg: #262626;
+  --toolbar-text: #f1f5f9;
+  --toolbar-ring: #404040;
+  --toolbar-hover: #374151;
+  --border-color: #525252;
+  --icon-fill: #f1f5f9;
+  --heading-text: #f1f5f9;
+  --tab-active-border: #a855f7;
+  --tab-active-text: #c084fc;
+  --tab-inactive-text: #9ca3af;
+  --tab-inactive-hover: #d1d5db;
+}
+
+body {
+  background-color: var(--page-bg);
+  color: var(--page-text);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
 .cm-editor {
-  @apply !h-full w-full border-2 border-gray-400 rounded-lg
+  @apply !h-full w-full border-2 rounded-lg;
+  border-color: var(--border-color);
 }
 
 .cm-editor.cm-focused {
@@ -29,4 +69,70 @@
 
 .cm-panels-bottom {
   @apply rounded-b-md
+}
+
+/* Toolbar button styling */
+.toolbar-btn {
+  background-color: var(--toolbar-bg);
+  color: var(--toolbar-text);
+  --tw-ring-color: var(--toolbar-ring);
+}
+
+.toolbar-btn:hover {
+  background-color: var(--toolbar-hover);
+}
+
+.toolbar-btn svg {
+  fill: var(--icon-fill);
+}
+
+/* Heading styling */
+.page-heading {
+  color: var(--heading-text);
+}
+
+/* Tab styling */
+.tab-btn {
+  color: var(--tab-inactive-text);
+  border-color: transparent;
+}
+
+.tab-btn:hover {
+  color: var(--tab-inactive-hover);
+}
+
+.tab-btn.active {
+  color: var(--tab-active-text);
+  border-color: var(--tab-active-border);
+}
+
+/* Border styling */
+.theme-border {
+  border-color: var(--border-color);
+}
+
+/* Output panel */
+.output-panel {
+  border-color: var(--border-color);
+  background-color: var(--page-bg);
+}
+
+/* Prose dark mode support */
+[data-theme="dark"] .prose {
+  --tw-prose-body: #d1d5db;
+  --tw-prose-headings: #f1f5f9;
+  --tw-prose-lead: #9ca3af;
+  --tw-prose-links: #c084fc;
+  --tw-prose-bold: #f1f5f9;
+  --tw-prose-counters: #9ca3af;
+  --tw-prose-bullets: #6b7280;
+  --tw-prose-hr: #374151;
+  --tw-prose-quotes: #d1d5db;
+  --tw-prose-quote-borders: #374151;
+  --tw-prose-captions: #9ca3af;
+  --tw-prose-code: #f1f5f9;
+  --tw-prose-pre-code: #d1d5db;
+  --tw-prose-pre-bg: #1f2937;
+  --tw-prose-th-borders: #4b5563;
+  --tw-prose-td-borders: #374151;
 }
