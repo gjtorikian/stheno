@@ -3,7 +3,7 @@ import type { SyntaxNode } from "@lezer/common";
 
 import { Decoration } from "@codemirror/view";
 
-import { createViewportDecorator, iterateOverlayNodesInRange } from "../util";
+import { createViewportDecorator, iterateOverlayNodesInRange } from "../../util";
 
 interface WrapElement {
   selector: string;

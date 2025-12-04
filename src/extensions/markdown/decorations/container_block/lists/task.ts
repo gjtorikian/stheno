@@ -2,7 +2,7 @@ import type { Range } from "@codemirror/state";
 
 import { Decoration } from "@codemirror/view";
 
-import { createViewportDecorator, iterateOverlayNodesInRange } from "../util";
+import { createViewportDecorator, iterateOverlayNodesInRange } from "../../util";
 
 /**
  * Plugin that decorates task list items.

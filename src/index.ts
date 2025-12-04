@@ -12,11 +12,12 @@ import { KEYBINDINGS, keymaps } from "./extensions/keybinding";
 import { sthenoHighlighting, THEME, yettoDark, yettoLight } from "./themes/index";
 
 // Re-export disableable decorations
-export { images } from "./extensions/markdown/decorations/image";
+export { images } from "./extensions/markdown/decorations/leaf_block/image";
 
-import { heading } from "./extensions/markdown/decorations/heading";
-import { horizontalRule } from "./extensions/markdown/decorations/horizontal_rule";
-import { lists } from "./extensions/markdown/decorations/lists";
+import { heading } from "./extensions/markdown/decorations/leaf_block/heading";
+import { horizontalRule } from "./extensions/markdown/decorations/leaf_block/horizontal_rule";
+import { inlineCode } from "./extensions/markdown/decorations/inline/code";
+import { lists } from "./extensions/markdown/decorations/container_block/lists";
 
 // Re-export commands for programmatic use (toolbar buttons, etc.)
 export { createWrapTextCommand } from "./extensions/markdown/commands/inline";
@@ -79,6 +80,7 @@ export const sthenoConfig = () => [
   heading(),
   lists(),
   horizontalRule(),
+  inlineCode(),
 ];
 
 // Alias for backward compatibility

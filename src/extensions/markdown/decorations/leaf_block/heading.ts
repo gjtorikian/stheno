@@ -2,7 +2,7 @@ import type { Extension, Range } from "@codemirror/state";
 
 import { Decoration } from "@codemirror/view";
 
-import { createViewportDecorator, iterateOverlayNodesInRange } from "./util";
+import { createViewportDecorator, iterateOverlayNodesInRange } from "../util";
 
 /** Maps ATXHeading node names to their level number */
 const HEADING_LEVELS: Record<string, number> = {
