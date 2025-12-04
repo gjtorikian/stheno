@@ -3,7 +3,7 @@ import { describe, it, expect, afterEach } from "vitest";
 import { ensureSyntaxTree } from "@codemirror/language";
 import { EditorView } from "@codemirror/view";
 
-import { getSthenoConfig } from "../../../../index";
+import { getSthenoConfig } from "../../../../../index";
 
 function createTestEditor(doc = ""): EditorView {
   const container = document.createElement("div");
