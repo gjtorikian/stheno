@@ -2,7 +2,7 @@
 @import "@fontsource/ibm-plex-mono";
 
 @import "tailwindcss";
-@import "../src/styles/highlight.css";
+@import "../packages/core/src/styles/highlight.css";
 
 @plugin "@tailwindcss/typography";
 

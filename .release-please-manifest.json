@@ -1,3 +1,6 @@
 {
-  ".": "0.1.9"
+  "packages/core": "0.2.0",
+  "packages/react": "0.2.0",
+  "packages/vue": "0.2.0",
+  "packages/svelte": "0.2.0"
 }

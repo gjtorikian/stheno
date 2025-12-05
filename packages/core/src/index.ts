@@ -11,8 +11,38 @@ import { LANGUAGE, markdownWithFrontmatterConfig } from "./config";
 import { KEYBINDINGS, keymaps } from "./extensions/keybinding";
 import { sthenoHighlighting, THEME, yettoDark, yettoLight } from "./themes/index";
 
+// Auto-inject CSS styles on import
+import "./styles/inject";
+
 // Re-export disableable decorations
 export { images } from "./extensions/markdown/decorations/leaf_block/image";
+
+// Re-export event system for programmatic use
+export {
+  createEventExtensions,
+  type SthenoEventHandlers,
+  type SelectionRange,
+  type ViewUpdate,
+} from "./events";
+
+// Re-export style utilities
+export { injectStyles, removeStyles, getStyles } from "./styles/inject";
+
+// Re-export theme system
+export {
+  THEME,
+  toggleTheme,
+  setDarkTheme,
+  setLightTheme,
+  yettoDark,
+  yettoLight,
+  sthenoHighlighting,
+  sthenoHighlightStyle,
+} from "./themes/index";
+
+// Re-export compartments for advanced usage
+export { LANGUAGE } from "./config";
+export { KEYBINDINGS } from "./extensions/keybinding";
 
 import { fencedCode, languageCompletions } from "./extensions/markdown/decorations/leaf_block/fenced_code";
 import { frontmatter } from "./extensions/markdown/decorations/leaf_block/frontmatter";
@@ -41,9 +71,15 @@ export {
   TaskList,
 } from "./extensions/markdown/commands/index";
 
-const darkColorScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+// SSR-safe check for dark color scheme preference
+const darkColorScheme =
+  typeof window !== "undefined" &&
+  window.matchMedia?.("(prefers-color-scheme: dark)").matches;
 
 export const setupThemeListener = (editorView: EditorView) => {
+  // SSR guard
+  if (typeof window === "undefined") return;
+
   // Set initial data-theme attribute based on current color scheme (page-wide)
   if (darkColorScheme) {
     document.documentElement.dataset.theme = "dark";
