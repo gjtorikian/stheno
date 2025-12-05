@@ -5,6 +5,7 @@ on:
 
 jobs:
   unit:
+    if: ${{ !startsWith(github.head_ref, 'release-please') }}
     name: Unit Tests
     runs-on: ubuntu-latest
     steps:
@@ -16,6 +17,7 @@ jobs:
       - run: npm run test:unit
 
   e2e:
+    if: ${{ !startsWith(github.head_ref, 'release-please') }}
     name: E2E Tests
     runs-on: ubuntu-latest
     steps:
