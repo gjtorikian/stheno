@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "ESNext",
+    "outDir": "dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "Node",
+    "lib": ["ESNext", "DOM"],
+    "declaration": true,
+    "resolveJsonModule": true,
+    "removeComments": false,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "baseUrl": "./"
+  },
+  "compileOnSave": true,
+  "include": ["src/**/*", "src/**/*.vue"],
+  "exclude": ["src/**/*.test.ts"]
+}
