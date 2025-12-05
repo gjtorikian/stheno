@@ -14,7 +14,7 @@ import { sthenoHighlighting, THEME, yettoDark, yettoLight } from "./themes/index
 // Re-export disableable decorations
 export { images } from "./extensions/markdown/decorations/leaf_block/image";
 
-import { fencedCode } from "./extensions/markdown/decorations/leaf_block/fenced_code";
+import { fencedCode, languageCompletions } from "./extensions/markdown/decorations/leaf_block/fenced_code";
 import { heading } from "./extensions/markdown/decorations/leaf_block/heading";
 import { horizontalRule } from "./extensions/markdown/decorations/leaf_block/horizontal_rule";
 import { inlineCode } from "./extensions/markdown/decorations/inline/code";
@@ -68,7 +68,9 @@ export const sthenoConfig = () => [
   dropCursor(),
   EditorView.lineWrapping,
   EditorState.allowMultipleSelections.of(true),
-  autocompletion(),
+  autocompletion({
+    override: [languageCompletions],
+  }),
   highlightSelectionMatches(),
   indentOnInput(),
   bracketMatching(),
