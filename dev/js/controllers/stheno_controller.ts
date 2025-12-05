@@ -11,8 +11,8 @@ import {
   getSthenoConfig,
   images,
   setupThemeListener,
-} from "../../../src/index";
-import { toggleTheme } from "../../../src/themes/index";
+  toggleTheme,
+} from "../../../packages/core/src/index";
 
 interface SthenoEventObject {
   params: {
