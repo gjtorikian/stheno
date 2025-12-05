@@ -40,6 +40,8 @@
 
   /* Frontmatter */
   --stheno-frontmatter-color: #6a737d;
+  --stheno-frontmatter-bg: #fdf6e3a0;
+  --stheno-frontmatter-border: #e8dfc8;
 
   /* Liquid */
   --stheno-liquid-color: #005cc5;
@@ -93,6 +95,8 @@
 
   /* Frontmatter */
   --stheno-frontmatter-color: #94a3b8;
+  --stheno-frontmatter-bg: #2d2a24a0;
+  --stheno-frontmatter-border: #4a463a;
 
   /* Liquid */
   --stheno-liquid-color: #ee3ff6;
@@ -223,7 +227,7 @@
   color: var(--stheno-frontmatter-color);
 }
 
-.stheno-frontmatter-map {
+.stheno-frontmatter-content {
   color: var(--stheno-frontmatter-color);
 }
 
@@ -338,6 +342,30 @@
 }
 
 .stheno-fenced-code-last {
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  padding-bottom: 0.5em;
+}
+
+/* ============================================
+   Frontmatter Block Styling
+   ============================================ */
+
+/* Line-level styling for frontmatter blocks */
+.stheno-frontmatter-line {
+  background-color: var(--stheno-frontmatter-bg);
+  border-left: 3px solid var(--stheno-frontmatter-border);
+  padding-left: 1em;
+  position: relative;
+}
+
+.stheno-frontmatter-first {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  padding-top: 0.5em;
+}
+
+.stheno-frontmatter-last {
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
   padding-bottom: 0.5em;

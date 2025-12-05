@@ -7,7 +7,7 @@ import { highlightSelectionMatches } from "@codemirror/search";
 import { EditorState } from "@codemirror/state";
 import { drawSelection, dropCursor, EditorView, highlightSpecialChars } from "@codemirror/view";
 
-import { LANGUAGE, markdownWithJSONCFrontmatterConfig } from "./config";
+import { LANGUAGE, markdownWithFrontmatterConfig } from "./config";
 import { KEYBINDINGS, keymaps } from "./extensions/keybinding";
 import { sthenoHighlighting, THEME, yettoDark, yettoLight } from "./themes/index";
 
@@ -15,6 +15,7 @@ import { sthenoHighlighting, THEME, yettoDark, yettoLight } from "./themes/index
 export { images } from "./extensions/markdown/decorations/leaf_block/image";
 
 import { fencedCode, languageCompletions } from "./extensions/markdown/decorations/leaf_block/fenced_code";
+import { frontmatter } from "./extensions/markdown/decorations/leaf_block/frontmatter";
 import { heading } from "./extensions/markdown/decorations/leaf_block/heading";
 import { horizontalRule } from "./extensions/markdown/decorations/leaf_block/horizontal_rule";
 import { inlineCode } from "./extensions/markdown/decorations/inline/code";
@@ -77,7 +78,7 @@ export const sthenoConfig = () => [
   closeBrackets(),
   KEYBINDINGS.of(keymaps()),
   THEME.of(darkColorScheme ? yettoDark : yettoLight),
-  LANGUAGE.of(markdownWithJSONCFrontmatterConfig()),
+  LANGUAGE.of(markdownWithFrontmatterConfig()),
   // language.language.data.of({
   //   autocomplete: markdownCompletions,
   // }),
@@ -86,6 +87,7 @@ export const sthenoConfig = () => [
   lists(),
   horizontalRule(),
   fencedCode(),
+  frontmatter(),
   inlineCode(),
 ];
 

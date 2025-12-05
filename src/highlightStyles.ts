@@ -45,9 +45,9 @@ export const sthenoHighlightStyle = HighlightStyle.define([
   { tag: t.invalid, class: "stheno-invalid" },
 
   // Custom tags for frontmatter
-  { tag: customTags.JSONCFrontmatterStart, class: "stheno-frontmatter-start" },
-  { tag: customTags.JSONCFrontmatterEnd, class: "stheno-frontmatter-end" },
-  { tag: customTags.JSONCFrontmatterMap, class: "stheno-frontmatter-map" },
+  { tag: customTags.FrontmatterStart, class: "stheno-frontmatter-start" },
+  { tag: customTags.FrontmatterEnd, class: "stheno-frontmatter-end" },
+  { tag: customTags.FrontmatterContent, class: "stheno-frontmatter-content" },
 
   // Custom tags for Liquid
   { tag: customTags.LiquidOutput, class: "stheno-liquid-output" },

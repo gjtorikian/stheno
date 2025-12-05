@@ -1,10 +1,10 @@
 import type { BlockContext, BlockParser, Element, InlineContext } from "@lezer/markdown";
 
 import { type Parser, Tree } from "@lezer/common";
-import { parser as jsoncParser } from "@yettoapp/lezer-jsonc";
+import { parser as yamlParser } from "@lezer/yaml";
 
-const FRONTMATTER_START = "--{";
-const FRONTMATTER_END = /^}--$/;
+const FRONTMATTER_START = "---";
+const FRONTMATTER_END = /^---$/;
 
 function partialParse(
   ctx: BlockContext | InlineContext,
@@ -38,26 +38,34 @@ export const frontmatterParser: BlockParser = {
       return false;
     }
 
-    // We have possible JSONC frontmatter. Now we need to look for the end of
+    // We have possible YAML frontmatter. Now we need to look for the end of
     // the frontmatter.
     // Meanwhile, we'll be collecting all lines encountered so that we can parse
-    // them into a JSONC AST.
-    const jsoncLines: string[] = [];
+    // them into a YAML AST.
+    const yamlLines: string[] = [];
 
-    // We also need the position at which the (actual) frontmatter starts
+    // The position at which the frontmatter content starts (after "---\n")
     const from = 4;
-    while (ctx.nextLine() && !FRONTMATTER_END.test(line.text)) {
-      jsoncLines.push(line.text);
+
+    // Track if we've moved past the opening delimiter
+    let foundClosingDelimiter = false;
+
+    while (ctx.nextLine()) {
+      if (FRONTMATTER_END.test(line.text)) {
+        foundClosingDelimiter = true;
+        break;
+      }
+      yamlLines.push(line.text);
     }
 
-    if (!FRONTMATTER_END.test(line.text)) {
+    if (!foundClosingDelimiter) {
       // The parser has collected the full rest of the document. This means
       // the frontmatter never stopped. In order to maintain readability, we
       // simply abort parsing.
       return false;
     }
 
-    if (jsoncLines.length === 0) {
+    if (yamlLines.length === 0) {
       return false; // Frontmatter must have content
     }
 
@@ -65,22 +73,18 @@ export const frontmatterParser: BlockParser = {
     // whitespace at the top (i.e. no blank lines between the delimiters and the
     // frontmatter content). NOTE: Whitespace AFTER the frontmatter content is
     // allowed!
-    if (jsoncLines[0].trim() === "") {
+    if (yamlLines[0].trim() === "") {
       return false;
     }
 
-    // At this point we have a full JSONC frontmatter; we know where
-    // it starts and we know where it ends. In order to simplify creating the
-    // required AST, we defer to letting the JSONC parser parse this thing into
-    // a tree that we can then simply convert into the format consumed by
-    // Codemirror. Keep in mind that we need to add the `{ }` back in, since
-    // we've slurped them up as part of the frontmatter delimiters.
-    const treeElem = partialParse(ctx, jsoncParser, `{${jsoncLines.join("\n")}`, from);
+    // At this point we have a full YAML frontmatter; we know where
+    // it starts and we know where it ends. Parse the YAML content.
+    const treeElem = partialParse(ctx, yamlParser, yamlLines.join("\n"), from);
 
     const wrapperNode = ctx.elt("FencedCode", 0, ctx.lineStart + 3, [
-      ctx.elt("JSONCFrontmatterStart", 0, 3),
-      ctx.elt("JSONCFrontmatterMap", 4, ctx.lineStart - 1, [treeElem]),
-      ctx.elt("JSONCFrontmatterEnd", ctx.lineStart, ctx.lineStart + 3),
+      ctx.elt("FrontmatterStart", 0, 3),
+      ctx.elt("FrontmatterContent", 4, ctx.lineStart - 1, [treeElem]),
+      ctx.elt("FrontmatterEnd", ctx.lineStart, ctx.lineStart + 3),
     ]);
 
     ctx.addElement(wrapperNode);

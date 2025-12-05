@@ -10,15 +10,15 @@ import { GFM } from "@lezer/markdown";
 import { frontmatterParser } from "./extensions/markdown/frontmatter-parser";
 
 export const customTags = {
-  JSONCFrontmatterEnd: Tag.define(tags.contentSeparator),
-  JSONCFrontmatterMap: Tag.define(),
-  JSONCFrontmatterStart: Tag.define(tags.contentSeparator),
+  FrontmatterContent: Tag.define(),
+  FrontmatterEnd: Tag.define(tags.contentSeparator),
+  FrontmatterStart: Tag.define(tags.contentSeparator),
   LiquidOutput: Tag.define(),
   LiquidOutputEnd: Tag.define(tags.brace),
   LiquidOutputStart: Tag.define(tags.brace),
 };
 
-export function markdownWithJSONCFrontmatterConfig(): LanguageSupport {
+export function markdownWithFrontmatterConfig(): LanguageSupport {
   return liquid({
     base: markdown({
       base: markdownLanguage,
@@ -27,27 +27,27 @@ export function markdownWithJSONCFrontmatterConfig(): LanguageSupport {
         GFM,
         {
           // We have to notify the markdown parser about the additional Node Types
-          // that the YAML block parser utilizes
+          // that the frontmatter block parser utilizes
           defineNodes: [
             {
               block: true,
-              name: "JSONCFrontmatterStart",
-              style: customTags.JSONCFrontmatterStart,
+              name: "FrontmatterStart",
+              style: customTags.FrontmatterStart,
             },
             {
               block: true,
-              name: "JSONCFrontmatterEnd",
-              style: customTags.JSONCFrontmatterEnd,
+              name: "FrontmatterEnd",
+              style: customTags.FrontmatterEnd,
             },
             {
               block: false,
-              name: "JSONCFrontmatterMap",
-              style: customTags.JSONCFrontmatterMap,
+              name: "FrontmatterContent",
+              style: customTags.FrontmatterContent,
             },
           ],
 
           parseBlock: [
-            // This BlockParser parses JSONC frontmatter
+            // This BlockParser parses YAML frontmatter
             frontmatterParser,
           ],
         },

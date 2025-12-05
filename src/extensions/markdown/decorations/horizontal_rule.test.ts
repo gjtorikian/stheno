@@ -42,8 +42,9 @@ describe("horizontal rule decoration", () => {
     expect(hr?.textContent).toBe("***");
   });
 
-  it("wraps --- with stheno-hr class", () => {
-    view = createTestEditor("---");
+  it("wraps --- with stheno-hr class (not at document start)", () => {
+    // Note: --- at position 0 conflicts with YAML frontmatter syntax
+    view = createTestEditor("text\n\n---");
     const hr = view.dom.querySelector(".stheno-hr");
     expect(hr).not.toBeNull();
     expect(hr?.textContent).toBe("---");

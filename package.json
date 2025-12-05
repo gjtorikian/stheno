@@ -66,8 +66,8 @@
     "@codemirror/search": "^6.5.11",
     "@fontsource-variable/ibm-plex-sans": "^5.2.8",
     "@fontsource/ibm-plex-mono": "^5.2.7",
+    "@lezer/yaml": "^1.0.3",
     "@tailwindcss/typography": "^0.5.19",
-    "@yettoapp/lezer-jsonc": "^0.1.0",
     "@yettoapp/lezer-liquid": "^0.0.10",
     "emoji-provider": "^1.0.6",
     "marked": "^17.0.1"

@@ -133,8 +133,8 @@ describe("markdown syntax highlighting", () => {
   });
 
   describe("frontmatter", () => {
-    it("renders JSONC frontmatter", () => {
-      view = createTestEditor('---\n{\n  "title": "Test"\n}\n---\n\nContent here');
+    it("renders YAML frontmatter", () => {
+      view = createTestEditor("---\ntitle: Test\n---\n\nContent here");
       const content = view.dom.querySelector(".cm-content");
       expect(content).toBeTruthy();
       expect(content?.textContent).toContain("title");
