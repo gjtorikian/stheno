@@ -41,6 +41,20 @@ export const sthenoHighlightStyle = HighlightStyle.define([
   { tag: t.emphasis, class: "stheno-emphasis" },
   { tag: t.strikethrough, class: "stheno-strikethrough" },
 
+  // Inline code
+  { tag: t.monospace, class: "stheno-code" },
+
+  // Headings
+  { tag: t.heading1, class: "stheno-h1" },
+  { tag: t.heading2, class: "stheno-h2" },
+  { tag: t.heading3, class: "stheno-h3" },
+  { tag: t.heading4, class: "stheno-h4" },
+  { tag: t.heading5, class: "stheno-h5" },
+  { tag: t.heading6, class: "stheno-h6" },
+
+  // Horizontal rule
+  { tag: t.contentSeparator, class: "stheno-hr" },
+
   // Invalid
   { tag: t.invalid, class: "stheno-invalid" },
 

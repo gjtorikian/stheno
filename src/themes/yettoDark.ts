@@ -2,6 +2,8 @@ import type { Extension } from "@codemirror/state";
 
 import { EditorView } from "@codemirror/view";
 
+import { sharedConfig } from "./shared";
+
 export const config = {
   activeLine: "rgba(186, 23, 186, 0.15)",
   background: "transparent",
@@ -20,7 +22,7 @@ export const yettoDarkTheme = EditorView.theme(
     "&": {
       backgroundColor: config.background,
       color: config.foreground,
-      fontFamily: "'IBM Plex Mono', monospace",
+      fontFamily: sharedConfig.fontFamily,
     },
 
     "&.cm-editor": {
@@ -58,11 +60,11 @@ export const yettoDarkTheme = EditorView.theme(
     },
 
     ".cm-panels.cm-panels-bottom": {
-      borderTop: "1px solid rgba(255, 255, 255, 0.1)",
+      borderTop: `${sharedConfig.panelBorderWidth} solid ${config.dropdownBorder}`,
       boxShadow: "0 -4px 6px rgba(0, 0, 0, 0.1)",
     },
     ".cm-panels.cm-panels-top": {
-      borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
+      borderBottom: `${sharedConfig.panelBorderWidth} solid ${config.dropdownBorder}`,
       boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
     },
 
