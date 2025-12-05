@@ -41,7 +41,7 @@
   "peerDependencies": {
     "@codemirror/state": "^6.1.4",
     "@codemirror/view": "^6.6.0",
-    "@yettoapp/stheno": "^0.2.0",
+    "@yettoapp/stheno": "^0.1.9",
     "vue": ">=3.3.0"
   }
 }
