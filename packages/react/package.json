@@ -1,6 +1,6 @@
 {
   "name": "@yettoapp/stheno-react",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "React components for Stheno CodeMirror editor",
   "source": "src/index.ts",
   "main": "dist/index.cjs",
