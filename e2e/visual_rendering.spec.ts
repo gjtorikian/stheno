@@ -26,7 +26,7 @@ test.describe("Visual rendering", () => {
   test("frontmatter renders correctly", async ({ page }) => {
     const editor = page.locator('[data-stheno-target="editor"] .cm-content');
     await editor.click();
-    await page.keyboard.type('---\n{\n  "title": "Test"\n}\n---');
+    await page.keyboard.type("---\ntitle: Test\n---");
 
     await expect(editor).toContainText("title");
   });

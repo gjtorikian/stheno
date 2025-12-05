@@ -1,0 +1,25 @@
+name: Publish Package
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  id-token: write  # Required for OIDC
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: gjtorikian/actions/setup-languages@main
+        with:
+          node: true
+
+      - run: npm run package --if-present
+
+      - run: npm publish --workspaces --provenance --access public

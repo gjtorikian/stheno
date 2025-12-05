@@ -1,0 +1,43 @@
+{
+  "name": "@yettoapp/stheno-svelte",
+  "version": "0.2.0",
+  "description": "Svelte components for Stheno CodeMirror editor",
+  "source": "src/index.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "type": "module",
+  "svelte": "dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "rolldown -c && tsc --emitDeclarationOnly"
+  },
+  "keywords": [
+    "codemirror",
+    "markdown",
+    "svelte",
+    "editor"
+  ],
+  "author": {
+    "name": "Yetto",
+    "email": "info@yetto.app",
+    "url": "https://yetto.app"
+  },
+  "license": "AGPL",
+  "peerDependencies": {
+    "@codemirror/state": "^6.1.4",
+    "@codemirror/view": "^6.6.0",
+    "@yettoapp/stheno": "^0.2.0",
+    "svelte": ">=4.0.0"
+  }
+}

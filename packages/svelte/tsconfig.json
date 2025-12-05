@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es2022",
     "module": "ESNext",
+    "outDir": "dist",
     "strict": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -12,14 +13,9 @@
     "removeComments": false,
     "isolatedModules": true,
     "skipLibCheck": true,
-    "baseUrl": "."
+    "baseUrl": "./"
   },
-  "references": [
-    { "path": "./packages/core" },
-    { "path": "./packages/react" },
-    { "path": "./packages/vue" },
-    { "path": "./packages/svelte" }
-  ],
-  "include": [],
-  "exclude": ["node_modules", "dist"]
+  "compileOnSave": true,
+  "include": ["src/**/*", "src/**/*.svelte"],
+  "exclude": ["src/**/*.test.ts"]
 }

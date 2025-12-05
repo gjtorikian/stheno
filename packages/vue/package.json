@@ -1,0 +1,47 @@
+{
+  "name": "@yettoapp/stheno-vue",
+  "version": "0.2.0",
+  "description": "Vue components for Stheno CodeMirror editor",
+  "source": "src/index.ts",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "rolldown -c && vue-tsc --emitDeclarationOnly"
+  },
+  "keywords": [
+    "codemirror",
+    "markdown",
+    "vue",
+    "editor"
+  ],
+  "author": {
+    "name": "Yetto",
+    "email": "info@yetto.app",
+    "url": "https://yetto.app"
+  },
+  "license": "AGPL",
+  "peerDependencies": {
+    "@codemirror/state": "^6.1.4",
+    "@codemirror/view": "^6.6.0",
+    "@yettoapp/stheno": "^0.2.0",
+    "vue": ">=3.3.0"
+  }
+}
