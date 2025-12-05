@@ -1,6 +1,6 @@
 {
   "name": "@yettoapp/stheno-vue",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Vue components for Stheno CodeMirror editor",
   "source": "src/index.ts",
   "main": "dist/index.cjs",
