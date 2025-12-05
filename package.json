@@ -1,35 +1,28 @@
 {
-  "name": "@yettoapp/stheno",
-  "version": "0.1.9",
+  "name": "stheno-monorepo",
+  "version": "0.2.0",
+  "private": true,
   "description": "An opinionated, powerful CodeMirror configuration by Yetto",
-  "source": "src/index.ts",
-  "main": "dist/index.cjs",
   "type": "module",
-  "exports": {
-    "import": "./dist/index.js",
-    "require": "./dist/index.cjs"
-  },
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "cjs",
-    "README.md",
-    "CHANGELOG.md",
-    "docs"
+  "workspaces": [
+    "packages/*"
   ],
   "scripts": {
-    "package": "rolldown -c && tsc --emitDeclarationOnly",
-    "tsc": "tsc",
-    "build": "cm-buildhelper src/index.ts",
-    "test": "vitest",
+    "build": "npm run build --workspaces",
+    "build:core": "npm run build -w @yettoapp/stheno",
+    "build:react": "npm run build -w @yettoapp/stheno-react",
+    "build:vue": "npm run build -w @yettoapp/stheno-vue",
+    "build:svelte": "npm run build -w @yettoapp/stheno-svelte",
+    "test": "npm run test --workspaces --if-present",
     "test:unit": "vitest run",
     "test:e2e": "playwright test",
     "test:all": "vitest run && playwright test",
     "dev": "vite ./dev --host",
-    "lint": "oxlint src/",
-    "lint:fix": "oxlint src/ --fix",
+    "lint": "oxlint packages/",
+    "lint:fix": "oxlint packages/ --fix",
     "format": "oxfmt",
-    "format:check": "oxfmt --check"
+    "format:check": "oxfmt --check",
+    "package": "npm run build --workspaces"
   },
   "keywords": [
     "codemirror",
@@ -53,37 +46,20 @@
     }
   ],
   "license": "AGPL",
-  "dependencies": {
-    "@codemirror/autocomplete": "^6.20.0",
-    "@codemirror/commands": "^6.10.0",
-    "@codemirror/lang-html": "^6.4.11",
-    "@codemirror/lang-json": "^6.0.2",
-    "@codemirror/lang-liquid": "^6.3.0",
-    "@codemirror/lang-markdown": "^6.5.0",
-    "@codemirror/language": "^6.11.3",
-    "@codemirror/language-data": "^6.5.2",
-    "@codemirror/lint": "^6.9.2",
-    "@codemirror/search": "^6.5.11",
-    "@fontsource-variable/ibm-plex-sans": "^5.2.8",
-    "@fontsource/ibm-plex-mono": "^5.2.7",
-    "@lezer/yaml": "^1.0.3",
-    "@tailwindcss/typography": "^0.5.19",
-    "@yettoapp/lezer-liquid": "^0.0.10",
-    "emoji-provider": "^1.0.6",
-    "marked": "^17.0.1"
-  },
-  "peerDependencies": {
-    "@codemirror/state": "^6.1.4",
-    "@codemirror/view": "^6.6.0"
-  },
   "devDependencies": {
     "@codemirror/buildhelper": "^1.0.2",
+    "@codemirror/state": "^6.1.4",
+    "@codemirror/view": "^6.6.0",
     "@github/markdown-toolbar-element": "^2.2.3",
     "@hotwired/stimulus": "^3.2.2",
     "@playwright/test": "^1.57.0",
     "@tailwindcss/postcss": "^4.1.17",
+    "@tailwindcss/typography": "^0.5.19",
     "@types/codemirror": "^5.60.17",
     "@types/node": "^24.10.1",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vue/compiler-sfc": "^3.4.0",
     "autoprefixer": "^10.4.22",
     "hotkeys-js": "^3.13.15",
     "jsdom": "^27.2.0",
@@ -91,12 +67,24 @@
     "oxfmt": "^0.15.0",
     "oxlint": "^1.30.0",
     "postcss": "^8.5.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "rolldown": "^1.0.0-beta.9",
+    "rollup-plugin-svelte": "^7.2.0",
     "stimulus-use": "^0.52.3",
+    "svelte": "^4.2.0",
+    "svelte-preprocess": "^5.1.0",
     "tailwindcss": "^4.1.17",
     "typescript": "^5.9.3",
+    "unplugin-vue": "^5.0.0",
     "vite": "^7.2.4",
     "vitest": "4.0.14",
-    "vitest-dom": "^0.1.1"
+    "vitest-dom": "^0.1.1",
+    "vue": "^3.4.0",
+    "vue-tsc": "^2.0.0"
+  },
+  "dependencies": {
+    "@fontsource-variable/ibm-plex-sans": "^5.2.8",
+    "@fontsource/ibm-plex-mono": "^5.2.7"
   }
 }

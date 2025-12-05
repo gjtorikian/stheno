@@ -1,0 +1,74 @@
+{
+  "name": "@yettoapp/stheno",
+  "version": "0.2.0",
+  "description": "An opinionated, powerful CodeMirror configuration by Yetto",
+  "source": "src/index.ts",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "sideEffects": true,
+  "scripts": {
+    "build": "rolldown -c && tsc --emitDeclarationOnly",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [
+    "codemirror",
+    "markdown",
+    "json",
+    "text editor"
+  ],
+  "author": {
+    "name": "Yetto",
+    "email": "info@yetto.app",
+    "url": "https://yetto.app"
+  },
+  "contributors": [
+    {
+      "name": "@birdcar",
+      "url": "https://github.com/birdcar"
+    },
+    {
+      "name": "@gjtorikian",
+      "url": "https://github.com/gjtorikian"
+    }
+  ],
+  "license": "AGPL",
+  "dependencies": {
+    "@codemirror/autocomplete": "^6.20.0",
+    "@codemirror/commands": "^6.10.0",
+    "@codemirror/lang-html": "^6.4.11",
+    "@codemirror/lang-json": "^6.0.2",
+    "@codemirror/lang-liquid": "^6.3.0",
+    "@codemirror/lang-markdown": "^6.5.0",
+    "@codemirror/language": "^6.11.3",
+    "@codemirror/language-data": "^6.5.2",
+    "@codemirror/lint": "^6.9.2",
+    "@codemirror/search": "^6.5.11",
+    "@lezer/yaml": "^1.0.3",
+    "@yettoapp/lezer-liquid": "^0.0.10",
+    "emoji-provider": "^1.0.6",
+    "marked": "^17.0.1"
+  },
+  "peerDependencies": {
+    "@codemirror/state": "^6.1.4",
+    "@codemirror/view": "^6.6.0"
+  }
+}
