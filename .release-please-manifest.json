@@ -1,6 +1,6 @@
 {
-  "packages/core": "0.3.0",
-  "packages/react": "0.3.0",
-  "packages/vue": "0.3.0",
-  "packages/svelte": "0.3.0"
+  "packages/core": "0.4.0",
+  "packages/react": "0.4.0",
+  "packages/vue": "0.4.0",
+  "packages/svelte": "0.4.0"
 }
