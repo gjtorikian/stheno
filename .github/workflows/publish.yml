@@ -1,8 +1,8 @@
 name: Publish Package
 
 on:
-  release:
-    types: [published]
+  pull_request:
+    types: [closed]
   workflow_dispatch:
 
 permissions:
@@ -11,6 +11,10 @@ permissions:
 
 jobs:
   publish:
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.pull_request.merged == true &&
+       startsWith(github.head_ref, 'release-please'))
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -22,4 +26,8 @@ jobs:
 
       - run: npm run package --if-present
 
-      - run: npm publish --workspaces --provenance --access public
+      - name: Publish core package first
+        run: npm publish -w @yettoapp/stheno --provenance --access public
+
+      - name: Publish framework packages
+        run: npm publish -w @yettoapp/stheno-react -w @yettoapp/stheno-svelte -w @yettoapp/stheno-vue --provenance --access public
