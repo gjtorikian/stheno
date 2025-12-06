@@ -38,6 +38,11 @@
     "url": "https://yetto.app"
   },
   "license": "AGPL",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gjtorikian/stheno.git",
+    "directory": "packages/react"
+  },
   "peerDependencies": {
     "@codemirror/state": "^6.1.4",
     "@codemirror/view": "^6.6.0",

@@ -51,6 +51,11 @@
     }
   ],
   "license": "AGPL",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gjtorikian/stheno.git",
+    "directory": "packages/core"
+  },
   "dependencies": {
     "@codemirror/autocomplete": "^6.20.0",
     "@codemirror/commands": "^6.10.0",
