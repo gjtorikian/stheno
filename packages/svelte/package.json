@@ -37,7 +37,7 @@
   "peerDependencies": {
     "@codemirror/state": "^6.1.4",
     "@codemirror/view": "^6.6.0",
-    "@yettoapp/stheno": "workspace:^",
+    "@yettoapp/stheno": "*",
     "svelte": ">=4.0.0"
   }
 }

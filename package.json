@@ -63,7 +63,7 @@
     "autoprefixer": "^10.4.22",
     "hotkeys-js": "^3.13.15",
     "jsdom": "^27.2.0",
-    "os-browserify": "^0.1.9",
+    "os-browserify": "^0.3.0",
     "oxfmt": "^0.15.0",
     "oxlint": "^1.30.0",
     "postcss": "^8.5.6",
