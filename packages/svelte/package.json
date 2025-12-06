@@ -1,6 +1,6 @@
 {
   "name": "@yettoapp/stheno-svelte",
-  "version": "0.3.0",
+  "version": "0.1.9",
   "description": "Svelte components for Stheno CodeMirror editor",
   "source": "src/index.ts",
   "main": "dist/index.js",
@@ -37,7 +37,7 @@
   "peerDependencies": {
     "@codemirror/state": "^6.1.4",
     "@codemirror/view": "^6.6.0",
-    "@yettoapp/stheno": "^0.1.9",
+    "@yettoapp/stheno": "workspace:^",
     "svelte": ">=4.0.0"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@yettoapp/stheno-react",
-  "version": "0.3.0",
+  "version": "0.1.9",
   "description": "React components for Stheno CodeMirror editor",
   "source": "src/index.ts",
   "main": "dist/index.cjs",
@@ -41,7 +41,7 @@
   "peerDependencies": {
     "@codemirror/state": "^6.1.4",
     "@codemirror/view": "^6.6.0",
-    "@yettoapp/stheno": "^0.1.9",
+    "@yettoapp/stheno": "workspace:^",
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"
   }
