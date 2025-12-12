@@ -28,7 +28,7 @@ jobs:
           node: true
 
       - name: Build packages
-        run: npm run prepare
+        run: npm run build
 
       - name: Install website dependencies
         working-directory: website

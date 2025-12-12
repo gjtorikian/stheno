@@ -238,3 +238,6 @@ $RECYCLE.BIN/
 
 test-results/
 playwright-report/
+
+# Astro
+.astro/
