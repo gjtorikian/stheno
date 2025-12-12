@@ -40,7 +40,7 @@
   "license": "AGPL",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gjtorikian/stheno.git",
+    "url": "git+https://github.com/gjtorikian/stheno.git",
     "directory": "packages/vue"
   },
   "peerDependencies": {
