@@ -1,0 +1,116 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import InteractiveEditor from "../components/InteractiveEditor";
+import FeatureCard from "../components/FeatureCard.astro";
+---
+
+<BaseLayout title="Home">
+  <!-- Hero Section -->
+  <section class="py-16 md:py-24 px-4">
+    <div class="container mx-auto text-center max-w-4xl">
+      <h1
+        class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
+      >
+        An opinionated, powerful
+        <span class="text-purple-600">CodeMirror</span> configuration
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+        Stheno gives you IDE-level markdown editing power with syntax
+        highlighting, decorations, and keyboard shortcuts out of the box.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/docs/getting-started"
+          class="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-medium"
+        >
+          Get Started
+        </a>
+        <a
+          href="https://github.com/gjtorikian/stheno"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-6 py-3 border border-[var(--border-color)] rounded-lg hover:bg-[var(--sidebar-hover)] transition-colors font-medium"
+        >
+          View on GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Demo Section -->
+  <section class="py-12 px-4 bg-[var(--sidebar-bg)]">
+    <div class="container mx-auto max-w-7xl">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-8">
+        Try it out
+      </h2>
+      <InteractiveEditor client:load />
+      <p class="text-center text-sm text-gray-500 mt-4">
+        Use the toolbar buttons or keyboard shortcuts to format your markdown.
+      </p>
+    </div>
+  </section>
+
+  <!-- Features Grid -->
+  <section class="py-16 md:py-24 px-4">
+    <div class="container mx-auto max-w-6xl">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-12">
+        Key Features
+      </h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <FeatureCard
+          title="Markdown + YAML Frontmatter"
+          description="Full GitHub Flavored Markdown support with YAML frontmatter parsing out of the box."
+        />
+        <FeatureCard
+          title="Built-in Theming"
+          description="Dark and light themes with automatic system preference detection and runtime switching."
+        />
+        <FeatureCard
+          title="Keyboard Shortcuts"
+          description="Familiar shortcuts for bold, italic, links, lists, and more. Just like your favorite editor."
+        />
+        <FeatureCard
+          title="Image Previews"
+          description="Inline image decorations render previews right in the editor as you type."
+        />
+        <FeatureCard
+          title="Framework Wrappers"
+          description="Ready-to-use components for React, Vue, and Svelte with full TypeScript support."
+        />
+        <FeatureCard
+          title="Fully Extensible"
+          description="Built on CodeMirror 6. Extend with any CodeMirror extension or create your own."
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Start Section -->
+  <section class="py-16 px-4 bg-[var(--sidebar-bg)]">
+    <div class="container mx-auto max-w-3xl">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-8">
+        Quick Start
+      </h2>
+      <div class="rounded-lg border border-[var(--border-color)] bg-[var(--page-bg)] overflow-hidden">
+        <div class="px-4 py-2 border-b border-[var(--border-color)] bg-[var(--toolbar-bg)]">
+          <span class="text-sm text-gray-500">Install with npm</span>
+        </div>
+        <pre class="p-4 overflow-x-auto"><code class="text-sm">npm install @yettoapp/stheno @codemirror/state @codemirror/view</code></pre>
+      </div>
+      <p class="text-center mt-6">
+        <a
+          href="/docs/getting-started"
+          class="text-purple-600 hover:underline font-medium"
+        >
+          Read the full documentation &rarr;
+        </a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  [data-theme="dark"] .text-gray-600 {
+    color: #9ca3af;
+  }
+</style>

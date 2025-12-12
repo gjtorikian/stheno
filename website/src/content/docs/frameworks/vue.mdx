@@ -1,0 +1,169 @@
+---
+title: Vue
+description: Using Stheno with Vue
+order: 11
+section: frameworks
+---
+
+# Vue Integration
+
+The `@yettoapp/stheno-vue` package provides a Vue component and composable for easy integration.
+
+## Installation
+
+```bash
+npm install @yettoapp/stheno-vue @codemirror/state @codemirror/view
+```
+
+## Basic Usage
+
+```vue
+<script setup lang="ts">
+import { ref } from "vue";
+import { SthenoEditor } from "@yettoapp/stheno-vue";
+
+const content = ref("");
+</script>
+
+<template>
+  <SthenoEditor v-model="content" :system-theme="true" />
+</template>
+```
+
+## SthenoEditor Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `modelValue` | `string` | - | v-model binding |
+| `extensions` | `Extension[]` | `[]` | Additional extensions |
+| `readOnly` | `boolean` | `false` | Make editor read-only |
+| `autoFocus` | `boolean` | `false` | Focus on mount |
+| `placeholder` | `string` | - | Placeholder text |
+| `systemTheme` | `boolean` | `true` | Use system theme |
+| `darkTheme` | `boolean` | - | Force dark/light theme |
+| `imageConfig` | `object \| null` | - | Image decoration config |
+| `minHeight` | `string` | `"100px"` | Minimum height |
+| `maxHeight` | `string` | - | Maximum height |
+
+## Events
+
+| Event | Payload | Description |
+|-------|---------|-------------|
+| `update:modelValue` | `string` | v-model update |
+| `change` | `string` | Content changed |
+| `focus` | - | Editor focused |
+| `blur` | - | Editor blurred |
+| `ready` | `EditorView` | Editor initialized |
+
+## Exposed Methods
+
+Access the component instance via template ref:
+
+```vue
+<script setup lang="ts">
+import { ref } from "vue";
+import { SthenoEditor } from "@yettoapp/stheno-vue";
+
+const editorRef = ref<InstanceType<typeof SthenoEditor> | null>(null);
+
+const insertText = () => {
+  editorRef.value?.insertText("Hello!");
+};
+</script>
+
+<template>
+  <button @click="insertText">Insert</button>
+  <SthenoEditor ref="editorRef" />
+</template>
+```
+
+### Available Methods
+
+| Method | Type | Description |
+|--------|------|-------------|
+| `view` | `EditorView \| null` | Raw CodeMirror view |
+| `getValue()` | `string` | Get current content |
+| `setValue(value)` | `void` | Set content |
+| `focus()` | `void` | Focus the editor |
+| `insertText(text)` | `void` | Insert at cursor |
+| `getSelection()` | `{ from, to }` | Get selection range |
+| `setSelection(from, to?)` | `void` | Set selection |
+| `executeCommand(cmd)` | `boolean` | Execute a command |
+
+## useStheno Composable
+
+The `useStheno` composable provides toolbar commands:
+
+```vue
+<script setup lang="ts">
+import { ref } from "vue";
+import { SthenoEditor, useStheno } from "@yettoapp/stheno-vue";
+
+const {
+  editorRef,
+  bold,
+  italic,
+  code,
+  strikethrough,
+  link,
+  bulletList,
+  orderedList,
+  taskList,
+  quote,
+  codeBlock,
+  horizontalRule,
+  toggleTheme,
+} = useStheno();
+</script>
+
+<template>
+  <div class="toolbar">
+    <button @click="bold">Bold</button>
+    <button @click="italic">Italic</button>
+    <button @click="code">Code</button>
+    <button @click="strikethrough">Strikethrough</button>
+    <button @click="link">Link</button>
+    <button @click="bulletList">Bullet List</button>
+    <button @click="orderedList">Numbered List</button>
+    <button @click="taskList">Task List</button>
+    <button @click="quote">Quote</button>
+    <button @click="codeBlock">Code Block</button>
+    <button @click="horizontalRule">HR</button>
+    <button @click="toggleTheme">Toggle Theme</button>
+  </div>
+  <SthenoEditor
+    :ref="(el) => { if (el) editorRef = (el as any).view; }"
+  />
+</template>
+```
+
+## Adding Extensions
+
+```vue
+<script setup lang="ts">
+import { keymap } from "@codemirror/view";
+import { SthenoEditor } from "@yettoapp/stheno-vue";
+
+const customKeymap = keymap.of([
+  {
+    key: "Mod-s",
+    run: () => {
+      console.log("Save!");
+      return true;
+    },
+  },
+]);
+</script>
+
+<template>
+  <SthenoEditor :extensions="[customKeymap]" />
+</template>
+```
+
+## TypeScript
+
+The package includes full TypeScript support. Import types as needed:
+
+```typescript
+import type { SthenoEditorProps } from "@yettoapp/stheno-vue";
+```

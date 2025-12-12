@@ -1,0 +1,64 @@
+---
+title: Getting Started
+description: Quick start guide for Stheno
+order: 1
+section: guide
+---
+
+# Getting Started
+
+Stheno is an opinionated CodeMirror configuration that provides a powerful markdown editing experience out of the box.
+
+## Installation
+
+Install Stheno along with its peer dependencies:
+
+```bash
+npm install @yettoapp/stheno @codemirror/state @codemirror/view
+```
+
+## Basic Usage
+
+Create an editor with the default configuration:
+
+```typescript
+import { EditorView } from "@codemirror/view";
+import { EditorState } from "@codemirror/state";
+import { getSthenoConfig, setupThemeListener } from "@yettoapp/stheno";
+
+// Create the editor
+const view = new EditorView({
+  parent: document.getElementById("editor"),
+  state: EditorState.create(getSthenoConfig("markdown")),
+});
+
+// Enable automatic dark/light mode switching based on system preference
+setupThemeListener(view);
+```
+
+## What's Included
+
+Out of the box, Stheno provides:
+
+- **Full Markdown Support** - GitHub Flavored Markdown with tables, task lists, and more
+- **YAML Frontmatter** - Parse and highlight frontmatter in your documents
+- **Syntax Highlighting** - Beautiful, consistent highlighting for markdown and code blocks
+- **Keyboard Shortcuts** - Familiar shortcuts for formatting (Cmd+B for bold, etc.)
+- **Image Previews** - Inline decorations show image previews as you type
+- **Theming** - Dark and light themes with system preference detection
+- **History** - Undo/redo support
+- **Autocomplete** - Language-aware completions
+
+## Framework Integrations
+
+For a more streamlined experience, use one of our framework wrappers:
+
+- [React](/docs/frameworks/react) - `@yettoapp/stheno-react`
+- [Vue](/docs/frameworks/vue) - `@yettoapp/stheno-vue`
+- [Svelte](/docs/frameworks/svelte) - `@yettoapp/stheno-svelte`
+
+## Next Steps
+
+- Learn about [keyboard shortcuts and commands](/docs/commands)
+- Customize the [theme](/docs/themes)
+- Explore [framework integrations](/docs/frameworks/react)

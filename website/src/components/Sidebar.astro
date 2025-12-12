@@ -1,0 +1,77 @@
+---
+import { getCollection } from "astro:content";
+
+const allDocs = await getCollection("docs");
+
+// Sort docs by order, then by title
+const sortedDocs = allDocs.sort((a, b) => {
+  const orderA = a.data.order ?? 99;
+  const orderB = b.data.order ?? 99;
+  if (orderA !== orderB) return orderA - orderB;
+  return a.data.title.localeCompare(b.data.title);
+});
+
+// Group by section
+const guides = sortedDocs.filter(
+  (d) => d.data.section === "guide" || !d.data.section
+);
+const frameworks = sortedDocs.filter((d) => d.data.section === "frameworks");
+
+interface Props {
+  currentSlug?: string;
+}
+
+const { currentSlug } = Astro.props;
+---
+
+<nav class="w-64 shrink-0 hidden lg:block">
+  <div class="sticky top-20 p-4">
+    <h3
+      class="font-semibold mb-3 text-xs uppercase tracking-wider text-gray-500"
+    >
+      Guide
+    </h3>
+    <ul class="space-y-1 mb-6">
+      {
+        guides.map((doc) => (
+          <li>
+            <a
+              href={`/docs/${doc.slug}`}
+              class:list={[
+                "sidebar-link",
+                { active: currentSlug === doc.slug },
+              ]}
+            >
+              {doc.data.title}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    {
+      frameworks.length > 0 && (
+        <>
+          <h3 class="font-semibold mb-3 text-xs uppercase tracking-wider text-gray-500">
+            Frameworks
+          </h3>
+          <ul class="space-y-1">
+            {frameworks.map((doc) => (
+              <li>
+                <a
+                  href={`/docs/${doc.slug}`}
+                  class:list={[
+                    "sidebar-link",
+                    { active: currentSlug === doc.slug },
+                  ]}
+                >
+                  {doc.data.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </>
+      )
+    }
+  </div>
+</nav>
