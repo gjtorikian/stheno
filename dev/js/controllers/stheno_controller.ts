@@ -143,7 +143,12 @@ export default class extends Controller<HTMLDivElement> {
   }
 
   kitchenSink(): void {
-    const content = `# Heading 1
+    const content = `---
+author: "Someone"
+draft: false
+---
+
+# Heading 1
 ## Heading 2
 ### Heading 3
 #### Heading 4
@@ -181,7 +186,7 @@ def hello_world
 end
 \`\`\`
 
-![Sample Image](https://via.placeholder.com/150)
+![Sample Image](https://placehold.co/600x400.png)
 `;
 
     this.view.dispatch({
