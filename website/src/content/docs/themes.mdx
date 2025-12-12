@@ -1,0 +1,133 @@
+---
+title: Themes
+description: Customizing the editor appearance with themes
+order: 4
+section: guide
+---
+
+# Themes
+
+Stheno includes built-in dark and light themes with support for system preference detection.
+
+## Built-in Themes
+
+Two themes are included out of the box:
+
+- `yettoLight` - A clean light theme
+- `yettoDark` - A comfortable dark theme
+
+## System Theme Detection
+
+Use `setupThemeListener` to automatically switch themes based on system preference:
+
+```typescript
+import { EditorView } from "@codemirror/view";
+import { EditorState } from "@codemirror/state";
+import { getSthenoConfig, setupThemeListener } from "@yettoapp/stheno";
+
+const view = new EditorView({
+  parent: document.getElementById("editor"),
+  state: EditorState.create(getSthenoConfig("markdown")),
+});
+
+// Automatically switch theme when system preference changes
+setupThemeListener(view);
+```
+
+## Manual Theme Control
+
+You can also control the theme programmatically:
+
+```typescript
+import { toggleTheme, setDarkTheme, setLightTheme } from "@yettoapp/stheno";
+
+// Toggle between light and dark
+toggleTheme(view);
+
+// Set specific theme
+setDarkTheme(view);
+setLightTheme(view);
+```
+
+## Theme Compartment
+
+Themes are managed through a CodeMirror Compartment, allowing runtime reconfiguration:
+
+```typescript
+import { THEME, yettoDark, yettoLight } from "@yettoapp/stheno";
+
+// Manually reconfigure the theme
+view.dispatch({
+  effects: THEME.reconfigure(yettoDark),
+});
+```
+
+## Framework Integration
+
+### React
+
+```tsx
+import { SthenoEditor } from "@yettoapp/stheno-react";
+
+// Use system theme (default)
+<SthenoEditor systemTheme={true} />
+
+// Force dark theme
+<SthenoEditor darkTheme={true} />
+
+// Force light theme
+<SthenoEditor darkTheme={false} />
+```
+
+### Vue
+
+```vue
+<template>
+  <!-- Use system theme (default) -->
+  <SthenoEditor :system-theme="true" />
+
+  <!-- Force dark theme -->
+  <SthenoEditor :dark-theme="true" />
+</template>
+```
+
+## CSS Custom Properties
+
+The themes use CSS custom properties that you can override for additional customization. Set these on your document to affect the editor:
+
+```css
+:root {
+  /* Editor background */
+  --page-bg: #ffffff;
+
+  /* Text color */
+  --page-text: #171717;
+
+  /* Border color */
+  --border-color: #e5e7eb;
+
+  /* Toolbar styling */
+  --toolbar-bg: #ffffff;
+  --toolbar-text: #111827;
+  --toolbar-hover: #f9fafb;
+}
+
+[data-theme="dark"] {
+  --page-bg: #171717;
+  --page-text: #f1f5f9;
+  --border-color: #404040;
+  --toolbar-bg: #262626;
+  --toolbar-text: #f1f5f9;
+  --toolbar-hover: #374151;
+}
+```
+
+## Syntax Highlighting
+
+Stheno includes `sthenoHighlighting` for syntax highlighting styles. These are automatically included when using `sthenoConfig()` or `getSthenoConfig()`.
+
+If you need to customize syntax highlighting, you can import and modify the highlight styles:
+
+```typescript
+import { sthenoHighlighting } from "@yettoapp/stheno";
+```

@@ -1,0 +1,27 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Sidebar from "../components/Sidebar.astro";
+import DocsMobileNav from "../components/DocsMobileNav.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  slug: string;
+}
+
+const { title, description, slug } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="container mx-auto px-4 py-8">
+    <div class="flex gap-8">
+      <Sidebar currentSlug={slug} />
+      <div class="flex-1 min-w-0 max-w-3xl">
+        <DocsMobileNav currentSlug={slug} />
+        <article class="prose prose-purple max-w-none">
+          <slot />
+        </article>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

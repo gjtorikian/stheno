@@ -1,0 +1,111 @@
+---
+import { getCollection } from "astro:content";
+
+const allDocs = await getCollection("docs");
+
+// Sort docs by order, then by title
+const sortedDocs = allDocs.sort((a, b) => {
+  const orderA = a.data.order ?? 99;
+  const orderB = b.data.order ?? 99;
+  if (orderA !== orderB) return orderA - orderB;
+  return a.data.title.localeCompare(b.data.title);
+});
+
+// Group by section
+const guides = sortedDocs.filter(
+  (d) => d.data.section === "guide" || !d.data.section
+);
+const frameworks = sortedDocs.filter((d) => d.data.section === "frameworks");
+
+interface Props {
+  currentSlug?: string;
+}
+
+const { currentSlug } = Astro.props;
+---
+
+<div class="lg:hidden mb-6">
+  <button
+    id="docs-nav-toggle"
+    class="w-full flex items-center justify-between p-3 border border-[var(--border-color)] rounded-lg bg-[var(--sidebar-bg)]"
+  >
+    <span class="font-medium">Documentation Menu</span>
+    <svg
+      class="h-5 w-5 transition-transform"
+      id="docs-nav-chevron"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M19 9l-7 7-7-7"></path>
+    </svg>
+  </button>
+
+  <nav
+    id="docs-nav-menu"
+    class="hidden mt-2 p-4 border border-[var(--border-color)] rounded-lg bg-[var(--sidebar-bg)]"
+  >
+    <h3
+      class="font-semibold mb-3 text-xs uppercase tracking-wider text-gray-500"
+    >
+      Guide
+    </h3>
+    <ul class="space-y-1 mb-6">
+      {
+        guides.map((doc) => (
+          <li>
+            <a
+              href={`/docs/${doc.slug}`}
+              class:list={[
+                "sidebar-link",
+                { active: currentSlug === doc.slug },
+              ]}
+            >
+              {doc.data.title}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    {
+      frameworks.length > 0 && (
+        <>
+          <h3 class="font-semibold mb-3 text-xs uppercase tracking-wider text-gray-500">
+            Frameworks
+          </h3>
+          <ul class="space-y-1">
+            {frameworks.map((doc) => (
+              <li>
+                <a
+                  href={`/docs/${doc.slug}`}
+                  class:list={[
+                    "sidebar-link",
+                    { active: currentSlug === doc.slug },
+                  ]}
+                >
+                  {doc.data.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </>
+      )
+    }
+  </nav>
+</div>
+
+<script>
+  const toggle = document.getElementById("docs-nav-toggle");
+  const menu = document.getElementById("docs-nav-menu");
+  const chevron = document.getElementById("docs-nav-chevron");
+
+  toggle?.addEventListener("click", () => {
+    menu?.classList.toggle("hidden");
+    chevron?.classList.toggle("rotate-180");
+  });
+</script>

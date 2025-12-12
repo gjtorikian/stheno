@@ -1,0 +1,174 @@
+---
+title: React
+description: Using Stheno with React
+order: 10
+section: frameworks
+---
+
+# React Integration
+
+The `@yettoapp/stheno-react` package provides a React component and hook for easy integration.
+
+## Installation
+
+```bash
+npm install @yettoapp/stheno-react @codemirror/state @codemirror/view
+```
+
+## Basic Usage
+
+```tsx
+import { SthenoEditor } from "@yettoapp/stheno-react";
+
+function App() {
+  const [content, setContent] = useState("");
+
+  return (
+    <SthenoEditor
+      value={content}
+      onChange={setContent}
+      systemTheme={true}
+    />
+  );
+}
+```
+
+## SthenoEditor Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | - | Controlled value |
+| `defaultValue` | `string` | `""` | Initial value (uncontrolled) |
+| `onChange` | `(value: string) => void` | - | Called when content changes |
+| `readOnly` | `boolean` | `false` | Make editor read-only |
+| `autoFocus` | `boolean` | `false` | Focus on mount |
+| `placeholder` | `string` | - | Placeholder text |
+| `systemTheme` | `boolean` | `true` | Use system theme detection |
+| `darkTheme` | `boolean` | - | Force dark/light theme |
+| `minHeight` | `string` | `"100px"` | Minimum editor height |
+| `maxHeight` | `string` | - | Maximum editor height |
+| `extensions` | `Extension[]` | `[]` | Additional CodeMirror extensions |
+| `imageConfig` | `object \| null` | - | Image decoration config |
+| `className` | `string` | - | CSS class for container |
+| `style` | `CSSProperties` | - | Inline styles for container |
+| `onReady` | `(view: EditorView) => void` | - | Called when editor is ready |
+
+### Event Handlers
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `onUpdate` | `(update: ViewUpdate) => void` | Any editor update |
+| `onSelectionChange` | `(selection: EditorSelection) => void` | Selection changes |
+| `onFocus` | `() => void` | Editor focused |
+| `onBlur` | `() => void` | Editor blurred |
+| `onPaste` | `(event: ClipboardEvent, view: EditorView) => void` | Paste event |
+| `onDrop` | `(event: DragEvent, view: EditorView) => void` | Drop event |
+| `onCursorChange` | `(pos: CursorPosition) => void` | Cursor moved |
+
+## Ref API
+
+Access the editor imperatively using a ref:
+
+```tsx
+import { useRef } from "react";
+import { SthenoEditor, type SthenoEditorRef } from "@yettoapp/stheno-react";
+
+function App() {
+  const editorRef = useRef<SthenoEditorRef>(null);
+
+  const handleInsert = () => {
+    editorRef.current?.insertText("Hello!");
+  };
+
+  return (
+    <>
+      <button onClick={handleInsert}>Insert</button>
+      <SthenoEditor ref={editorRef} />
+    </>
+  );
+}
+```
+
+### Ref Methods
+
+| Method | Type | Description |
+|--------|------|-------------|
+| `view` | `EditorView \| null` | Raw CodeMirror view |
+| `getValue()` | `string` | Get current content |
+| `setValue(value)` | `void` | Set content |
+| `focus()` | `void` | Focus the editor |
+| `insertText(text)` | `void` | Insert at cursor |
+| `getSelection()` | `{ from, to }` | Get selection range |
+| `setSelection(from, to?)` | `void` | Set selection |
+| `executeCommand(cmd)` | `boolean` | Execute a command |
+
+## useStheno Hook
+
+The `useStheno` hook provides toolbar commands:
+
+```tsx
+import { SthenoEditor, useStheno } from "@yettoapp/stheno-react";
+
+function Editor() {
+  const {
+    editorRef,
+    bold,
+    italic,
+    code,
+    strikethrough,
+    link,
+    bulletList,
+    orderedList,
+    taskList,
+    quote,
+    codeBlock,
+    horizontalRule,
+    toggleTheme,
+  } = useStheno();
+
+  return (
+    <div>
+      <div className="toolbar">
+        <button onClick={bold}>Bold</button>
+        <button onClick={italic}>Italic</button>
+        <button onClick={code}>Code</button>
+        <button onClick={strikethrough}>Strikethrough</button>
+        <button onClick={link}>Link</button>
+        <button onClick={bulletList}>Bullet List</button>
+        <button onClick={orderedList}>Numbered List</button>
+        <button onClick={taskList}>Task List</button>
+        <button onClick={quote}>Quote</button>
+        <button onClick={codeBlock}>Code Block</button>
+        <button onClick={horizontalRule}>HR</button>
+        <button onClick={toggleTheme}>Toggle Theme</button>
+      </div>
+      <SthenoEditor
+        ref={(ref) => {
+          editorRef.current = ref?.view ?? null;
+        }}
+      />
+    </div>
+  );
+}
+```
+
+## Adding Extensions
+
+Pass additional CodeMirror extensions:
+
+```tsx
+import { keymap } from "@codemirror/view";
+import { SthenoEditor } from "@yettoapp/stheno-react";
+
+const customKeymap = keymap.of([
+  {
+    key: "Mod-s",
+    run: () => {
+      console.log("Save!");
+      return true;
+    },
+  },
+]);
+
+<SthenoEditor extensions={[customKeymap]} />
+```

@@ -1,0 +1,156 @@
+---
+title: Svelte
+description: Using Stheno with Svelte
+order: 12
+section: frameworks
+---
+
+# Svelte Integration
+
+The `@yettoapp/stheno-svelte` package provides a Svelte component and store for easy integration.
+
+## Installation
+
+```bash
+npm install @yettoapp/stheno-svelte @codemirror/state @codemirror/view
+```
+
+## Basic Usage
+
+```svelte
+<script lang="ts">
+  import { SthenoEditor } from "@yettoapp/stheno-svelte";
+
+  let content = "";
+</script>
+
+<SthenoEditor bind:value={content} systemTheme={true} />
+```
+
+## SthenoEditor Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | `""` | Editor content (bindable) |
+| `extensions` | `Extension[]` | `[]` | Additional extensions |
+| `readOnly` | `boolean` | `false` | Make editor read-only |
+| `autoFocus` | `boolean` | `false` | Focus on mount |
+| `placeholder` | `string` | - | Placeholder text |
+| `systemTheme` | `boolean` | `true` | Use system theme |
+| `darkTheme` | `boolean` | - | Force dark/light theme |
+| `imageConfig` | `object \| null` | - | Image decoration config |
+| `minHeight` | `string` | `"100px"` | Minimum height |
+| `maxHeight` | `string` | - | Maximum height |
+
+## Events
+
+| Event | Detail | Description |
+|-------|--------|-------------|
+| `change` | `string` | Content changed |
+| `focus` | - | Editor focused |
+| `blur` | - | Editor blurred |
+| `ready` | `EditorView` | Editor initialized |
+
+## Two-way Binding
+
+Use Svelte's `bind:` directive for two-way binding:
+
+```svelte
+<script lang="ts">
+  import { SthenoEditor } from "@yettoapp/stheno-svelte";
+
+  let content = "# Hello World";
+
+  $: console.log("Content changed:", content);
+</script>
+
+<SthenoEditor bind:value={content} />
+```
+
+## createSthenoStore
+
+For toolbar functionality, use the `createSthenoStore` function:
+
+```svelte
+<script lang="ts">
+  import { SthenoEditor, createSthenoStore } from "@yettoapp/stheno-svelte";
+
+  const editor = createSthenoStore();
+</script>
+
+<div class="toolbar">
+  <button on:click={editor.bold}>Bold</button>
+  <button on:click={editor.italic}>Italic</button>
+  <button on:click={editor.code}>Code</button>
+  <button on:click={editor.strikethrough}>Strikethrough</button>
+  <button on:click={editor.link}>Link</button>
+  <button on:click={editor.bulletList}>Bullet List</button>
+  <button on:click={editor.orderedList}>Numbered List</button>
+  <button on:click={editor.taskList}>Task List</button>
+  <button on:click={editor.quote}>Quote</button>
+  <button on:click={editor.codeBlock}>Code Block</button>
+  <button on:click={editor.horizontalRule}>HR</button>
+  <button on:click={editor.toggleTheme}>Toggle Theme</button>
+</div>
+
+<SthenoEditor bind:this={$editor.view} />
+```
+
+### Store Methods
+
+| Method | Description |
+|--------|-------------|
+| `bold()` | Format as bold |
+| `italic()` | Format as italic |
+| `code()` | Format as inline code |
+| `strikethrough()` | Format as strikethrough |
+| `link()` | Insert link |
+| `bulletList()` | Create bullet list |
+| `orderedList()` | Create numbered list |
+| `taskList()` | Create task list |
+| `quote()` | Create blockquote |
+| `codeBlock()` | Insert code block |
+| `horizontalRule()` | Insert horizontal rule |
+| `toggleTheme()` | Toggle dark/light theme |
+| `setDarkTheme()` | Set dark theme |
+| `setLightTheme()` | Set light theme |
+| `focus()` | Focus the editor |
+| `insertText(text)` | Insert text at cursor |
+| `getValue()` | Get current content |
+| `setValue(value)` | Set content |
+
+### Store Values
+
+| Value | Type | Description |
+|-------|------|-------------|
+| `view` | `EditorView \| null` | Raw CodeMirror view |
+| `value` | `string` | Current content |
+
+## Adding Extensions
+
+```svelte
+<script lang="ts">
+  import { keymap } from "@codemirror/view";
+  import { SthenoEditor } from "@yettoapp/stheno-svelte";
+
+  const customKeymap = keymap.of([
+    {
+      key: "Mod-s",
+      run: () => {
+        console.log("Save!");
+        return true;
+      },
+    },
+  ]);
+</script>
+
+<SthenoEditor extensions={[customKeymap]} />
+```
+
+## TypeScript
+
+The package includes full TypeScript support. All props and events are properly typed.
+
+```typescript
+import type { SthenoEditorProps } from "@yettoapp/stheno-svelte";
+```

@@ -1,0 +1,137 @@
+---
+title: Commands
+description: Keyboard shortcuts and programmatic commands
+order: 3
+section: guide
+---
+
+# Commands
+
+Stheno provides a rich set of keyboard shortcuts and programmatic commands for formatting text.
+
+## Keyboard Shortcuts
+
+### Inline Formatting
+
+| Shortcut | Action |
+|----------|--------|
+| `Cmd/Ctrl + B` | Bold text |
+| `Cmd/Ctrl + I` | Italic text |
+| `Cmd/Ctrl + E` | Inline code |
+| `Cmd/Ctrl + K` | Insert link |
+| `Cmd/Ctrl + Shift + X` | Strikethrough |
+
+### Block Formatting
+
+| Shortcut | Action |
+|----------|--------|
+| `Cmd/Ctrl + Shift + 7` | Ordered list |
+| `Cmd/Ctrl + Shift + 8` | Bullet list |
+| `Cmd/Ctrl + Shift + 9` | Task list |
+| `Cmd/Ctrl + Shift + .` | Blockquote |
+| `Cmd/Ctrl + Shift + \`` | Fenced code block |
+| `Cmd/Ctrl + Shift + -` | Horizontal rule |
+
+### General
+
+| Shortcut | Action |
+|----------|--------|
+| `Cmd/Ctrl + Z` | Undo |
+| `Cmd/Ctrl + Shift + Z` | Redo |
+| `Tab` | Indent |
+| `Shift + Tab` | Outdent |
+
+## Programmatic Commands
+
+You can execute formatting commands programmatically using the core package:
+
+```typescript
+import {
+  createWrapTextCommand,
+  createMultiLineCommand,
+  createLeafBlockCommand
+} from "@yettoapp/stheno";
+
+// Bold selection
+createWrapTextCommand(view, "StrongEmphasis", "**");
+
+// Create bullet list
+createMultiLineCommand(view, "unorderedList");
+
+// Insert code block
+createLeafBlockCommand(view, "```");
+```
+
+### Available Commands
+
+**Inline Commands** (using `createWrapTextCommand`):
+
+- `StrongEmphasis` with `**` - Bold
+- `Emphasis` with `*` - Italic
+- `InlineCode` with `` ` `` - Code
+- `Strikethrough` with `~~` - Strikethrough
+- `Link` with `[` - Link
+
+**Block Commands** (using `createMultiLineCommand`):
+
+- `unorderedList` - Bullet list
+- `orderedList` - Numbered list
+- `taskList` - Task/checkbox list
+- `quote` - Blockquote
+
+**Leaf Block Commands** (using `createLeafBlockCommand`):
+
+- `` ``` `` - Fenced code block
+- `---` - Horizontal rule
+
+## Using with Framework Hooks
+
+Each framework wrapper provides a hook/composable that makes commands easy to use:
+
+### React
+
+```tsx
+import { useStheno } from "@yettoapp/stheno-react";
+
+function Editor() {
+  const { bold, italic, code, bulletList, orderedList } = useStheno();
+
+  return (
+    <div>
+      <button onClick={bold}>Bold</button>
+      <button onClick={italic}>Italic</button>
+      <button onClick={code}>Code</button>
+      <button onClick={bulletList}>Bullet List</button>
+      <button onClick={orderedList}>Numbered List</button>
+    </div>
+  );
+}
+```
+
+### Vue
+
+```vue
+<script setup lang="ts">
+import { useStheno } from "@yettoapp/stheno-vue";
+
+const { bold, italic, code, bulletList, orderedList } = useStheno();
+</script>
+
+<template>
+  <button @click="bold">Bold</button>
+  <button @click="italic">Italic</button>
+</template>
+```
+
+### Svelte
+
+```svelte
+<script lang="ts">
+  import { createSthenoStore } from "@yettoapp/stheno-svelte";
+
+  const editor = createSthenoStore();
+</script>
+
+<button on:click={editor.bold}>Bold</button>
+<button on:click={editor.italic}>Italic</button>
+```

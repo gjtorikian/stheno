@@ -1,0 +1,83 @@
+---
+title: Installation
+description: How to install Stheno and its framework wrappers
+order: 2
+section: guide
+---
+
+# Installation
+
+Stheno is distributed as several packages to fit different use cases.
+
+## Core Package
+
+The core package provides the base CodeMirror configuration:
+
+```bash
+npm install @yettoapp/stheno @codemirror/state @codemirror/view
+```
+
+### Peer Dependencies
+
+Stheno requires CodeMirror 6 as peer dependencies:
+
+- `@codemirror/state` - Editor state management
+- `@codemirror/view` - Editor view and DOM handling
+
+## Framework Packages
+
+Choose the package that matches your framework:
+
+### React
+
+```bash
+npm install @yettoapp/stheno-react
+```
+
+The React package includes `@yettoapp/stheno` as a dependency, so you only need to install the CodeMirror peer dependencies:
+
+```bash
+npm install @yettoapp/stheno-react @codemirror/state @codemirror/view
+```
+
+### Vue
+
+```bash
+npm install @yettoapp/stheno-vue @codemirror/state @codemirror/view
+```
+
+### Svelte
+
+```bash
+npm install @yettoapp/stheno-svelte @codemirror/state @codemirror/view
+```
+
+## TypeScript Support
+
+All packages include TypeScript declarations out of the box. No additional `@types/*` packages are needed.
+
+## Browser Support
+
+Stheno supports all modern browsers that CodeMirror 6 supports:
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+## CDN Usage
+
+While not recommended for production, you can use Stheno via CDN for quick prototyping:
+
+```html
+<script type="module">
+  import { EditorView } from "https://esm.sh/@codemirror/view";
+  import { EditorState } from "https://esm.sh/@codemirror/state";
+  import { getSthenoConfig } from "https://esm.sh/@yettoapp/stheno";
+
+  const view = new EditorView({
+    parent: document.getElementById("editor"),
+    state: EditorState.create(getSthenoConfig("markdown")),
+  });
+</script>
+```
