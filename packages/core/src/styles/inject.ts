@@ -175,13 +175,19 @@ const sthenoStyles = `/* Stheno Syntax Highlighting CSS Variables
 }
 
 /* URLs and links */
-.stheno-link:not(.stheno-url) {
+.stheno-link:not(.stheno-url):not(.stheno-meta) {
   color: var(--stheno-link-color);
   text-decoration: underline;
 }
 
 .stheno-link.stheno-url {
   color: var(--stheno-url-color);
+}
+
+/* When both link and meta are present (brackets), use meta styling only */
+.stheno-link.stheno-meta {
+  color: var(--stheno-meta-color);
+  text-decoration: none;
 }
 
 /* Comments and meta */

@@ -5,6 +5,8 @@ import { syntaxTree } from "@codemirror/language";
 import { RangeSet, StateField } from "@codemirror/state";
 import { Decoration, EditorView, WidgetType } from "@codemirror/view";
 
+import { createViewportDecorator, iterateOverlayNodesInRange } from "../util";
+
 const IMAGE_REGEX = /!\[.*?\]\((?<url>.*?\.(png|jpeg|jpg|gif|ico))\)/;
 
 interface ImageExtensionParams {
@@ -44,38 +46,120 @@ class ImageWidget extends WidgetType {
   }
 }
 
-export const images = (styles: ImageExtensionParams | null = null): Extension => {
-  const imageDecoration = (imageWidgetParams: ImageWidgetParams) =>
-    Decoration.widget({
-      block: true,
-      side: 1,
-      widget: new ImageWidget(imageWidgetParams),
-    });
+/**
+ * Apply styling to image markdown syntax.
+ * Mutes ![, ], (, ), and URL while styling alt text as a link.
+ */
+function imageMarkStylingPlugin() {
+  return createViewportDecorator({
+    buildDecorations: (state, from, to) => {
+      const widgets: Range<Decoration>[] = [];
 
-  const decorate = (state: EditorState) => {
-    const widgets: Range<Decoration>[] = [];
+      iterateOverlayNodesInRange(state, from, to, (node) => {
+        if (node.name === "Image") {
+          const linkMarks = node.getChildren("LinkMark");
+          const urlNode = node.getChild("URL");
 
-    syntaxTree(state).iterate({
-      enter: ({ from, to, type }) => {
-        if (type.name === "Image") {
-          const result = IMAGE_REGEX.exec(state.doc.sliceString(from, to));
+          if (linkMarks.length >= 2) {
+            // "![" - apply stheno-meta
+            widgets.push(
+              Decoration.mark({ class: "stheno-meta" }).range(
+                linkMarks[0].from,
+                linkMarks[0].to,
+              ),
+            );
 
-          if (result?.groups?.url) {
-            const widgetParams: ImageWidgetParams = {
-              url: result.groups.url,
-              ...(styles && { classes: styles }),
-            };
+            // Alt text between first and second LinkMark - use stheno-link styling
+            const altStart = linkMarks[0].to;
+            const altEnd = linkMarks[1].from;
+            if (altEnd > altStart) {
+              widgets.push(
+                Decoration.mark({ class: "stheno-link" }).range(altStart, altEnd),
+              );
+            }
 
-            widgets.push(imageDecoration(widgetParams).range(state.doc.lineAt(to).to));
+            // Remaining LinkMarks ("]", "(", ")") and URL - apply stheno-meta
+            for (let i = 1; i < linkMarks.length; i++) {
+              widgets.push(
+                Decoration.mark({ class: "stheno-meta" }).range(
+                  linkMarks[i].from,
+                  linkMarks[i].to,
+                ),
+              );
+            }
+
+            if (urlNode) {
+              widgets.push(
+                Decoration.mark({ class: "stheno-meta stheno-url" }).range(
+                  urlNode.from,
+                  urlNode.to,
+                ),
+              );
+            }
           }
         }
-      },
-    });
+      });
 
-    return widgets.length > 0 ? RangeSet.of(widgets) : Decoration.none;
+      return widgets;
+    },
+  });
+}
+
+/**
+ * Creates a StateField for image widget decorations.
+ * Block decorations require StateField (not ViewPlugin).
+ * Uses resolveInner to find Image nodes in markdown overlays.
+ */
+function createImageWidgetField(styles: ImageExtensionParams | null) {
+  const decorate = (state: EditorState) => {
+    const widgets: Range<Decoration>[] = [];
+    const tree = syntaxTree(state);
+    const doc = state.doc;
+    const seen = new Set<string>();
+
+    // Iterate through each line and use resolveInner to find Image nodes in overlays
+    for (let i = 1; i <= doc.lines; i++) {
+      const line = doc.line(i);
+
+      // Check at various positions in the line for Image nodes
+      for (let pos = line.from; pos <= line.to; pos++) {
+        let node: ReturnType<typeof tree.resolveInner> | null = tree.resolveInner(pos, 1);
+
+        while (node) {
+          if (node.name === "Image") {
+            const key = `${node.from}:${node.to}`;
+            if (!seen.has(key)) {
+              seen.add(key);
+
+              const text = doc.sliceString(node.from, node.to);
+              const result = IMAGE_REGEX.exec(text);
+
+              if (result?.groups?.url) {
+                const widgetParams: ImageWidgetParams = {
+                  url: result.groups.url,
+                  ...(styles && { classes: styles }),
+                };
+
+                widgets.push(
+                  Decoration.widget({
+                    block: true,
+                    side: 1,
+                    widget: new ImageWidget(widgetParams),
+                  }).range(doc.lineAt(node.to).to),
+                );
+              }
+            }
+            break; // Found Image node, no need to check parent
+          }
+          node = node.parent;
+        }
+      }
+    }
+
+    return widgets.length > 0 ? RangeSet.of(widgets, true) : Decoration.none;
   };
 
-  const imagesField = StateField.define<DecorationSet>({
+  return StateField.define<DecorationSet>({
     create(state) {
       return decorate(state);
     },
@@ -83,11 +167,14 @@ export const images = (styles: ImageExtensionParams | null = null): Extension =>
       return EditorView.decorations.from(field);
     },
     update(imageList, transaction) {
-      if (transaction.docChanged) return decorate(transaction.state);
-
+      if (transaction.docChanged || syntaxTree(transaction.state) !== syntaxTree(transaction.startState)) {
+        return decorate(transaction.state);
+      }
       return imageList.map(transaction.changes);
     },
   });
+}
 
-  return [imagesField];
+export const images = (styles: ImageExtensionParams | null = null): Extension => {
+  return [createImageWidgetField(styles), imageMarkStylingPlugin()];
 };
