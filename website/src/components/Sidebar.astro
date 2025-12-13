@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import Link from "./Link.astro";
 
 const allDocs = await getCollection("docs");
 
@@ -35,7 +36,7 @@ const { currentSlug } = Astro.props;
       {
         guides.map((doc) => (
           <li>
-            <a
+            <Link
               href={`/docs/${doc.slug}`}
               class:list={[
                 "sidebar-link",
@@ -43,7 +44,7 @@ const { currentSlug } = Astro.props;
               ]}
             >
               {doc.data.title}
-            </a>
+            </Link>
           </li>
         ))
       }
@@ -58,7 +59,7 @@ const { currentSlug } = Astro.props;
           <ul class="space-y-1">
             {frameworks.map((doc) => (
               <li>
-                <a
+                <Link
                   href={`/docs/${doc.slug}`}
                   class:list={[
                     "sidebar-link",
@@ -66,7 +67,7 @@ const { currentSlug } = Astro.props;
                   ]}
                 >
                   {doc.data.title}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

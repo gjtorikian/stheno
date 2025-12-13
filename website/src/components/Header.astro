@@ -1,12 +1,13 @@
 ---
 import ThemeToggle from "./ThemeToggle";
+import Link from "./Link.astro";
 ---
 
 <header
   class="sticky top-0 z-50 border-b bg-[var(--page-bg)] border-[var(--border-color)]"
 >
   <div class="container mx-auto px-4 h-16 flex items-center justify-between">
-    <a href="/" class="flex items-center gap-2 font-bold text-xl">
+    <Link href="/" class="flex items-center gap-2 font-bold text-xl">
       <svg
         class="h-8 w-8 text-purple-600"
         viewBox="0 0 24 24"
@@ -21,12 +22,12 @@ import ThemeToggle from "./ThemeToggle";
           stroke-linejoin="round"></path>
       </svg>
       <span>Stheno</span>
-    </a>
+    </Link>
 
     <nav class="hidden md:flex items-center gap-6">
-      <a
+      <Link
         href="/docs/getting-started"
-        class="hover:text-purple-600 transition-colors">Docs</a
+        class="hover:text-purple-600 transition-colors">Docs</Link
       >
       <a
         href="https://github.com/gjtorikian/stheno"
@@ -98,8 +99,8 @@ import ThemeToggle from "./ThemeToggle";
       </svg>
     </button>
     <div class="mt-12 space-y-4">
-      <a href="/" class="block py-2 font-semibold">Home</a>
-      <a href="/docs/getting-started" class="block py-2">Docs</a>
+      <Link href="/" class="block py-2 font-semibold">Home</Link>
+      <Link href="/docs/getting-started" class="block py-2">Docs</Link>
       <a
         href="https://github.com/gjtorikian/stheno"
         target="_blank"

@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import InteractiveEditor from "../components/InteractiveEditor";
 import FeatureCard from "../components/FeatureCard.astro";
+import Link from "../components/Link.astro";
 ---
 
 <BaseLayout title="Home">
@@ -19,12 +20,12 @@ import FeatureCard from "../components/FeatureCard.astro";
         highlighting, decorations, and keyboard shortcuts out of the box.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a
+        <Link
           href="/docs/getting-started"
           class="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors font-medium"
         >
           Get Started
-        </a>
+        </Link>
         <a
           href="https://github.com/gjtorikian/stheno"
           target="_blank"
@@ -98,12 +99,12 @@ import FeatureCard from "../components/FeatureCard.astro";
         <pre class="p-4 overflow-x-auto"><code class="text-sm">npm install @yettoapp/stheno @codemirror/state @codemirror/view</code></pre>
       </div>
       <p class="text-center mt-6">
-        <a
+        <Link
           href="/docs/getting-started"
           class="text-purple-600 hover:underline font-medium"
         >
           Read the full documentation &rarr;
-        </a>
+        </Link>
       </p>
     </div>
   </section>
