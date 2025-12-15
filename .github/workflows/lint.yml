@@ -10,6 +10,6 @@ jobs:
   verify:
     uses: gjtorikian/actions/.github/workflows/lint.yml@main
     secrets:
-      gh_token: ${{ secrets.GH_BOT_REPO_TOKEN }}
+      gh_token: ${{ secrets.GITHUB_TOKEN }}
     with:
       node: true
