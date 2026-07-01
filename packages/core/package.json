@@ -59,20 +59,20 @@
     "directory": "packages/core"
   },
   "dependencies": {
-    "@codemirror/autocomplete": "^6.20.1",
-    "@codemirror/commands": "^6.10.3",
+    "@codemirror/autocomplete": "^6.20.3",
+    "@codemirror/commands": "^6.10.4",
     "@codemirror/lang-html": "^6.4.11",
     "@codemirror/lang-json": "^6.0.2",
     "@codemirror/lang-liquid": "^6.3.2",
     "@codemirror/lang-markdown": "^6.5.0",
-    "@codemirror/language": "^6.12.3",
+    "@codemirror/language": "^6.12.4",
     "@codemirror/language-data": "^6.5.2",
-    "@codemirror/lint": "^6.9.5",
-    "@codemirror/search": "^6.7.0",
+    "@codemirror/lint": "^6.9.7",
+    "@codemirror/search": "^6.7.1",
     "@lezer/yaml": "^1.0.4",
     "@yettoapp/lezer-liquid": "^0.0.10",
     "emoji-provider": "^1.0.6",
-    "marked": "^18.0.2"
+    "marked": "^18.0.5"
   },
   "peerDependencies": {
     "@codemirror/state": "^6.1.4",
